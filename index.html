@@ -1,81 +1,63 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SORTEO ONDA BROS 125cc</title>
-    <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f7f6; }
-        h2 { color: #333; margin-bottom: 10px; }
-        .contenedor-barra {
-            width: 85%; max-width: 500px; background-color: #e0e0e0;
-            border-radius: 25px; margin: 30px auto; overflow: hidden;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .relleno-barra {
-            width: 0%; height: 35px; background-color: #28a745;
-            color: white; text-align: center; line-height: 35px;
-            font-weight: bold; transition: width 1.5s ease-in-out;
-        }
-    </style>
-</head>
-<body>
+<script>
+    // REVISE QUE ESTE ENLACE TERMINE EN output=csv
+    const urlCsv = "TU_ENLACE_DE_PUBLICAR_EN_LA_WEB_AQUÍ"; 
 
-    <h2>Progreso Total Recaudado</h2>
-    <div class="contenedor-barra">
-        <div id="miBarra" class="relleno-barra">0%</div>
-    </div>
-
-    <script>
-        const urlCsv = "https://google.com"; 
-
-        async function cargarProgreso() {
-            try {
-                const respuesta = await fetch(urlCsv + "&t=" + new Date().getTime());
-                const texto = await respuesta.text();
+    async function cargarProgreso() {
+        try {
+            const conector = urlCsv.includes("?") ? "&" : "?";
+            const respuesta = await fetch(urlCsv + conector + "t=" + new Date().getTime());
+            const texto = await respuesta.text();
+            
+            console.log("Contenido crudo de Sheets:", texto);
+            
+            const filas = texto.split(/\r?\n/);
+            // Tomamos la fila 4 (Índice 3 es la cuarta fila del CSV)
+            const fila4 = filas[3]; 
+            
+            if (fila4) {
+                // Dividimos por coma o punto y coma automáticamente
+                const columnas = fila4.split(/[,;]/); 
+                let valorCelda = columnas[0].trim().replace(/"/g, "");
                 
-                // Dividimos el documento en filas individuales
-                const filas = texto.split(/\r?\n/);
-                
-                // Extraemos de forma ultra segura la fila 4 (celda A4) sin usar corchetes peligrosos
-                const fila4 = filas.slice(3, 4).shift();
-                
-                if (fila4) {
-                    // Tomamos el valor de la columna A
-                    const columnas = fila4.split(",");
-                    let valorCelda = columnas.slice(0, 1).shift().trim(); 
+                console.log("Valor aislado de la celda A4:", valorCelda);
 
-                    // Quitamos comillas si Google Sheets las agrega por seguridad
-                    valorCelda = valorCelda.replace(/"/g, "");
-                    
-                    // Reemplazamos la coma decimal por un punto para que el navegador lo entienda
-                    valorCelda = valorCelda.replace(",", ".");
-                    
-                    let num = parseFloat(valorCelda) || 0;
-                    
-                    // Si el número viene como decimal (ej: 0.05), lo multiplicamos por 100 para volverlo entero (5)
-                    if (num > 0 && num <= 1) {
-                        num = num * 100;
-                    }
-                    
-                    let porcentaje = Math.round(num);
-
-                    // Límites lógicos de seguridad
-                    if (porcentaje > 100) porcentaje = 100;
-                    if (porcentaje < 0) porcentaje = 0;
-
-                    // Pintamos el progreso en la pantalla de tus clientes
-                    const barra = document.getElementById("miBarra");
-                    barra.style.width = porcentaje + "%";
-                    barra.textContent = porcentaje + "%";
+                // Si viene con el símbolo %, lo limpiamos y procesamos directo
+                if (valorCelda.includes("%")) {
+                    valorCelda = valorCelda.replace("%", "").trim();
+                    let num = parseFloat(valorCelda.replace(",", ".")) || 0;
+                    actualizarBarra(Math.round(num));
+                    return;
                 }
-            } catch (e) {
-                console.error("Error al conectar con Google Sheets: ", e);
+
+                // Si viene como decimal convencional (ej: 0,05 o 0.05)
+                valorCelda = valorCelda.replace(",", "."); 
+                let num = parseFloat(valorCelda) || 0;
+                
+                // Si es un decimal menor o igual a 1, representa un porcentaje de Sheets
+                if (num > 0 && num <= 1) {
+                    num = num * 100;
+                }
+                
+                actualizarBarra(Math.round(num));
+            } else {
+                console.error("No se encontró información en la fila 4.");
             }
+        } catch (e) {
+            console.error("Error crítico de conexión:", e);
         }
+    }
+
+    function actualizarBarra(porcentaje) {
+        if (porcentaje > 100) porcentaje = 100;
+        if (porcentaje < 0) porcentaje = 0;
         
-        cargarProgreso();
-        setInterval(cargarProgreso, 15000); // Revisa tu planilla de la Honda de forma automática cada 15 segundos
-    </script>
-</body>
-</html>
+        console.log("Porcentaje final renderizado:", porcentaje + "%");
+        
+        const barra = document.getElementById("miBarra");
+        barra.style.width = porcentaje + "%";
+        barra.textContent = porcentaje + "%";
+    }
+
+    cargarProgreso();
+    setInterval(cargarProgreso, 15000); 
+</script>
