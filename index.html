@@ -195,7 +195,7 @@
             justify-content: center;
             background: #25d366;
             text-decoration: none;
-            padding: 14px 20px;
+            padding: 14px 24px;
             border-radius: 50px;
             width: 100%;
             min-height: 48px;
@@ -271,7 +271,7 @@
         </div>
     </div>
 
-    <!-- NUEVO SCRIPT INTELIGENTE DIRECTO SIN DIVISIONES DE FILAS -->
+    <!-- SCRIPT FILTRADOR QUIRÚRGICO DE FILAS -->
     <script> 
         const urlCsv = "https://google.com"; 
 
@@ -281,22 +281,26 @@
                 const respuesta = await fetch(urlCsv + conector + "t=" + new Date().getTime()); 
                 let texto = await respuesta.text(); 
                 
-                console.log("Texto recibido:", texto); 
-                
-                let porcentaje = 0;
-                
-                // Buscamos directamente cualquier número seguido del signo % en tu documento
-                let encontrarPorcentaje = texto.match(/(\d+)\s*%/);
-                
-                if (encontrarPorcentaje && encontrarPorcentaje[1]) {
-                    porcentaje = parseInt(encontrarPorcentaje[1], 10);
-                } else {
-                    // Si no encuentra el %, busca el primer número suelto que aparezca (tu celda A4)
-                    let encontrarNumero = texto.match(/\d+/);
-                    if (encontrarNumero) {
-                        porcentaje = parseInt(encontrarNumero[0], 10);
+                // Dividimos el archivo CSV por filas individuales
+                let lineas = texto.split(/\r?\n/);
+                let valorCelda = "0";
+
+                // Buscamos directamente en la Fila 4 (índice 3), donde está tu celda A4
+                if (lineas.length >= 4) {
+                    let fila4 = lineas[3];
+                    let columnas = fila4.split(",");
+                    if (columnas.length > 0) {
+                        valorCelda = columnas[0].replace(/"/g, "").trim();
                     }
                 }
                 
-                // Forzar formato si viene como decimal
-                if (porcentaje > 0 && porcentaje <= 1) porcentaje = porcentaje * 100;
+                if (valorCelda.includes("%")) {
+                    valorCelda = valorCelda.replace("%", "").trim();
+                }
+                valorCelda = valorCelda.replace(",", ".");
+                
+                let num = parseFloat(valorCelda) || 0;
+                if (num > 0 && num <= 1) num = num * 100; 
+                
+                let porcentaje = Math.round(num);
+                if (porcentaje > 100) porcentaje = 100; 
