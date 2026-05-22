@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progreso de la Rifa</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f7f6; }
+        
+        h2 { color: #333; margin-bottom: 10px; }
+        
+        /* Contenedor principal de la barra */
+        .contenedor-barra {
+            width: 85%;
+            max-width: 500px;
+            background-color: #e0e0e0;
+            border-radius: 25px;
+            margin: 30px auto;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Relleno verde de progreso */
+        .relleno-barra {
+            width: 0%; /* Inicia en cero y se expande con JS */
+            height: 35px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            transition: width 1.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Progreso Total Recaudado</h2>
+    
+    <div class="contenedor-barra">
+        <div id="miBarra" class="relleno-barra">0%</div>
+    </div>
+
+    <script>
+        // Tu enlace de OneDrive optimizado para extracción de datos planos
+        const urlExcel = "https://1drv.ms/x/c/13d9a80cd62a403f/IQScTTp_FMtxS7ELJhcagxRyAb4Xwkib8f4Z4jGDl_0jhiM?em=2&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True"; 
+
+        async function cargarProgreso() {
+            try {
+                const respuesta = await fetch(urlExcel);
+                const texto = await respuesta.text();
+                
+                // Procesar el documento HTML que devuelve el visor de OneDrive
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(texto, 'text/html');
+                
+                // Buscar el valor específico de la celda A4 (Suele tener la clase o ID correspondiente al valor)
+                // Usamos una alternativa segura buscando el patrón de porcentaje en el texto del documento
+                const coincidencia = texto.match(/([0-9]+(?:,[0-9]+)?)\s*%/);
+                
+                let porcentaje = 0;
+                if (coincidencia && coincidencia[1]) {
+                    // Limpiar y transformar el formato 0,00% de Excel a un número válido
+                    const valorLimpio = coincidencia[1].replace(",", ".");
+                    porcentaje = Math.round(parseFloat(valorLimpio)) || 0;
+                }
+
+                // Forzar límite lógico entre 0 y 100
+                if (porcentaje > 100) porcentaje = 100;
+                if (porcentaje < 0) porcentaje = 0;
+
+                // Modificar la barra visualmente en tu HTML
+                const barra = document.getElementById("miBarra");
+                barra.style.width = porcentaje + "%";
+                barra.textContent = porcentaje + "%";
+                
+            } catch (e) {
+                console.error("Error al conectar con el visor de Excel: ", e);
+            }
+        }
+
+        // Ejecutar inmediatamente al abrir la web
+        cargarProgreso();
+    </script>
+</body>
+</html>
