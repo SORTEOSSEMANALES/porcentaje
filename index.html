@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SORTEO HONDA BROS 125cc</title>
-    <!-- Importamos una fuente más moderna y deportiva -->
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
-        /* Fondo general oscuro y estilizado */
+        /* Fondo general */
         body {
             font-family: 'Montserrat', Arial, sans-serif;
             background: linear-gradient(135deg, #121214 0%, #1a1a24 100%);
@@ -17,11 +16,11 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
             box-sizing: border-box;
         }
 
-        /* Tarjeta contenedora principal */
+        /* Tarjeta principal con altura flexible */
         .tarjeta-sorteo {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
@@ -33,9 +32,11 @@
             max-width: 480px;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            display: block; /* Asegura flujo vertical natural */
+            height: auto; /* Altura adaptable */
         }
 
-        /* Título con estilo Honda Racing */
+        /* Título Honda Racing */
         h2 { 
             font-weight: 900;
             font-size: 1.6rem;
@@ -48,7 +49,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Eslogan para el sorteo */
+        /* Eslogan */
         .slogan-sorteo {
             font-size: 0.95rem;
             font-weight: 600;
@@ -59,7 +60,7 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-        /* Subtítulo informativo */
+        /* Subtítulo */
         .subtitulo {
             font-size: 0.8rem;
             color: #a0a0b0;
@@ -68,7 +69,7 @@
             letter-spacing: 1px;
         }
 
-        /* Cartel de fecha (Aviso flotante interno) */
+        /* Cartel de fecha */
         .cartel-fecha {
             background: rgba(255, 170, 0, 0.1);
             border: 1px dashed rgba(255, 170, 0, 0.4);
@@ -79,26 +80,18 @@
             font-weight: 600;
             line-height: 1.4;
             margin: 15px 0;
-            display: inline-block;
+            display: block;
             width: 100%;
             box-sizing: border-box;
-            transition: all 0.5s ease;
         }
 
-        /* Variación del diseño cuando supera el 90% */
         .cartel-fecha.meta-alcanzada {
             background: rgba(40, 167, 69, 0.15);
             border: 1px solid #28a745;
             color: #2bed64;
-            animation: pulsoVerde 2s infinite alternate;
         }
 
-        @keyframes pulsoVerde {
-            0% { box-shadow: 0 0 5px rgba(43, 237, 100, 0.2); }
-            100% { box-shadow: 0 0 15px rgba(43, 237, 100, 0.5); }
-        }
-
-        /* Contenedor externo de la barra de progreso */
+        /* Barra de progreso */
         .contenedor-barra {
             width: 100%;
             background-color: #262630;
@@ -106,11 +99,10 @@
             margin: 10px auto 25px auto;
             overflow: hidden;
             padding: 4px;
-            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255,255,255,0.05);
+            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.5);
             box-sizing: border-box;
         }
 
-        /* Barra de relleno interna con degradado dinámico */
         .relleno-barra {
             width: 0%;
             height: 32px;
@@ -126,10 +118,11 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.6);
         }
 
-        /* Sección de Combos y Precios */
+        /* Lista de Precios */
         .seccion-combos {
-            margin: 20px 0;
+            margin: 25px 0;
             text-align: left;
+            display: block;
         }
 
         .titulo-combos {
@@ -138,26 +131,25 @@
             color: #ffaa00;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             text-align: center;
         }
 
         .lista-combos {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .item-combo {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 12px;
-            padding: 12px 16px;
+            padding: 14px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: relative;
-            overflow: hidden;
         }
 
         .item-combo.destacado {
@@ -180,19 +172,19 @@
         .combo-chances {
             font-size: 0.8rem;
             color: #a0a0b0;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
         .combo-chances strong {
             color: #ff5555;
         }
-        
+
         .item-combo.destacado .combo-chances strong {
             color: #ffaa00;
         }
 
         .combo-precio {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 900;
             color: #ffffff;
         }
@@ -213,16 +205,17 @@
         /* Sección de contacto */
         .bloque-contacto {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 20px;
+            padding-top: 25px;
             margin-top: 20px;
             text-align: center;
+            display: block;
         }
 
         .titulo-contacto {
             font-size: 0.95rem;
             font-weight: 700;
             color: #ffffff;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -235,7 +228,7 @@
             background: #25d366;
             color: white;
             text-decoration: none;
-            padding: 12px 24px;
+            padding: 14px 24px;
             border-radius: 50px;
             font-weight: 700;
             font-size: 0.95rem;
@@ -259,8 +252,8 @@
         .soporte-texto {
             font-size: 0.8rem;
             color: #8a8a9e;
-            margin-top: 15px;
-            line-height: 1.4;
+            margin-top: 18px;
+            line-height: 1.5;
         }
 
         .soporte-texto a {
@@ -268,12 +261,12 @@
             text-decoration: none;
             font-weight: 600;
         }
-        
+
         .soporte-texto a:hover {
             text-decoration: underline;
         }
 
-        /* Botón de WhatsApp flotante de la esquina */
+        /* Botón flotante */
         .btn-whatsapp {
             position: fixed;
             bottom: 25px;
@@ -287,12 +280,11 @@
             justify-content: center;
             box-shadow: 0px 8px 20px rgba(37, 211, 102, 0.3);
             z-index: 1000;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+            transition: transform 0.3s ease;
         }
         
         .btn-whatsapp:hover {
-            transform: scale(1.1) translateY(-3px);
-            box-shadow: 0px 12px 24px rgba(37, 211, 102, 0.45);
+            transform: scale(1.1);
         }
         
         .btn-whatsapp svg {
@@ -310,17 +302,15 @@
         
         <div class="subtitulo">PROGRESO DEL SORTEO</div>
         
-        <!-- Barra de Progreso Dinámica -->
         <div class="contenedor-barra">
             <div id="miBarra" class="relleno-barra">0%</div>
         </div>
 
-        <!-- Cartel dinámico interactivo -->
         <div id="cartelSorteo" class="cartel-fecha">
             ⏳ La fecha oficial del sorteo se publicará inmediatamente al alcanzar el 90% de los números vendidos.
         </div>
 
-        <!-- Lista de Combos y Precios -->
+        <!-- Sección de Combos -->
         <div class="seccion-combos">
             <div class="titulo-combos">Lista de Precios</div>
             <div class="lista-combos">
@@ -329,3 +319,19 @@
                     <div class="combo-info">
                         <span class="combo-nombre">Combo 1</span>
                         <span class="combo-chances">Obtienes <strong>1 chance</strong></span>
+                    </div>
+                    <div class="combo-precio">\$500</div>
+                </div>
+
+                <div class="item-combo">
+                    <div class="combo-info">
+                        <span class="combo-nombre">Combo 2</span>
+                        <span class="combo-chances">Obtienes <strong>10 chances</strong></span>
+                    </div>
+                    <div class="combo-precio">\$3.000</div>
+                </div>
+
+                <div class="item-combo destacado">
+                    <div class="etiqueta-popular">Mejor Valor</div>
+                    <div class="combo-info">
+                        <span class="combo-nombre">Combo 3</span>
