@@ -6,21 +6,22 @@
     <title>SORTEO HONDA BROS 125cc</title>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
-        /* Fondo general */
+        /* Fondo general con scrolling habilitado para que nada se corte */
         body {
             font-family: 'Montserrat', Arial, sans-serif;
             background: linear-gradient(135deg, #121214 0%, #1a1a24 100%);
             color: #ffffff;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Permite que empiece arriba y crezca */
             min-height: 100vh;
             margin: 0;
             padding: 40px 20px;
             box-sizing: border-box;
+            overflow-y: auto; /* Asegura el scroll vertical de la página */
         }
 
-        /* Tarjeta principal con altura flexible */
+        /* Tarjeta principal con altura dinámica libre */
         .tarjeta-sorteo {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
@@ -32,8 +33,7 @@
             max-width: 480px;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            display: block; /* Asegura flujo vertical natural */
-            height: auto; /* Altura adaptable */
+            margin-bottom: 60px; /* Espacio para que no choque con el botón flotante */
         }
 
         /* Título Honda Racing */
@@ -122,7 +122,6 @@
         .seccion-combos {
             margin: 25px 0;
             text-align: left;
-            display: block;
         }
 
         .titulo-combos {
@@ -208,7 +207,6 @@
             padding-top: 25px;
             margin-top: 20px;
             text-align: center;
-            display: block;
         }
 
         .titulo-contacto {
@@ -262,10 +260,6 @@
             font-weight: 600;
         }
 
-        .soporte-texto a:hover {
-            text-decoration: underline;
-        }
-
         /* Botón flotante */
         .btn-whatsapp {
             position: fixed;
@@ -310,7 +304,7 @@
             ⏳ La fecha oficial del sorteo se publicará inmediatamente al alcanzar el 90% de los números vendidos.
         </div>
 
-        <!-- Sección de Combos -->
+        <!-- Sección de Combos (Corregidos sin barras invertidas) -->
         <div class="seccion-combos">
             <div class="titulo-combos">Lista de Precios</div>
             <div class="lista-combos">
@@ -334,4 +328,3 @@
                 <div class="item-combo destacado">
                     <div class="etiqueta-popular">Mejor Valor</div>
                     <div class="combo-info">
-                        <span class="combo-nombre">Combo 3</span>
