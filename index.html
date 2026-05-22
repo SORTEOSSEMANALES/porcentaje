@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SORTEO ONDA BROS 125CC</title>
+    <title>SORTEO ONDA BROS 125cc</title>
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f7f6; }
         h2 { color: #333; margin-bottom: 10px; }
@@ -27,27 +27,32 @@
     </div>
 
     <script>
-        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?output=csv"; 
+        const urlCsv = "https://google.com"; 
 
         async function cargarProgreso() {
             try {
-                // Agregar un número aleatorio para evitar que el navegador guarde en caché el valor viejo
                 const respuesta = await fetch(urlCsv + "&t=" + new Date().getTime());
                 const texto = await respuesta.text();
                 
+                // Dividir el documento por filas
                 const filas = texto.split("\n");
-                // Fila 4 de tu planilla (índice 3 en programación)
-                const celdas = filas[3].split(","); 
-                // Columna A (índice 0)
-                let valorCelda = celdas[0].trim(); 
+                
+                // Extraer la fila 4 (celda de porcentaje)
+                const fila4 = filas[3]; 
+                
+                // Separar por columnas y tomar la primera (Columna A)
+                const columnas = fila4.split(",");
+                let valorCelda = columnas[0].trim(); 
 
-                // Limpiar símbolos de porcentaje y formatos de coma
+                // Limpiar el porcentaje para convertirlo en número válido
                 valorCelda = valorCelda.replace("%", "").replace(",", ".");
                 let porcentaje = Math.round(parseFloat(valorCelda)) || 0;
 
+                // Límites lógicos entre 0 y 100
                 if (porcentaje > 100) porcentaje = 100;
                 if (porcentaje < 0) porcentaje = 0;
 
+                // Modificar barra visual
                 const barra = document.getElementById("miBarra");
                 barra.style.width = porcentaje + "%";
                 barra.textContent = porcentaje + "%";
@@ -55,9 +60,9 @@
                 console.error("Error al leer Google Sheets: ", e);
             }
         }
+        
         cargarProgreso();
-        // Recargar automáticamente cada 30 segundos por si estás editando la planilla
-        setInterval(cargarProgreso, 30000);
+        setInterval(cargarProgreso, 10000); // Revisa cambios cada 10 segundos
     </script>
 </body>
 </html>
