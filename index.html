@@ -61,7 +61,6 @@
             letter-spacing: 1px;
         }
 
-        /* BARRA CON ESTILOS COMPATIBLES */
         .contenedor-barra {
             width: 100%;
             background-color: #262630;
@@ -190,7 +189,6 @@
             margin-top: 15px;
         }
 
-        /* BOTÓN DE WHATSAPP MODIFICADO CON INYECCIÓN CSS */
         .cta-contacto {
             display: inline-flex;
             align-items: center;
@@ -204,10 +202,9 @@
             box-sizing: border-box;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
             transition: transform 0.2s;
-            position: relative;
         }
 
-        /* TRUCO MAESTRO: Forzamos el texto blanco desde los estilos para evitar que el editor lo borre */
+        /* El texto inyectado mediante CSS para que no se borre */
         .cta-contacto::after {
             content: "Enviarnos comprobantes con tus datos nombre y apellido y telefono";
             color: #ffffff !important;
@@ -270,16 +267,14 @@
         </div>
 
         <div class="bloque-contacto">
-            <!-- Recuerda cambiar TUNUMERODEWHATSAPP por tu número real con código de país -->
-            <a href="https://wa.me" class="cta-contacto" target="_blank" rel="noopener noreferrer">
-                <!-- Dejado completamente vacío por fuera. El texto es controlado por el CSS arriba -->
-            </a>
+            <!-- REEMPLAZA TUNUMERODEWHATSAPP POR TU TELÉFONO REAL -->
+            <a href="https://wa.me" class="cta-contacto" target="_blank" rel="noopener noreferrer"></a>
         </div>
     </div>
 
-    <!-- TU CÓDIGO JAVASCRIPT BASE ORIGINAL EXACTO -->
+    <!-- SCRIPT CORREGIDO: SELECCIONA QUIRÚRGICAMENTE EL % DE TU HOJA 3 -->
     <script> 
-        const urlCsv = "https://google.com"; 
+        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
 
         async function cargarProgreso() { 
             try { 
@@ -287,19 +282,24 @@
                 const respuesta = await fetch(urlCsv + conector + "t=" + new Date().getTime()); 
                 let texto = await respuesta.text(); 
                 
-                console.log("Dato crudo recibido de Hoja 3:", texto); 
-                
-                let valorLimpio = texto.replace(/"/g, "").trim();
-                
-                if (valorLimpio.includes("%")) {
-                    valorLimpio = valorLimpio.replace("%", "").trim();
+                // Dividimos el CSV en líneas individuales
+                let lineas = texto.split(/\r?\n/);
+                let valorCelda = "0";
+
+                // Accedemos de forma exacta a la Fila 4 de tu documento (Celda A4)
+                if (lineas.length >= 4) {
+                    let fila4 = lineas[3];
+                    let columnas = fila4.split(",");
+                    if (columnas.length > 0) {
+                        valorCelda = columnas[0].replace(/"/g, "").trim();
+                    }
                 }
                 
-                valorLimpio = valorLimpio.replace(",", ".");
+                if (valorCelda.includes("%")) {
+                    valorCelda = valorCelda.replace("%", "").trim();
+                }
+                valorCelda = valorCelda.replace(",", ".");
                 
-                let num = parseFloat(valorLimpio) || 0;
-                
-                if (num > 0 && num <= 1) { 
-                    num = num * 100; 
-                } 
+                let num = parseFloat(valorCelda) || 0;
+                if (num > 0 && num <= 1) num = num * 100; 
                 
