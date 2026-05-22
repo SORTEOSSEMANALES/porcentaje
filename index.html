@@ -1,5 +1,5 @@
 <script>
-    // REVISE QUE ESTE ENLACE TERMINE EN output=csv
+    // Asegúrate de que este enlace termine en output=csv
     const urlCsv = "TU_ENLACE_DE_PUBLICAR_EN_LA_WEB_AQUÍ"; 
 
     async function cargarProgreso() {
@@ -11,15 +11,15 @@
             console.log("Contenido crudo de Sheets:", texto);
             
             const filas = texto.split(/\r?\n/);
-            // Tomamos la fila 4 (Índice 3 es la cuarta fila del CSV)
-            const fila4 = filas[3]; 
+            // Tomamos la fila 3 (Índice 2 del CSV es la tercera fila)
+            const fila3 = filas[2]; 
             
-            if (fila4) {
+            if (fila3) {
                 // Dividimos por coma o punto y coma automáticamente
-                const columnas = fila4.split(/[,;]/); 
+                const columnas = fila3.split(/[,;]/); 
                 let valorCelda = columnas[0].trim().replace(/"/g, "");
                 
-                console.log("Valor aislado de la celda A4:", valorCelda);
+                console.log("Valor aislado de la celda A3:", valorCelda);
 
                 // Si viene con el símbolo %, lo limpiamos y procesamos directo
                 if (valorCelda.includes("%")) {
@@ -33,17 +33,17 @@
                 valorCelda = valorCelda.replace(",", "."); 
                 let num = parseFloat(valorCelda) || 0;
                 
-                // Si es un decimal menor o igual a 1, representa un porcentaje de Sheets
+                // Si es un decimal menor o igual a 1 (ej: 0.05), lo convertimos a entero (5)
                 if (num > 0 && num <= 1) {
                     num = num * 100;
                 }
                 
                 actualizarBarra(Math.round(num));
             } else {
-                console.error("No se encontró información en la fila 4.");
+                console.error("No se encontró información en la fila 3.");
             }
         } catch (e) {
-            console.error("Error crítico de conexión:", e);
+            console.error("Error crítico de conexión o código:", e);
         }
     }
 
