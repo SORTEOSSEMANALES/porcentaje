@@ -31,45 +31,51 @@
 
         async function cargarProgreso() {
             try {
-                // Forzar lectura en tiempo real sin caché
                 const respuesta = await fetch(urlCsv + "&t=" + new Date().getTime());
                 const texto = await respuesta.text();
                 
-                // Buscamos cualquier número que esté acompañado de un símbolo % en todo el documento
-                const buscarPorcentaje = texto.match(/([0-9]+(?:[,.][0-9]+)?)\s*%/);
+                // Dividimos el documento en filas individuales
+                const filas = texto.split(/\r?\n/);
                 
-                let porcentaje = 0;
+                // Extraemos de forma ultra segura la fila 4 (celda A4) sin usar corchetes peligrosos
+                const fila4 = filas.slice(3, 4).shift();
                 
-                if (buscarPorcentaje && buscarPorcentaje[1]) {
-                    // Extraer el texto limpio (ej: "5" o "0.05")
-                    let valorLimpio = buscarPorcentaje[1].replace(",", ".");
-                    let num = parseFloat(valorLimpio) || 0;
+                if (fila4) {
+                    // Tomamos el valor de la columna A
+                    const columnas = fila4.split(",");
+                    let valorCelda = columnas.slice(0, 1).shift().trim(); 
+
+                    // Quitamos comillas si Google Sheets las agrega por seguridad
+                    valorCelda = valorCelda.replace(/"/g, "");
                     
-                    // Si el sistema exportó el porcentaje como decimal menor a 1 (ej: 0.05 en vez de 5)
+                    // Reemplazamos la coma decimal por un punto para que el navegador lo entienda
+                    valorCelda = valorCelda.replace(",", ".");
+                    
+                    let num = parseFloat(valorCelda) || 0;
+                    
+                    // Si el número viene como decimal (ej: 0.05), lo multiplicamos por 100 para volverlo entero (5)
                     if (num > 0 && num <= 1) {
                         num = num * 100;
                     }
                     
-                    porcentaje = Math.round(num);
+                    let porcentaje = Math.round(num);
+
+                    // Límites lógicos de seguridad
+                    if (porcentaje > 100) porcentaje = 100;
+                    if (porcentaje < 0) porcentaje = 0;
+
+                    // Pintamos el progreso en la pantalla de tus clientes
+                    const barra = document.getElementById("miBarra");
+                    barra.style.width = porcentaje + "%";
+                    barra.textContent = porcentaje + "%";
                 }
-
-                // Ajustar límites de seguridad
-                if (porcentaje > 100) porcentaje = 100;
-                if (porcentaje < 0) porcentaje = 0;
-
-                // Mover la barra en la pantalla
-                const barra = document.getElementById("miBarra");
-                barra.style.width = porcentaje + "%";
-                barra.textContent = porcentaje + "%";
-                
             } catch (e) {
                 console.error("Error al conectar con Google Sheets: ", e);
             }
         }
         
         cargarProgreso();
-        // Revisar cambios automáticamente cada 15 segundos
-        setInterval(cargarProgreso, 15000);
+        setInterval(cargarProgreso, 15000); // Revisa tu planilla de la Honda de forma automática cada 15 segundos
     </script>
 </body>
 </html>
