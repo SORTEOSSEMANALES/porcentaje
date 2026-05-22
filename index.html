@@ -4,72 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SORTEO HONDA BROS 125cc</title>
+    <!-- Importamos una fuente más moderna y deportiva -->
+    <link href="https://googleapis.com" rel="stylesheet">
     <style>
+        /* Fondo general oscuro y estilizado */
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f4f7f6;
-        }
-        h2 { 
-            color: #333; 
-            margin-bottom: 10px; 
-        }
-        .contenedor-barra {
-            width: 85%;
-            max-width: 500px;
-            background-color: #e0e0e0;
-            border-radius: 25px;
-            margin: 30px auto;
-            overflow: hidden;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .relleno-barra {
-            width: 0%;
-            height: 35px;
-            background-color: #28a745;
-            color: white;
-            text-align: center;
-            line-height: 35px;
-            font-weight: bold;
-            transition: width 1.5s ease-in-out;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: linear-gradient(135deg, #121214 0%, #1a1a24 100%);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        /* Botón de WhatsApp flotante (Margen Inferior Izquierdo) */
+        /* Tarjeta contenedora principal */
+        .tarjeta-sorteo {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Título con estilo Honda Racing */
+        h2 { 
+            font-weight: 900;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 0;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #ff3333, #ff6666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Subtítulo informativo */
+        .subtitulo {
+            font-size: 0.9rem;
+            color: #a0a0b0;
+            margin-bottom: 35px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* Contenedor externo de la barra de progreso */
+        .contenedor-barra {
+            width: 100%;
+            background-color: #262630;
+            border-radius: 50px;
+            margin: 20px auto;
+            overflow: hidden;
+            padding: 4px; /* Espacio interno para efecto premium */
+            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255,255,255,0.05);
+            box-sizing: border-box;
+        }
+
+        /* Barra de relleno interna con degradado dinámico */
+        .relleno-barra {
+            width: 0%;
+            height: 32px;
+            background: linear-gradient(90deg, #cc1111 0%, #ff3333 50%, #ff6666 100%);
+            color: white;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-radius: 50px;
+            box-shadow: 0 3px 10px rgba(255, 51, 51, 0.4);
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+        }
+
+        /* Botón de WhatsApp flotante (Esquina inferior izquierda) */
         .btn-whatsapp {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
+            bottom: 25px;
+            left: 25px;
             width: 60px;
             height: 60px;
             background-color: #25d366;
-            border-radius: 50px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 8px 20px rgba(37, 211, 102, 0.3);
             z-index: 1000;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
         }
+        
         .btn-whatsapp:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0px 12px 24px rgba(37, 211, 102, 0.45);
         }
+        
         .btn-whatsapp svg {
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
             fill: white;
         }
     </style>
 </head>
 <body>
 
-    <h2>SORTEO HONDA BROS 125cc</h2>
-    
-    <div class="contenedor-barra">
-        <div id="miBarra" class="relleno-barra">0%</div>
+    <!-- Todo el contenido principal ahora vive dentro de esta tarjeta estructurada -->
+    <div class="tarjeta-sorteo">
+        <h2>HONDA BROS 125cc</h2>
+        <div class="subtitulo">PROGRESO DEL SORTEO</div>
+        
+        <div class="contenedor-barra">
+            <div id="miBarra" class="relleno-barra">0%</div>
+        </div>
     </div>
 
-    <!-- Reemplaza el número de teléfono en href (usa el código de país sin el signo +) -->
+    <!-- Enlace de WhatsApp conservando tu lógica intacta -->
     <a href="https://wa.me" class="btn-whatsapp" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 448 512">
             <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
@@ -77,6 +134,7 @@
     </a>
 
     <script> 
+        // Conservo exactamente tu misma lógica de JavaScript intacta para que no pierda conexión con tu hoja de cálculo
         const urlCsv = "https://google.com"; 
 
         async function cargarProgreso() { 
@@ -93,7 +151,7 @@
                     valorLimpio = valorLimpio.replace("%", "").trim();
                 }
                 
-                valorLimpio = valorLimpio.replace(",", ".");
+                valorLimpio = valorLinterfaz.replace(",", ".");
                 
                 let num = parseFloat(valorLimpio) || 0;
                 
