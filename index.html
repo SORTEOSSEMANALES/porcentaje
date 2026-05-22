@@ -5,44 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SORTEO ONDA BROS 125cc</title>
     <style>
-        body { 
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            text-align: center; 
-            padding: 50px 20px; 
-            background-color: #f4f7f6; 
+        body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f7f6; }
+        h2 { color: #333; margin-bottom: 10px; }
+        .contenedor-barra {
+            width: 85%; max-width: 500px; background-color: #e0e0e0;
+            border-radius: 25px; margin: 30px auto; overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
-        h2 { color: #333; margin-bottom: 20px; }
-        
-        /* Contenedor para centrar la celda en la pantalla */
-        .contenedor-grafico {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 30px auto;
-            max-width: 500px;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        /* Diseñado para que el cuadro de Google Sheets se vea limpio */
-        iframe {
-            border: none;
-            overflow: hidden;
+        .relleno-barra {
+            width: 0%; height: 35px; background-color: #28a745;
+            color: white; text-align: center; line-height: 35px;
+            font-weight: bold; transition: width 1.5s ease-in-out;
         }
     </style>
 </head>
 <body>
 
     <h2>Progreso Total Recaudado</h2>
-
-    <div class="contenedor-grafico">
-        <!-- Mostramos la celda A4 de tu Google Sheets en vivo sin intermediarios -->
-        <iframe width="250" height="120" scrolling="no" src="https://google.com"></iframe>
+    <div class="contenedor-barra">
+        <div id="miBarra" class="relleno-barra">0%</div>
     </div>
 
-    <p style="color: #666; font-size: 14px;">La barra se actualiza automáticamente con cada venta.</p>
+    <script>
+        const urlCsv = "https://google.com"; 
 
+        async function cargarProgreso() {
+            try {
+                const respuesta = await fetch(urlCsv + "&t=" + new Date().getTime());
+                const texto = await respuesta.text();
+                
+                // Dividir el documento por filas de forma segura
+                const filas = texto.split(/\r?\n/);
+                
+                // Extraer la fila 4 (celda A4) usando corchetes correctamente
+                if (filas.length >= 4) {
+                    const fila4 = filas[3]; 
+                    const columnas = fila4.split(",");
+                    let valorCelda = columnas[0].trim(); 
+
+                    // Convertir el formato de texto a número limpio
+                    valorCelda = valorCelda.replace("%", "").replace(",", ".");
+                    let num = parseFloat(valorCelda) || 0;
+                    
+                    // Si Google Sheets lo envía como decimal (ej: 0.06), lo pasamos a entero (6)
+                    if (num > 0 && num <= 1) {
+                        num = num * 100;
+                    }
+                    
+                    let porcentaje = Math.round(num);
+
+                    // Límites seguros
+                    if (porcentaje > 100) porcentaje = 100;
+                    if (porcentaje < 0) porcentaje = 0;
+
+                    // Modificar la barra verde
+                    const barra = document.getElementById("miBarra");
+                    barra.style.width = porcentaje + "%";
+                    barra.textContent = porcentaje + "%";
+                }
+            } catch (e) {
+                console.error("Error al leer Google Sheets: ", e);
+            }
+        }
+        
+        cargarProgreso();
+        setInterval(cargarProgreso, 15000); // Revisa cambios automáticamente cada 15 segundos
+    </script>
 </body>
 </html>
