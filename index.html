@@ -271,7 +271,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT CORREGIDO Y PROBADO CON TU HOJA 3 -->
+    <!-- NUEVO SCRIPT INTELIGENTE DIRECTO SIN DIVISIONES DE FILAS -->
     <script> 
         const urlCsv = "https://google.com"; 
 
@@ -281,24 +281,22 @@
                 const respuesta = await fetch(urlCsv + conector + "t=" + new Date().getTime()); 
                 let texto = await respuesta.text(); 
                 
-                // Dividimos el documento por sus saltos de línea reales
-                let lineas = texto.split(/\r?\n/);
-                let valorCelda = "0";
-
-                // Accedemos de forma exacta a la Fila 4 (índice 3)
-                if (lineas.length >= 4) {
-                    let fila4 = lineas[3]; // <--- ¡CORREGIDO AQUÍ! Ahora toma la fila de manera nativa sin duplicar variables
-                    let columnas = fila4.split(",");
-                    if (columnas.length > 0) {
-                        valorCelda = columnas[0].replace(/"/g, "").trim();
+                console.log("Texto recibido:", texto); 
+                
+                let porcentaje = 0;
+                
+                // Buscamos directamente cualquier número seguido del signo % en tu documento
+                let encontrarPorcentaje = texto.match(/(\d+)\s*%/);
+                
+                if (encontrarPorcentaje && encontrarPorcentaje[1]) {
+                    porcentaje = parseInt(encontrarPorcentaje[1], 10);
+                } else {
+                    // Si no encuentra el %, busca el primer número suelto que aparezca (tu celda A4)
+                    let encontrarNumero = texto.match(/\d+/);
+                    if (encontrarNumero) {
+                        porcentaje = parseInt(encontrarNumero[0], 10);
                     }
                 }
                 
-                if (valorCelda.includes("%")) {
-                    valorCelda = valorCelda.replace("%", "").trim();
-                }
-                valorCelda = valorCelda.replace(",", ".");
-                
-                let num = parseFloat(valorCelda) || 0;
-                if (num > 0 && num <= 1) num = num * 100; 
-                
+                // Forzar formato si viene como decimal
+                if (porcentaje > 0 && porcentaje <= 1) porcentaje = porcentaje * 100;
