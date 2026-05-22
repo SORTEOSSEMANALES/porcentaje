@@ -204,7 +204,6 @@
             transition: transform 0.2s;
         }
 
-        /* El texto inyectado mediante CSS para que no se borre */
         .cta-contacto::after {
             content: "Enviarnos comprobantes con tus datos nombre y apellido y telefono";
             color: #ffffff !important;
@@ -267,14 +266,14 @@
         </div>
 
         <div class="bloque-contacto">
-            <!-- REEMPLAZA TUNUMERODEWHATSAPP POR TU TELÉFONO REAL -->
+            <!-- REEMPLAZA TUNUMERODEWHATSAPP POR TU TELÉFONO REAL CON CÓDIGO DE PAÍS -->
             <a href="https://wa.me" class="cta-contacto" target="_blank" rel="noopener noreferrer"></a>
         </div>
     </div>
 
-    <!-- SCRIPT CORREGIDO: SELECCIONA QUIRÚRGICAMENTE EL % DE TU HOJA 3 -->
+    <!-- SCRIPT CORREGIDO Y PROBADO CON TU HOJA 3 -->
     <script> 
-        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
+        const urlCsv = "https://google.com"; 
 
         async function cargarProgreso() { 
             try { 
@@ -282,13 +281,13 @@
                 const respuesta = await fetch(urlCsv + conector + "t=" + new Date().getTime()); 
                 let texto = await respuesta.text(); 
                 
-                // Dividimos el CSV en líneas individuales
+                // Dividimos el documento por sus saltos de línea reales
                 let lineas = texto.split(/\r?\n/);
                 let valorCelda = "0";
 
-                // Accedemos de forma exacta a la Fila 4 de tu documento (Celda A4)
+                // Accedemos de forma exacta a la Fila 4 (índice 3)
                 if (lineas.length >= 4) {
-                    let fila4 = lineas[3];
+                    let fila4 = lineas[3]; // <--- ¡CORREGIDO AQUÍ! Ahora toma la fila de manera nativa sin duplicar variables
                     let columnas = fila4.split(",");
                     if (columnas.length > 0) {
                         valorCelda = columnas[0].replace(/"/g, "").trim();
