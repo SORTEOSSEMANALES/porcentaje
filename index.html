@@ -38,74 +38,58 @@
 </head>
 <body>
 
-    <h2>Progreso Total Recaudado</h2>
+    <h2>SORTEO HONDA BROS 125cc</h2>
     
     <div class="contenedor-barra">
         <div id="miBarra" class="relleno-barra">0%</div>
     </div>
 
     <script> 
-        // Tu enlace real de Google Sheets configurado correctamente
-        const urlCsv = "https://google.com"; 
+        // Enlace exclusivo de tu Hoja 3 colocado correctamente
+        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
 
         async function cargarProgreso() { 
             try { 
                 const conector = urlCsv.includes("?") ? "&" : "?"; 
                 const respuesta = await fetch(urlCsv + conector + "t=" + new Date().getTime()); 
-                const texto = await respuesta.text(); 
+                let texto = await respuesta.text(); 
                 
-                console.log("Contenido crudo de Sheets:", texto); 
-                const filas = texto.split(/\r?\n/); 
+                console.log("Dato crudo recibido de Hoja 3:", texto); 
                 
-                // Lee la fila 3 del Excel (índice 2) donde está tu porcentaje
-                const fila3 = filas[2]; 
+                // Limpiamos comillas, espacios o saltos de línea molestos
+                let valorLimpio = texto.replace(/"/g, "").trim();
                 
-                if (fila3) { 
-                    const columnas = fila3.split(/[,;]/); 
-                    let valorCelda = columnas[0].trim().replace(/"/g, ""); 
-                    
-                    console.log("Valor aislado de la celda A3:", valorCelda); 
-
-                    // Si el valor viene de Sheets con el símbolo % escrito (ej: 5%)
-                    if (valorCelda.includes("%")) { 
-                        valorCelda = valorCelda.replace("%", "").trim(); 
-                        let num = parseFloat(valorCelda.replace(",", ".")) || 0; 
-                        actualizarBarra(Math.round(num)); 
-                        return; 
-                    } 
-
-                    // Si viene como decimal puro (ej: 0,05 o 0.05) 
-                    valorCelda = valorCelda.replace(",", "."); 
-                    let num = parseFloat(valorCelda) || 0; 
-
-                    // Si Sheets lo exporta como fracción decimal menor a 1, lo convertimos a entero
-                    if (num > 0 && num <= 1) { 
-                        num = num * 100; 
-                    } 
-                    
-                    actualizarBarra(Math.round(num)); 
-                } else { 
-                    console.error("No se encontró información en la fila 3."); 
+                // Si Sheets lo exporta con el símbolo %, lo removemos para calcular
+                if (valorLimpio.includes("%")) {
+                    valorLimpio = valorLimpio.replace("%", "").trim();
+                }
+                
+                // Reemplazamos comas decimales por puntos para JavaScript
+                valorLimpio = valorLimpio.replace(",", ".");
+                
+                let num = parseFloat(valorLimpio) || 0;
+                
+                // Si el número viene como fracción (ej: 0.05 en lugar de 5), lo multiplicamos
+                if (num > 0 && num <= 1) { 
+                    num = num * 100; 
                 } 
+                
+                let porcentaje = Math.round(num);
+                if (porcentaje > 100) porcentaje = 100; 
+                if (porcentaje < 0) porcentaje = 0; 
+                
+                const barra = document.getElementById("miBarra"); 
+                if (barra) {
+                    barra.style.width = porcentaje + "%"; 
+                    barra.textContent = porcentaje + "%"; 
+                    console.log("¡Barra actualizada al!", porcentaje + "%");
+                }
             } catch (e) { 
-                console.error("Error crítico de conexión o código:", e); 
+                console.error("Error al procesar el dato único de Hoja 3:", e); 
             } 
         } 
 
-        function actualizarBarra(porcentaje) { 
-            if (porcentaje > 100) porcentaje = 100; 
-            if (porcentaje < 0) porcentaje = 0; 
-            
-            console.log("Porcentaje final renderizado:", porcentaje + "%"); 
-            
-            const barra = document.getElementById("miBarra"); 
-            if (barra) {
-                barra.style.width = porcentaje + "%"; 
-                barra.textContent = porcentaje + "%"; 
-            }
-        } 
-
-        // Ejecución inicial y refresco cada 15 segundos
+        // Iniciar carga inmediata y refrescar de forma automática cada 15 segundos
         cargarProgreso(); 
         setInterval(cargarProgreso, 15000); 
     </script>
