@@ -31,45 +31,45 @@
 
         async function cargarProgreso() {
             try {
+                // Forzar lectura en tiempo real sin caché
                 const respuesta = await fetch(urlCsv + "&t=" + new Date().getTime());
                 const texto = await respuesta.text();
                 
-                // Dividir el documento por filas de forma segura
-                const filas = texto.split(/\r?\n/);
+                // Buscamos cualquier número que esté acompañado de un símbolo % en todo el documento
+                const buscarPorcentaje = texto.match(/([0-9]+(?:[,.][0-9]+)?)\s*%/);
                 
-                // Extraer la fila 4 (celda A4) usando corchetes correctamente
-                if (filas.length >= 4) {
-                    const fila4 = filas[3]; 
-                    const columnas = fila4.split(",");
-                    let valorCelda = columnas[0].trim(); 
-
-                    // Convertir el formato de texto a número limpio
-                    valorCelda = valorCelda.replace("%", "").replace(",", ".");
-                    let num = parseFloat(valorCelda) || 0;
+                let porcentaje = 0;
+                
+                if (buscarPorcentaje && buscarPorcentaje[1]) {
+                    // Extraer el texto limpio (ej: "5" o "0.05")
+                    let valorLimpio = buscarPorcentaje[1].replace(",", ".");
+                    let num = parseFloat(valorLimpio) || 0;
                     
-                    // Si Google Sheets lo envía como decimal (ej: 0.06), lo pasamos a entero (6)
+                    // Si el sistema exportó el porcentaje como decimal menor a 1 (ej: 0.05 en vez de 5)
                     if (num > 0 && num <= 1) {
                         num = num * 100;
                     }
                     
-                    let porcentaje = Math.round(num);
-
-                    // Límites seguros
-                    if (porcentaje > 100) porcentaje = 100;
-                    if (porcentaje < 0) porcentaje = 0;
-
-                    // Modificar la barra verde
-                    const barra = document.getElementById("miBarra");
-                    barra.style.width = porcentaje + "%";
-                    barra.textContent = porcentaje + "%";
+                    porcentaje = Math.round(num);
                 }
+
+                // Ajustar límites de seguridad
+                if (porcentaje > 100) porcentaje = 100;
+                if (porcentaje < 0) porcentaje = 0;
+
+                // Mover la barra en la pantalla
+                const barra = document.getElementById("miBarra");
+                barra.style.width = porcentaje + "%";
+                barra.textContent = porcentaje + "%";
+                
             } catch (e) {
-                console.error("Error al leer Google Sheets: ", e);
+                console.error("Error al conectar con Google Sheets: ", e);
             }
         }
         
         cargarProgreso();
-        setInterval(cargarProgreso, 15000); // Revisa cambios automáticamente cada 15 segundos
+        // Revisar cambios automáticamente cada 15 segundos
+        setInterval(cargarProgreso, 15000);
     </script>
 </body>
 </html>
