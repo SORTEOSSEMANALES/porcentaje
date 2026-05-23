@@ -240,7 +240,8 @@
         <div class="galeria-contenedor">
             <div class="imagen-principal-borde">
                 <!-- Mantén ss.jpeg si realizaste el cambio de nombre sugerido o modifícalo aquí -->
-              <img src="ss.jpg" alt="Honda Bros 125cc" class="imagen-principal">
+             <img src="SS.jpg" alt="Honda Bros 125cc" class="imagen-principal">
+
 
 
             </div>
@@ -278,6 +279,16 @@
                     <div class="combo-precio">3.000</div>
                     <button class="btn-seleccionar" onclick="abrirRegistro('Combo 2')">Elegir</button>
                 </div>
+                                <!-- Combo 3 Añadido -->
+                <div class="item-combo">
+                    <div class="combo-info">
+                        <span class="combo-nombre">Combo 3</span>
+                        <span class="combo-chances">Obtienes <strong>20 chances</strong></span>
+                    </div>
+                    <div class="combo-precio">5.000</div>
+                    <button class="btn-seleccionar" onclick="abrirRegistro('Combo 3')">Elegir</button>
+                </div>
+
             </div>
         </div>
 
@@ -296,15 +307,42 @@
 
     <script>
         // Animación de la barra al 45% al cargar
+                const csvURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTex-rIFtY6vl9905UMGS5rWx1KrbBA0U_WOviZkZqjdti8dzBsFlIg39qj4tePBx4UGSz16ENtVuDk/pub?gid=1263482699&single=true&output=csv';
+
         window.addEventListener('DOMContentLoaded', () => {
             const barra = document.getElementById('miBarra');
             if (barra) {
-                setTimeout(() => {
-                    barra.style.width = '45%';
-                    barra.innerText = '45%';
-                }, 300);
+                // Usamos una API intermedia gratuita para saltar el bloqueo de seguridad (CORS)
+                fetch('https://allorigins.win' + encodeURIComponent(csvURL))
+                    .then(response => {
+                        if (response.ok) return response.json();
+                        throw new Error('Error en la red.');
+                    })
+                    .then(data => {
+                        // Limpiamos el texto que devuelve Google Sheets
+                        let porcentajeLimpio = data.contents.replace('%', '').trim();
+                        
+                        // Si es un número válido, actualizamos la barra
+                        if (!isNaN(porcentajeLimpio) && porcentajeLimpio !== "") {
+                            let valor = porcentajeLimpio + '%';
+                            barra.style.width = valor;
+                            barra.innerText = valor;
+                        } else {
+                            // Valores por defecto de emergencia
+                            barra.style.width = '73%';
+                            barra.innerText = '73%';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al leer porcentaje:', error);
+                        // Resguardo visual para que no se quede vacía
+                        barra.style.width = '73%';
+                        barra.innerText = '73%';
+                    });
             }
         });
+
+
 
         let comboActual = "";
         // REEMPLAZA las letras de abajo por la URL que te dio Google Apps Script (termina en /exec)
