@@ -305,113 +305,32 @@
         </div>
     </div>
 
-       <script> 
-        // ID único de tu documento de Google Sheets
-        const sheetID = '1vTex-rIFtY6vl9905UMGS5rWx1KrbBA0U_WOviZkZqjdti8dzBsFlIg39qj4tePBx4UGSz16ENtVuDk';
-        // Consulta directa en formato JSON (Sáltase el bloqueo de CORS y la caché congelada automáticamente)
-               const urlEnVivo = `https://google.com{sheetID}/gviz/tq?tqx=out:json&sheet=Hoja%202&range=A1`; 
+     <script>
+    // Configuración directa del archivo de Google Sheets
+    const sheetID = '1vTex-rIFtY6vl9905UMGS5rWx1KrbBA0U_WOviZkZqjdti8dzBsFlIg39qj4tePBx4UGSz16ENtVuDk';
+    const urlEnVivo = `https://google.com{sheetID}/gviz/tq?tqx=out:json&sheet=Hoja%202&range=A1&t=${new Date().getTime()}`;
 
+    // Conectar con Google Sheets y leer la celda A1
+    fetch(urlEnVivo)
+        .then(res => res.text())
+        .then(texto => {
+            // Extraer el JSON limpio enviado por Google
+            const json = JSON.parse(texto.substring(texto.indexOf('{'), texto.lastIndexOf('}') + 1));
+            let valor = json.table.rows[0].c[0].v;
 
-                function cargarProgreso() { 
+            // Si viene en formato decimal (ej: 0.45), lo convierte en entero (45)
+            if (valor > 0 && valor <= 1) valor = valor * 100;
+            const porcentaje = Math.min(Math.max(Math.round(valor) || 0, 0), 100);
+
+            // Pintar el porcentaje directamente en tu barra HTML
             const barra = document.getElementById("miBarra");
-            if (!barra) return;
-
-            // Agregamos la hora actual para obligar a Google a dar el dato más fresco en tiempo real
-            fetch(urlEnVivo + "&t=" + new Date().getTime())
-                .then(response => response.text())
-                .then(texto => {
-                    // Limpiamos el envoltorio de texto que envía Google para extraer el JSON puro
-                    const inicio = texto.indexOf('{');
-                    const fin = texto.lastIndexOf('}');
-                    const jsonString = texto.substring(inicio, fin + 1);
-                    const json = JSON.parse(jsonString);
-                    
-                    // CORRECCIÓN DEFINITIVA: Accedemos correctamente a la primera fila y primera celda [0]
-                    let valorCelda = json.table.rows[0].c[0].v;
-                    
-                    // Si el valor viene como formato porcentaje de Excel (ej: 0.69), lo pasamos a entero (69)
-                    if (valorCelda > 0 && valorCelda <= 1) {
-                        valorCelda = valorCelda * 100;
-                    }
-                    
-                    let porcentaje = Math.round(valorCelda) || 0;
-                    if (porcentaje > 100) porcentaje = 100;
-                    if (porcentaje < 0) porcentaje = 0;
-
-                    // Pintamos el resultado en la barra roja
-                    barra.style.width = porcentaje + "%"; 
-                    barra.textContent = porcentaje + "%"; 
-                })
-                .catch(error => {
-                    console.error("Error al conectar con Google Sheets:", error);
-                    // Resguardo de emergencia por si Google no responde a tiempo
-                    barra.style.width = '69%'; 
-                    barra.textContent = '69%'; 
-                });
-        } 
-
-
-        // Iniciar carga inmediata automática al entrar a la web
-        cargarProgreso(); 
-
-        // LÓGICA DE LOS COMBOS Y FORMULARIO DE REGISTRO
-        let comboActual = "";
-        const scriptURL = 'REEMPLAZA_CON_TU_URL_DE_APPS_SCRIPT_TERMINADA_EN_EXEC';
-        const miTelefonoWhatsApp = '5491112345678'; // Reemplaza con tu número real de WhatsApp
-
-        // Actualiza el enlace del botón grande de WhatsApp inferior de forma segura
-        const btnCta = document.getElementById('btn-whatsapp-directo');
-        if (btnCta) {
-            btnCta.href = `https://wa.me{miTelefonoWhatsApp}?text=Hola!%20Quiero%20comprar%20números%20para%20el%20sorteo%20de%20la%20Honda%20Bros.`;
-        }
-
-        function abrirRegistro(nombre) {
-            comboActual = nombre;
-            document.getElementById('combo-seleccionado').innerText = nombre;
-            document.getElementById('formulario-registro').style.display = 'block';
-            document.getElementById('formulario-registro').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function enviarAlSheet() {
-            const nombre = document.getElementById('input-nombre').value.trim();
-            const telefono = document.getElementById('input-telefono').value.trim();
-            const btn = document.getElementById('btn-enviar-datos');
-
-            if (!nombre || !telefono) {
-                alert("Por favor completa todos los campos.");
-                return;
+            if (barra) {
+                barra.style.width = porcentaje + "%";
+                barra.textContent = porcentaje + "%";
             }
-
-            btn.innerText = "Enviando...";
-            btn.disabled = true;
-
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nombre: nombre, telefono: telefono, combo: comboActual })
-            })
-            .then(() => {
-                btn.innerText = "Confirmar y Registrar";
-                btn.disabled = false;
-
-                const mensajeText = `¡Hola! Acabo de registrarme en la web del sorteo.%0A%0A*Mis Datos:*%0A👤 *Nombre:* ${encodeURIComponent(nombre)}%0A📱 *Teléfono:* ${encodeURIComponent(telefono)}%0A%0A🎟️ *Selección:* He elegido el *${encodeURIComponent(comboActual)}*. En breve te adjunto el comprobante de pago.`;
-                
-                const whatsappURL = `https://wa.me{miTelefonoWhatsApp}?text=${mensajeText}`;
-                window.open(whatsappURL, '_blank');
-
-                document.getElementById('input-nombre').value = "";
-                document.getElementById('input-telefono').value = "";
-                document.getElementById('formulario-registro').style.display = 'none';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("Hubo un problema de conexión al registrar los datos.");
-                btn.innerText = "Confirmar y Registrar";
-                btn.disabled = false;
-            });
-        }
-    </script>
+        })
+        .catch(err => console.error("Error al conectar con la hoja:", err));
+</script>
 
 </body>
 </html>
