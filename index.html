@@ -61,6 +61,57 @@
             letter-spacing: 1px;
         }
 
+        /* --- ESTILOS DE LA GALERÍA --- */
+        .galeria-contenedor {
+            margin: 15px 0 20px 0;
+            width: 100%;
+        }
+
+        .imagen-principal-borde {
+            width: 100%;
+            height: 230px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #1a1a24;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+
+        .imagen-principal {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .miniaturas-lista {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            justify-content: center;
+        }
+
+        .miniatura {
+            width: 60px;
+            height: 45px;
+            border-radius: 6px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            opacity: 0.5;
+            transition: all 0.2s ease;
+        }
+
+        .miniatura:hover {
+            opacity: 0.9;
+        }
+
+        .miniatura.activa {
+            border-color: #ff3333;
+            opacity: 1;
+            box-shadow: 0 0 8px rgba(255, 51, 51, 0.5);
+        }
+
         .contenedor-barra {
             width: 100%;
             background-color: #262630;
@@ -225,6 +276,21 @@
         <h2>HONDA BROS 125cc</h2>
         <div class="slogan-sorteo">¡Acelera tu suerte y llévate una leyenda sobre dos ruedas!</div>
         
+        <!-- GALERÍA DE IMÁGENES CON TU MOTO -->
+        <div class="galeria-contenedor">
+            <div class="imagen-principal-borde">
+                <!-- Tu imagen cargada automáticamente -->
+                <img id="vistaPrincipal" src="https://unsplash.com" alt="Honda Bros 125cc" class="imagen-principal">
+            </div>
+            <div class="miniaturas-lista">
+                <!-- Miniatura 1 (Tu Moto) -->
+                <img src="https://unsplash.com" class="miniatura activa" onclick="cambiarImagen(this)">
+                <!-- Espacios listos para agregar otras fotos en el futuro -->
+                <img src="https://unsplash.com" class="miniatura" onclick="cambiarImagen(this)">
+                <img src="https://unsplash.com" class="miniatura" onclick="cambiarImagen(this)">
+            </div>
+        </div>
+
         <div class="subtitulo">PROGRESO DEL SORTEO</div>
         
         <div class="contenedor-barra">
@@ -255,52 +321,3 @@
                 </div>
 
                 <div class="item-combo destacado">
-                    <div class="etiqueta-popular">Mejor Valor</div>
-                    <div class="combo-info">
-                        <span class="combo-nombre">Combo 3</span>
-                        <span class="combo-chances">Obtienes <strong>20 chances</strong></span>
-                    </div>
-                    <div class="combo-precio">5.000</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="bloque-contacto">
-            <!-- REEMPLAZA TUNUMERODEWHATSAPP POR TU TELÉFONO REAL CON CÓDIGO DE PAÍS -->
-            <a href="https://wa.me" class="cta-contacto" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-    </div>
-
-    <!-- SCRIPT FILTRADOR QUIRÚRGICO DE FILAS -->
-    <script> 
-        const urlCsv = "https://google.com"; 
-
-        async function cargarProgreso() { 
-            try { 
-                const conector = urlCsv.includes("?") ? "&" : "?"; 
-                const respuesta = await fetch(urlCsv + conector + "t=" + new Date().getTime()); 
-                let texto = await respuesta.text(); 
-                
-                // Dividimos el archivo CSV por filas individuales
-                let lineas = texto.split(/\r?\n/);
-                let valorCelda = "0";
-
-                // Buscamos directamente en la Fila 4 (índice 3), donde está tu celda A4
-                if (lineas.length >= 4) {
-                    let fila4 = lineas[3];
-                    let columnas = fila4.split(",");
-                    if (columnas.length > 0) {
-                        valorCelda = columnas[0].replace(/"/g, "").trim();
-                    }
-                }
-                
-                if (valorCelda.includes("%")) {
-                    valorCelda = valorCelda.replace("%", "").trim();
-                }
-                valorCelda = valorCelda.replace(",", ".");
-                
-                let num = parseFloat(valorCelda) || 0;
-                if (num > 0 && num <= 1) num = num * 100; 
-                
-                let porcentaje = Math.round(num);
-                if (porcentaje > 100) porcentaje = 100; 
