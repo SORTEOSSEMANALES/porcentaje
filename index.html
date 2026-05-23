@@ -61,7 +61,7 @@
             letter-spacing: 1px;
         }
 
-        /* --- ESTILOS DE LA GALERÍA --- */
+        /* --- CONTENEDOR DE LA IMAGEN AJUSTADO --- */
         .galeria-contenedor {
             margin: 15px 0 20px 0;
             width: 100%;
@@ -81,35 +81,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 0.3s ease;
-        }
-
-        .miniaturas-lista {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-            justify-content: center;
-        }
-
-        .miniatura {
-            width: 60px;
-            height: 45px;
-            border-radius: 6px;
-            object-fit: cover;
-            cursor: pointer;
-            border: 2px solid transparent;
-            opacity: 0.5;
-            transition: all 0.2s ease;
-        }
-
-        .miniatura:hover {
-            opacity: 0.9;
-        }
-
-        .miniatura.activa {
-            border-color: #ff3333;
-            opacity: 1;
-            box-shadow: 0 0 8px rgba(255, 51, 51, 0.5);
         }
 
         .contenedor-barra {
@@ -276,18 +247,10 @@
         <h2>HONDA BROS 125cc</h2>
         <div class="slogan-sorteo">¡Acelera tu suerte y llévate una leyenda sobre dos ruedas!</div>
         
-        <!-- GALERÍA DE IMÁGENES CON TU MOTO -->
+        <!-- SECCIÓN DE LA FOTO ENLAZADA A ss.jpg -->
         <div class="galeria-contenedor">
             <div class="imagen-principal-borde">
-                <!-- Tu imagen cargada automáticamente -->
-                <img id="vistaPrincipal" src="https://unsplash.com" alt="Honda Bros 125cc" class="imagen-principal">
-            </div>
-            <div class="miniaturas-lista">
-                <!-- Miniatura 1 (Tu Moto) -->
-                <img src="https://unsplash.com" class="miniatura activa" onclick="cambiarImagen(this)">
-                <!-- Espacios listos para agregar otras fotos en el futuro -->
-                <img src="https://unsplash.com" class="miniatura" onclick="cambiarImagen(this)">
-                <img src="https://unsplash.com" class="miniatura" onclick="cambiarImagen(this)">
+                <img id="vistaPrincipal" src="ss.jpg" alt="Honda Bros 125cc" class="imagen-principal">
             </div>
         </div>
 
@@ -321,3 +284,34 @@
                 </div>
 
                 <div class="item-combo destacado">
+                    <div class="etiqueta-popular">Mejor Valor</div>
+                    <div class="combo-info">
+                        <span class="combo-nombre">Combo 3</span>
+                        <span class="combo-chances">Obtienes <strong>20 chances</strong></span>
+                    </div>
+                    <div class="combo-precio">5.000</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bloque-contacto">
+            <!-- Recuerda cambiar el número '5491123456789' de abajo por tu teléfono real -->
+            <a href="https://wa.me" class="cta-contacto" target="_blank"></a>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURACIÓN DE PROGRESO: Cambia este número para que la barra se mueva sola al porcentaje deseado
+        const porcentajeVendido = 45; 
+
+        // CONTROL DE ANIMACIONES AL CARGAR
+        window.addEventListener('DOMContentLoaded', () => {
+            const barra = document.getElementById('miBarra');
+            const cartel = document.getElementById('cartelSorteo');
+            
+            setTimeout(() => {
+                barra.style.width = porcentajeVendido + '%';
+                barra.textContent = porcentajeVendido + '%';
+                
+                if (porcentajeVendido >= 90) {
+                    cartel.classList.add('meta-alcanzada');
