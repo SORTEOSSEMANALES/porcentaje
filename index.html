@@ -3,31 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rifa Progresiva</title>
+    <title>Gran Sorteo Honda Bros 125cc</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; background: #121212; color: white; padding: 30px; }
-        .progress-container { width: 90%; background-color: #333; border-radius: 25px; margin: 20px auto; overflow: hidden; max-width: 500px; }
-        .progress-bar { width: 0%; height: 35px; background-color: #4CAF50; text-align: center; line-height: 35px; color: white; font-weight: bold; transition: width 1s ease-in-out; }
+        /* Estilos generales oscuros y modernos */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            background: #121212; 
+            color: #ffffff; 
+            padding: 20px; 
+            margin: 0;
+        }
+        h1 { 
+            color: #FF3B30; 
+            font-size: 2.2rem; 
+            margin-bottom: 5px; 
+            text-transform: uppercase;
+            text-shadow: 0px 0px 10px rgba(255, 59, 48, 0.5);
+        }
+        h2 {
+            font-size: 1.6rem;
+            margin-top: 0;
+            color: #ffffff;
+        }
+        .eslogan { 
+            font-size: 1.1rem; 
+            color: #FFCC00; 
+            font-weight: bold; 
+            margin-top: 0; 
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        /* Estilos para la imagen de la moto */
+        .moto-img {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.7);
+            border: 2px solid #333;
+            margin-bottom: 30px;
+        }
+        
+        /* Contenedor y diseño de la barra de progreso */
+        .progress-title {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #bbb;
+        }
+        .progress-container { 
+            width: 100%; 
+            background-color: #222; 
+            border: 2px solid #333;
+            border-radius: 25px; 
+            margin: 0 auto 40px auto; 
+            overflow: hidden; 
+            max-width: 450px; 
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
+        }
+        .progress-bar { 
+            width: 0%; 
+            height: 35px; 
+            background: linear-gradient(90deg, #4CD964, #28A745); 
+            text-align: center; 
+            line-height: 35px; 
+            color: white; 
+            font-weight: bold; 
+            font-size: 1.1rem;
+            transition: width 1.5s ease-in-out; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+        }
+
+        /* Diseño de los recuadros de Combos */
+        .combos-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        .combo-box {
+            background: #1c1c1e;
+            border: 2px solid #3a3a3c;
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .combo-box:active {
+            transform: scale(0.98);
+        }
+        .combo-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+        }
+        .combo-chances {
+            font-size: 1.8rem;
+            color: #FFCC00;
+            font-weight: 800;
+            margin: 5px 0;
+        }
+        .combo-value {
+            font-size: 1.5rem;
+            color: #4CD964;
+            font-weight: bold;
+            margin: 5px 0 0 0;
+        }
+
+        /* Destacar el combo más popular (Combo 3) */
+        .combo-popular {
+            border-color: #FF3B30;
+            background: linear-gradient(180deg, #1c1c1e 0%, #2c1212 100%);
+        }
+        .badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #FF3B30;
+            color: white;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-bottom-left-radius: 10px;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Progreso de la Rifa</h1>
-    <p>¡Ayúdanos a llegar a la meta!</p>
+    <!-- Encabezado llamativo -->
+    <h1>Sorteo de Honda</h1>
+    <h2>La Honda Bros 125 cc</h2>
+    <p class="eslogan">¡Tu próxima aventura está a un solo número de distancia! 🏍️💨</p>
 
-    <!-- Barra de progreso -->
+    <!-- Imagen de la moto conectada localmente -->
+    <img src="ss.jpg" alt="Honda Bros 125cc" class="moto-img">
+
+    <!-- Barra de progreso visual -->
+    <p class="progress-title">Progreso de números vendidos:</p>
     <div class="progress-container">
         <div id="miBarra" class="progress-bar">0%</div>
     </div>
 
+    <!-- Sección de Combos -->
+    <h3 style="color: #bbb; text-transform: uppercase; font-size: 1.1rem; margin-bottom: 15px;">Selecciona tu Combo Ganador</h3>
+    
+    <div class="combos-container">
+        
+        <!-- Combo 1 -->
+        <div class="combo-box">
+            <div class="combo-title">Combo Inicial</div>
+            <div class="combo-chances">1 Chance</div>
+            <div class="combo-value">$500</div>
+        </div>
+
+        <!-- Combo 2 -->
+        <div class="combo-box">
+            <div class="combo-title">Combo Avanzado</div>
+            <div class="combo-chances">10 Chances</div>
+            <div class="combo-value">$3.000</div>
+        </div>
+
+        <!-- Combo 3 (Destacado) -->
+        <div class="combo-box combo-popular">
+            <div class="badge">¡Mejor Valor!</div>
+            <div class="combo-title">Combo Imbatible</div>
+            <div class="combo-chances">20 Chances</div>
+            <div class="combo-value">$5.000</div>
+        </div>
+
+    </div>
+
     <script>
-        // 👇 AQUÍ PONES EL PORCENTAJE A MANO (Cambia el 73 por el que vayas teniendo)
+        // CAMBIA ESTE NÚMERO A MANO CUANDO VENDAS MÁS NÚMEROS
         const porcentajeActual = 73; 
 
-        // Lógica automática para pintar la barra
-        const barra = document.getElementById("miBarra");
-        barra.style.width = porcentajeActual + "%";
-        barra.textContent = porcentajeActual + "% Vendido";
+        // Código automático que dibuja la barra al cargar la web
+        window.onload = function() {
+            const barra = document.getElementById("miBarra");
+            barra.style.width = porcentajeActual + "%";
+            barra.textContent = porcentajeActual + "% Vendido";
+        };
     </script>
 </body>
 </html>
