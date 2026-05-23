@@ -259,40 +259,100 @@
         <div class="seccion-combos">
             <div class="titulo-combos">Lista de Precios</div>
             <div class="lista-combos">
+                                <!-- Combo 1 Corregido -->
                 <div class="item-combo">
                     <div class="combo-info">
                         <span class="combo-nombre">Combo 1</span>
                         <span class="combo-chances">Obtienes <strong>1 chance</strong></span>
                     </div>
                     <div class="combo-precio">500</div>
+                    <button class="btn-seleccionar" onclick="abrirRegistro('Combo 1')">Elegir</button>
                 </div>
 
+                <!-- Combo 2 Corregido -->
                 <div class="item-combo">
                     <div class="combo-info">
                         <span class="combo-nombre">Combo 2</span>
                         <span class="combo-chances">Obtienes <strong>10 chances</strong></span>
                     </div>
                     <div class="combo-precio">3.000</div>
+                    <button class="btn-seleccionar" onclick="abrirRegistro('Combo 2')">Elegir</button>
                 </div>
             </div>
         </div>
 
+        <!-- Formulario integrado que aparece al elegir un combo -->
+        <div id="formulario-registro" style="margin-top: 20px; display: none; text-align: left; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
+            <h4 style="margin: 0 0 10px 0; color: #ffaa00; font-size: 0.9rem;">Registrar Chance: <span id="combo-seleccionado" style="color: #fff;"></span></h4>
+            <input type="text" id="input-nombre" placeholder="Nombre y Apellido" style="width:100%; padding: 8px; margin-bottom: 8px; border-radius: 5px; border: 1px solid #444; background: #222; color: #fff; box-sizing: border-box;">
+            <input type="tel" id="input-telefono" placeholder="Número de Teléfono" style="width:100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #444; background: #222; color: #fff; box-sizing: border-box;">
+            <button id="btn-enviar-datos" onclick="enviarAlSheet()" style="width: 100%; padding: 10px; background: #ff3333; color: #fff; border: none; border-radius: 5px; font-weight: 700; cursor: pointer;">Confirmar y Registrar</button>
+        </div>
+
         <div class="bloque-contacto">
-            <!-- Recuerda colocar el enlace real de tu WhatsApp en el href -->
             <a href="https://wa.me" target="_blank" class="cta-contacto"></a>
         </div>
     </div>
 
-    <!-- Script para animar la barra automáticamente al cargar -->
     <script>
+        // Animación de la barra al 45% al cargar
         window.addEventListener('DOMContentLoaded', () => {
             const barra = document.getElementById('miBarra');
-            setTimeout(() => {
-                barra.style.width = '45%';
-                barra.innerText = '45%';
-            }, 300);
+            if (barra) {
+                setTimeout(() => {
+                    barra.style.width = '45%';
+                    barra.innerText = '45%';
+                }, 300);
+            }
         });
-    </script>
 
+        let comboActual = "";
+        // REEMPLAZA las letras de abajo por la URL que te dio Google Apps Script (termina en /exec)
+        const scriptURL = 'REEMPLAZA_CON_TU_URL_DE_APPS_SCRIPT';
+
+        function abrirRegistro(nombre) {
+            comboActual = nombre;
+            document.getElementById('combo-seleccionado').innerText = nombre;
+            document.getElementById('formulario-registro').style.display = 'block';
+            document.getElementById('formulario-registro').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function enviarAlSheet() {
+            const nombre = document.getElementById('input-nombre').value;
+            const telefono = document.getElementById('input-telefono').value;
+            const btn = document.getElementById('btn-enviar-datos');
+
+            if (!nombre || !telefono) {
+                alert("Por favor completa todos los campos.");
+                return;
+            }
+
+            btn.innerText = "Enviando...";
+            btn.disabled = true;
+
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre: nombre, telefono: telefono, combo: comboActual })
+            })
+            .then(() => {
+                alert("¡Datos registrados con éxito!");
+                btn.innerText = "Confirmar y Registrar";
+                btn.disabled = false;
+                document.getElementById('input-nombre').value = "";
+                document.getElementById('input-telefono').value = "";
+                document.getElementById('formulario-registro').style.display = 'none';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Error al conectar con la base de datos.");
+                btn.innerText = "Confirmar y Registrar";
+                btn.disabled = false;
+            });
+        }
+    </script>
 </body>
 </html>
+
+
