@@ -3,152 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteo Honda Bros 125 - Misiones</title>
-    <script src="https://tailwindcss.com"></script>
+    <title>Rifa Progresiva</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background: #121212; color: white; padding: 30px; }
+        .progress-container { width: 90%; background-color: #333; border-radius: 25px; margin: 20px auto; overflow: hidden; max-width: 500px; }
+        .progress-bar { width: 0%; height: 35px; background-color: #4CAF50; text-align: center; line-height: 35px; color: white; font-weight: bold; transition: width 1s ease-in-out; }
+    </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 font-sans min-h-screen flex flex-col justify-between">
+<body>
 
-    <!-- ======================================================== -->
-    <!--  ZONA DE EDICIÓN RÁPIDA: CAMBIA TUS DATOS AQUÍ ABAJO    -->
-    <!-- ======================================================== -->
+    <h1>Progreso de la Rifa</h1>
+    <p>¡Ayúdanos a llegar a la meta!</p>
+
+    <!-- Barra de progreso -->
+    <div class="progress-container">
+        <div id="miBarra" class="progress-bar">0%</div>
+    </div>
+
     <script>
-        // 1. Tu URL de Google Apps Script (Paso anterior)
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyy8NUjcra-1bzsem6SB4jnQmSy_3y_7kkhReqctD2PzXrcBUqKGF2N9v5ChUaIVtSP/exec";
+        // 👇 AQUÍ PONES EL PORCENTAJE A MANO (Cambia el 73 por el que vayas teniendo)
+        const porcentajeActual = 73; 
 
-        // 2. Tus datos de Cobro (Se muestran en el cartel)
-        const MI_ALIAS_MP = "honda.bros.posadas"; 
-        const MI_TITULAR_CUENTA = "Juan Marcelo Silva";
-
-        // 3. Tu número de WhatsApp (Sin el signo +, con código de área. Ej: 5493764123456)
-        const MI_WHATSAPP = "5493764123456"; 
+        // Lógica automática para pintar la barra
+        const barra = document.getElementById("miBarra");
+        barra.style.width = porcentajeActual + "%";
+        barra.textContent = porcentajeActual + "% Vendido";
     </script>
-    <!-- ======================================================== -->
-
-    <!-- Encabezado -->
-    <header class="p-6 text-center border-b border-zinc-900 bg-zinc-900/50 backdrop-blur">
-        <h1 class="text-xl font-black tracking-widest text-red-500">🏁 GRAN SORTEO MISIONES</h1>
-    </header>
-
-    <!-- Contenido Principal -->
-    <main class="max-w-6xl mx-auto px-4 py-8 flex flex-col lg:flex-row items-center gap-12 w-full">
-        
-        <!-- Bloque Izquierdo: Imagen e Información del Sorteo -->
-        <div class="flex-1 text-center lg:text-left">
-            
-            <!-- CONTENEDOR DE LA IMAGEN DE LA MOTO (NUEVO) -->
-            <div class="mb-6 max-w-xl mx-auto lg:mx-0 overflow-hidden rounded-2xl border border-zinc-850 bg-zinc-900 shadow-2xl">
-                <img src="ss.jpg" alt="Honda Bros 125" class="w-full h-auto max-h-[350px] object-cover hover:scale-105 transition-transform duration-500">
-            </div>
-
-            <span class="bg-red-600 text-white text-xs font-bold uppercase px-3 py-1 rounded-md tracking-wider">Exclusivo Misiones</span>
-            
-            <h2 class="text-4xl md:text-5xl font-black mt-4 mb-4 uppercase tracking-tight leading-none">
-                HONDA BROS 125 <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-amber-500">0KM EN JUEGO</span>
-            </h2>
-            
-            <p class="text-zinc-400 mb-6 text-base max-w-xl">
-                ¡Llévate la Honda Bros 125 de la foto lista para rodar! Válido para residentes de Misiones. 
-                <span class="text-emerald-400 font-semibold">Envío GRATIS en Posadas</span>. Resto de la provincia retira a su cargo.
-            </p>
-
-            <!-- Lista de Combos -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8 max-w-xl mx-auto lg:mx-0">
-                <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 shadow">
-                    <span class="text-xs font-bold text-zinc-500 block uppercase">Combo 1</span>
-                    <span class="text-2xl font-black text-zinc-100 block">\$500</span>
-                    <span class="text-xs text-red-400 font-medium">1 Chance</span>
-                </div>
-                <div class="bg-zinc-900 p-4 rounded-xl border-2 border-red-500 relative shadow-xl scale-105">
-                    <span class="absolute -top-2.5 left-1/2 transform -translate-x-1/2 bg-red-500 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full">Más Popular</span>
-                    <span class="text-xs font-bold text-zinc-400 block uppercase">Combo 2</span>
-                    <span class="text-2xl font-black text-zinc-100 block">\$3.000</span>
-                    <span class="text-xs text-red-400 font-semibold">10 Chances</span>
-                </div>
-                <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 shadow">
-                    <span class="text-xs font-bold text-zinc-500 block uppercase">Combo 3</span>
-                    <span class="text-2xl font-black text-zinc-100 block">\$5.000</span>
-                    <span class="text-xs text-red-400 font-medium">20 Chances</span>
-                </div>
-            </div>
-
-            <!-- Progreso de Ventas -->
-            <div class="bg-zinc-900 p-6 rounded-xl max-w-xl mx-auto lg:mx-0 shadow-2xl border border-zinc-800 mb-6">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-xs font-bold text-zinc-400 uppercase tracking-wider">Progreso de Ventas:</span>
-                    <span id="sales-label" class="text-sm font-black text-red-500">Cargando...</span>
-                </div>
-                <div class="w-full bg-zinc-950 rounded-full h-4 overflow-hidden border border-zinc-800">
-                    <div id="sales-bar" class="bg-gradient-to-r from-red-600 to-amber-500 h-full transition-all duration-1000" style="width: 0%"></div>
-                </div>
-                <p class="text-[11px] text-zinc-500 mt-2 italic">
-                    ⚠️ La fecha definitiva del sorteo se revelará automáticamente al alcanzar el <b>90% de las ventas</b>.
-                </p>
-            </div>
-
-            <!-- CARTEL DE INFORMACIÓN DE PAGO -->
-            <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 rounded-xl max-w-xl mx-auto lg:mx-0 shadow-2xl border border-dashed border-red-500/50 text-left">
-                <h4 class="text-sm font-black text-red-500 uppercase tracking-wider mb-3 flex items-center gap-2">
-                    💰 DATOS DE TRANSFERENCIA
-                </h4>
-                <p class="text-xs text-zinc-400 mb-4">
-                    Realiza tu transferencia por el valor del combo elegido a los siguientes datos:
-                </p>
-                <div class="space-y-2 bg-zinc-950 p-4 rounded-lg border border-zinc-800">
-                    <div class="flex justify-between text-xs">
-                        <span class="text-zinc-500 font-bold">ALIAS:</span>
-                        <span id="txt-alias" class="font-mono text-zinc-100 font-bold bg-zinc-900 px-2 py-0.5 rounded select-all">---</span>
-                    </div>
-                    <div class="flex justify-between text-xs border-t border-zinc-900 pt-2">
-                        <span class="text-zinc-500 font-bold">TITULAR:</span>
-                        <span id="txt-titular" class="text-zinc-300">---</span>
-                    </div>
-                </div>
-                <p class="text-[11px] text-amber-400 mt-3 italic">
-                    📌 Importante: Una vez hecha la transferencia, registrate a la derecha y envía el comprobante.
-                </p>
-            </div>
-        </div>
-
-        <!-- Bloque Derecho: Formulario de Registro -->
-        <div class="w-full lg:w-[400px] bg-zinc-900 p-8 rounded-2xl shadow-2xl border border-zinc-800 flex flex-col justify-between">
-            <div>
-                <h3 class="text-lg font-bold mb-6 text-center text-zinc-100 uppercase tracking-wide">1. Registrar Compra</h3>
-                
-                <form id="lottery-form" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Nombre Completo</label>
-                        <input type="text" id="name" required placeholder="Ej. Juan Marcelo Silva" 
-                               class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-colors placeholder-zinc-700">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Número de WhatsApp</label>
-                        <input type="tel" id="phone" required placeholder="Ej. 3764123456" 
-                               class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-colors placeholder-zinc-700">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Localidad</label>
-                        <select id="location" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-colors">
-                            <option value="" disabled selected>Selecciona tu localidad</option>
-                            <option value="Posadas (Envío Gratis)">Posadas (Envío Gratis)</option>
-                            <option value="Garupá">Garupá</option>
-                            <option value="Candelaria">Candelaria</option>
-                            <option value="Oberá">Oberá</option>
-                            <option value="Eldorado">Eldorado</option>
-                            <option value="Otra localidad de Misiones">Otra localidad de Misiones (Retiro a mi cargo)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Selecciona tu Combo</label>
-                        <select id="combo" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-colors">
-                            <option value="" disabled selected>Elige una opción de compra</option>
-                            <option value="Combo 1">Combo 1: \$500 (1 Chance)</option>
-                            <option value="Combo 2">Combo 2: \$3000 (10 Chances)</option>
-                            <option value="Combo 3">Combo 3: \$5000 (20 Chances)</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" id="submit-btn"
+</body>
+</html>
