@@ -305,32 +305,33 @@
         </div>
     </div>
 
-     <script>
-    // Configuración directa del archivo de Google Sheets
-    const sheetID = '1vTex-rIFtY6vl9905UMGS5rWx1KrbBA0U_WOviZkZqjdti8dzBsFlIg39qj4tePBx4UGSz16ENtVuDk';
-    const urlEnVivo = `https://google.com{sheetID}/gviz/tq?tqx=out:json&sheet=Hoja%202&range=A1&t=${new Date().getTime()}`;
+<script>
+    // Tu enlace directo al CSV obtenido de "Publicar en la web"
+    const urlCSV = "https://google.com";
 
-    // Conectar con Google Sheets y leer la celda A1
-    fetch(urlEnVivo)
+    // Forzamos la actualización agregando la hora actual al final de la URL
+    fetch(urlCSV + "&t=" + new Date().getTime())
         .then(res => res.text())
-        .then(texto => {
-            // Extraer el JSON limpio enviado por Google
-            const json = JSON.parse(texto.substring(texto.indexOf('{'), texto.lastIndexOf('}') + 1));
-            let valor = json.table.rows[0].c[0].v;
+        .then(valor => {
+            // Limpiamos saltos de línea por si acaso y convertimos a número
+            let numero = parseFloat(valor.trim());
 
-            // Si viene en formato decimal (ej: 0.45), lo convierte en entero (45)
-            if (valor > 0 && valor <= 1) valor = valor * 100;
-            const porcentaje = Math.min(Math.max(Math.round(valor) || 0, 0), 100);
+            // Si en Google Sheets figura en formato porcentaje (ej: 0.45), lo pasa a entero (45)
+            if (numero > 0 && numero <= 1) numero = numero * 100;
+            
+            // Forzamos a que se mantenga en un rango real de 0 a 100
+            const porcentaje = Math.min(Math.max(Math.round(numero) || 0, 0), 100);
 
-            // Pintar el porcentaje directamente en tu barra HTML
+            // Buscamos tu barra HTML y le asignamos el porcentaje en vivo
             const barra = document.getElementById("miBarra");
             if (barra) {
                 barra.style.width = porcentaje + "%";
                 barra.textContent = porcentaje + "%";
             }
         })
-        .catch(err => console.error("Error al conectar con la hoja:", err));
+        .catch(err => console.error("Error al leer el porcentaje:", err));
 </script>
+
 
 </body>
 </html>
