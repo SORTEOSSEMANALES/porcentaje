@@ -240,7 +240,7 @@
         <div class="galeria-contenedor">
             <div class="imagen-principal-borde">
                 <!-- Mantén ss.jpeg si realizaste el cambio de nombre sugerido o modifícalo aquí -->
-             <img src="SS.jpg" alt="Honda Bros 125cc" class="imagen-principal">
+           <img src="SS.jpg" alt="Honda Bros 125cc" class="imagen-principal">
 
 
 
@@ -305,49 +305,44 @@
         </div>
     </div>
 
-    <script>
-        // Animación de la barra al 45% al cargar
-                const csvURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTex-rIFtY6vl9905UMGS5rWx1KrbBA0U_WOviZkZqjdti8dzBsFlIg39qj4tePBx4UGSz16ENtVuDk/pub?gid=1263482699&single=true&output=csv';
+     <script>
+        // Dirección ultra-rápida de tu Google Sheet (Evita por completo el CORS y la caché congelada)
+        const sheetID = '1vTex-rIFtY6vl9905UMGS5rWx1KrbBA0U_WOviZkZqjdti8dzBsFlIg39qj4tePBx4UGSz16ENtVuDk';
+        const urlEnVivo = `https://google.com{sheetID}/gviz/tq?tqx=out:csv&sheet=Hoja%201&range=A1`;
 
         window.addEventListener('DOMContentLoaded', () => {
             const barra = document.getElementById('miBarra');
             if (barra) {
-                // Usamos una API intermedia gratuita para saltar el bloqueo de seguridad (CORS)
-                           fetch('https://allorigins.win' + encodeURIComponent(csvURL + '&cacheBust=' + new Date().getTime()))
-
-                    .then(response => {
-                        if (response.ok) return response.json();
-                        throw new Error('Error en la red.');
-                    })
+                fetch(urlEnVivo)
+                    .then(response => response.text())
                     .then(data => {
-                        // Limpiamos el texto que devuelve Google Sheets
-                        let porcentajeLimpio = data.contents.replace('%', '').trim();
+                        // Limpiamos las comillas y símbolos de porcentaje que devuelve Google
+                        let porcentajeLimpio = data.replace(/"/g, '').replace('%', '').trim();
                         
-                        // Si es un número válido, actualizamos la barra
                         if (!isNaN(porcentajeLimpio) && porcentajeLimpio !== "") {
                             let valor = porcentajeLimpio + '%';
                             barra.style.width = valor;
                             barra.innerText = valor;
                         } else {
-                            // Valores por defecto de emergencia
-                            barra.style.width = '73%';
-                            barra.innerText = '73%';
+                            // Si falla temporalmente, muestra el 55% actual de resguardo
+                            barra.style.width = '55%';
+                            barra.innerText = '55%';
                         }
                     })
                     .catch(error => {
-                        console.error('Error al leer porcentaje:', error);
-                        // Resguardo visual para que no se quede vacía
-                        barra.style.width = '73%';
-                        barra.innerText = '73%';
+                        console.error('Error:', error);
+                        barra.style.width = '55%';
+                        barra.innerText = '55%';
                     });
             }
         });
 
-
-
+        // Configuración de la integración para registrar clientes
         let comboActual = "";
-        // REEMPLAZA las letras de abajo por la URL que te dio Google Apps Script (termina en /exec)
-        const scriptURL = 'REEMPLAZA_CON_TU_URL_DE_APPS_SCRIPT';
+        // REEMPLAZA las letras de abajo por la URL larga terminada en /exec de tu Apps Script
+        const scriptURL = 'REEMPLAZA_CON_TU_URL_DE_APPS_SCRIPT_TERMINADA_EN_EXEC';
+        // CONFIGURA AQUÍ TU NÚMERO DE WHATSAPP (Con código de país, sin espacios ni el signo +)
+        const miTelefonoWhatsApp = '5491112345678'; 
 
         function abrirRegistro(nombre) {
             comboActual = nombre;
@@ -357,8 +352,8 @@
         }
 
         function enviarAlSheet() {
-            const nombre = document.getElementById('input-nombre').value;
-            const telefono = document.getElementById('input-telefono').value;
+            const nombre = document.getElementById('input-nombre').value.trim();
+            const telefono = document.getElementById('input-telefono').value.trim();
             const btn = document.getElementById('btn-enviar-datos');
 
             if (!nombre || !telefono) {
@@ -376,16 +371,21 @@
                 body: JSON.stringify({ nombre: nombre, telefono: telefono, combo: comboActual })
             })
             .then(() => {
-                alert("¡Datos registrados con éxito!");
                 btn.innerText = "Confirmar y Registrar";
                 btn.disabled = false;
+
+                const mensajeText = `¡Hola! Acabo de registrarme en la web del sorteo.%0A%0A*Mis Datos:*%0A👤 *Nombre:* ${encodeURIComponent(nombre)}%0A📱 *Teléfono:* ${encodeURIComponent(telefono)}%0A%0A🎟️ *Selección:* He elegido el *${encodeURIComponent(comboActual)}*. En breve te adjunto el comprobante de pago.`;
+                
+                const whatsappURL = `https://wa.me{miTelefonoWhatsApp}?text=${mensajeText}`;
+                window.open(whatsappURL, '_blank');
+
                 document.getElementById('input-nombre').value = "";
                 document.getElementById('input-telefono').value = "";
                 document.getElementById('formulario-registro').style.display = 'none';
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert("Error al conectar con la base de datos.");
+                alert("Hubo un problema de conexión al registrar los datos.");
                 btn.innerText = "Confirmar y Registrar";
                 btn.disabled = false;
             });
