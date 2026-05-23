@@ -248,8 +248,8 @@
         
         <div class="galeria-contenedor">
             <div class="imagen-principal-borde">
-                <!-- Enlace ajustado al formato .jpeg de tus propiedades -->
-                <img id="vistaPrincipal" src="ss.jpeg" alt="Honda Bros 125cc" class="imagen-principal">
+                <!-- Única imagen configurada estrictamente a ss.jpeg -->
+                <img src="ss.jpeg" alt="Honda Bros 125cc" class="imagen-principal">
             </div>
         </div>
 
@@ -294,13 +294,11 @@
         </div>
 
         <div class="bloque-contacto">
-            <!-- REEMPLAZA EL TELÉFONO DE ABAJO (Ej: 5491123456789) -->
             <a href="https://wa.me" class="cta-contacto" target="_blank"></a>
         </div>
     </div>
 
     <script>
-        // CONFIGURACIÓN DE PROGRESO: Ajusta este valor para mover la barra del sitio
         const porcentajeVendido = 45; 
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -315,3 +313,8 @@
                     cartel.classList.add('meta-alcanzada');
                     cartel.innerHTML = "🎉 ¡Meta alcanzada! El sorteo se realizará este próximo fin de semana. ¡Mantente atento!";
                 }
+            }, 300);
+        });
+    </script>
+</body>
+</html>
