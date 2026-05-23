@@ -330,13 +330,14 @@
                 let num = parseFloat(valorLimpio) || 0;
                 
                 // Si en la celda A1 pusiste 0.55 en lugar de 55, lo convierte solo
-                if (num > 0 && num <= 1) { 
-                    num = num * 100; 
-                } 
-                
-                let porcentaje = Math.round(num);
-                if (porcentaje > 100) porcentaje = 100; 
-                if (porcentaje < 0) porous = 0; 
+                 if (num > 0 && num <= 1) {
+            num = num * 100;
+        }
+
+        let porcentaje = Math.round(num);
+        if (porcentaje > 100) porcentaje = 100;
+        if (porcentaje < 0) porcentaje = 0;
+
                 
                 const barra = document.getElementById("miBarra"); 
                 if (barra) {
