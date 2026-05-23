@@ -301,22 +301,23 @@
         </div>
 
         <div class="bloque-contacto">
+            <!-- Coloca tu número de WhatsApp real con código de país (ej: para Argentina empieza con 549) -->
             <a href="https://wa.me" target="_blank" class="cta-contacto"></a>
         </div>
     </div>
 
     <script> 
-        // Tu nuevo enlace CSV de Google Sheets colocado correctamente
-        const urlCsv = "https://google.com"; 
+        // ID único de tu documento y consulta directa en vivo (Esquiva bloqueos de CORS y caché)
+        const sheetID = '1vTex-rIFtY6vl9905UMGS5rWx1KrbBA0U_WOviZkZqjdti8dzBsFlIg39qj4tePBx4UGSz16ENtVuDk';
+        const urlEnVivo = `https://google.com{sheetID}/gviz/tq?tqx=out:csv&sheet=Hoja%201&range=A1`; 
 
         async function cargarProgreso() { 
             try { 
-                const conector = urlCsv.includes("?") ? "&" : "?"; 
-                // Añadimos el truco del tiempo para que no se congele la caché
-                const respuesta = await fetch(urlCsv + conector + "t=" + new Date().getTime()); 
+                // Añadimos el tiempo exacto al final para forzar la actualización en un segundo
+                const respuesta = await fetch(urlEnVivo + "&t=" + new Date().getTime()); 
                 let texto = await respuesta.text(); 
                 
-                console.log("Dato recibido de tu nuevo Sheet:", texto); 
+                console.log("Dato crudo recibido de Google Sheets:", texto); 
                 
                 // Limpiamos comillas, espacios o saltos de línea
                 let valorLimpio = texto.replace(/"/g, "").trim();
@@ -329,15 +330,14 @@
                 
                 let num = parseFloat(valorLimpio) || 0;
                 
-                // Si en la celda A1 pusiste 0.55 en lugar de 55, lo convierte solo
-                 if (num > 0 && num <= 1) {
-            num = num * 100;
-        }
-
-        let porcentaje = Math.round(num);
-        if (porcentaje > 100) porcentaje = 100;
-        if (porcentaje < 0) porcentaje = 0;
-
+                // Si el número viene como fracción (ej: 0.69 debido al formato porcentaje), lo multiplica por 100
+                if (num > 0 && num <= 1) { 
+                    num = num * 100; 
+                } 
+                
+                let porcentaje = Math.round(num);
+                if (porcentaje > 100) porcentaje = 100; 
+                if (porcentaje < 0) porcentaje = 0; 
                 
                 const barra = document.getElementById("miBarra"); 
                 if (barra) {
@@ -349,13 +349,14 @@
             } 
         } 
 
-        // Iniciar carga inmediata al entrar a la web
+        // Iniciar carga inmediata al entrar a la web y refrescar solo cada 15 segundos
         cargarProgreso(); 
+        setInterval(cargarProgreso, 15000); 
 
         // LÓGICA DE LOS COMBOS Y FORMULARIO DE REGISTRO
         let comboActual = "";
-        // Reemplaza esto con tu código real /exec si quieres usar el formulario en el futuro
-        const scriptURL = 'REEMPLAZA_CON_TU_URL_DE_APPS_SCRIPT';
+        // Reemplaza esto con tu código real /exec de Google Apps Script si quieres guardar datos en el Excel
+        const scriptURL = 'REEMPLAZA_CON_TU_URL_DE_APPS_SCRIPT_TERMINADA_EN_EXEC';
         const miTelefonoWhatsApp = '5491112345678'; // Tu número de WhatsApp completo
 
         function abrirRegistro(nombre) {
@@ -399,11 +400,11 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert("Hubo un problema al registrar los datos.");
+                alert("Hubo un problema de conexión al registrar los datos.");
                 btn.innerText = "Confirmar y Registrar";
                 btn.disabled = false;
             });
         }
     </script>
-
-
+</body>
+</html>
