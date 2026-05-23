@@ -313,7 +313,8 @@
             const barra = document.getElementById('miBarra');
             if (barra) {
                 // Usamos una API intermedia gratuita para saltar el bloqueo de seguridad (CORS)
-                fetch('https://allorigins.win' + encodeURIComponent(csvURL))
+                           fetch('https://allorigins.win' + encodeURIComponent(csvURL + '&cacheBust=' + new Date().getTime()))
+
                     .then(response => {
                         if (response.ok) return response.json();
                         throw new Error('Error en la red.');
