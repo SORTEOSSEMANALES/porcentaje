@@ -61,7 +61,6 @@
             letter-spacing: 1px;
         }
 
-        /* --- CONTENEDOR DE LA IMAGEN AJUSTADO --- */
         .galeria-contenedor {
             margin: 15px 0 20px 0;
             width: 100%;
@@ -247,10 +246,10 @@
         <h2>HONDA BROS 125cc</h2>
         <div class="slogan-sorteo">¡Acelera tu suerte y llévate una leyenda sobre dos ruedas!</div>
         
-        <!-- SECCIÓN DE LA FOTO ENLAZADA A ss.jpg -->
         <div class="galeria-contenedor">
             <div class="imagen-principal-borde">
-                <img id="vistaPrincipal" src="ss.jpg" alt="Honda Bros 125cc" class="imagen-principal">
+                <!-- Enlace ajustado al formato .jpeg de tus propiedades -->
+                <img id="vistaPrincipal" src="ss.jpeg" alt="Honda Bros 125cc" class="imagen-principal">
             </div>
         </div>
 
@@ -295,16 +294,15 @@
         </div>
 
         <div class="bloque-contacto">
-            <!-- Recuerda cambiar el número '5491123456789' de abajo por tu teléfono real -->
+            <!-- REEMPLAZA EL TELÉFONO DE ABAJO (Ej: 5491123456789) -->
             <a href="https://wa.me" class="cta-contacto" target="_blank"></a>
         </div>
     </div>
 
     <script>
-        // CONFIGURACIÓN DE PROGRESO: Cambia este número para que la barra se mueva sola al porcentaje deseado
+        // CONFIGURACIÓN DE PROGRESO: Ajusta este valor para mover la barra del sitio
         const porcentajeVendido = 45; 
 
-        // CONTROL DE ANIMACIONES AL CARGAR
         window.addEventListener('DOMContentLoaded', () => {
             const barra = document.getElementById('miBarra');
             const cartel = document.getElementById('cartelSorteo');
@@ -315,3 +313,5 @@
                 
                 if (porcentajeVendido >= 90) {
                     cartel.classList.add('meta-alcanzada');
+                    cartel.innerHTML = "🎉 ¡Meta alcanzada! El sorteo se realizará este próximo fin de semana. ¡Mantente atento!";
+                }
