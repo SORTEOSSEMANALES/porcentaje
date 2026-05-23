@@ -292,7 +292,7 @@
             </div>
         </div>
 
-        <!-- Formulario integrado que aparece al elegir un combo -->
+               <!-- Formulario integrado que aparece al elegir un combo -->
         <div id="formulario-registro" style="margin-top: 20px; display: none; text-align: left; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
             <h4 style="margin: 0 0 10px 0; color: #ffaa00; font-size: 0.9rem;">Registrar Chance: <span id="combo-seleccionado" style="color: #fff;"></span></h4>
             <input type="text" id="input-nombre" placeholder="Nombre y Apellido" style="width:100%; padding: 8px; margin-bottom: 8px; border-radius: 5px; border: 1px solid #444; background: #222; color: #fff; box-sizing: border-box;">
@@ -301,37 +301,32 @@
         </div>
 
         <div class="bloque-contacto">
-            <!-- Coloca tu número de WhatsApp real con código de país (ej: para Argentina empieza con 549) -->
-            <a href="https://wa.me" target="_blank" class="cta-contacto"></a>
+            <a href="#" id="btn-whatsapp-directo" target="_blank" class="cta-contacto"></a>
         </div>
     </div>
 
     <script> 
-        // ID único de tu documento y consulta directa en vivo (Esquiva bloqueos de CORS y caché)
-               const sheetID = '1vTex-rIFtY6vl9905UMGS5rWx1KrbBA0U_WOviZkZqjdti8dzBsFlIg39qj4tePBx4UGSz16ENtVuDk';
-        const urlEnVivo = `https://google.com{sheetID}/gviz/tq?tqx=out:csv&gid=1263482699&range=A1`;
+        // ID único de tu documento y consulta directa con gid (Evita CORS y caché congelada)
+        const sheetID = '1vTex-rIFtY6vl9905UMGS5rWx1KrbBA0U_WOviZkZqjdti8dzBsFlIg39qj4tePBx4UGSz16ENtVuDk';
+        const urlEnVivo = `https://google.com{sheetID}/gviz/tq?tqx=out:csv&gid=1263482699&range=A1`; 
 
+        // CONFIGURA AQUÍ TU NÚMERO DE WHATSAPP (Con código de país, ej para Argentina empieza con 549)
+        const miTelefonoWhatsApp = '5491112345678'; 
 
         async function cargarProgreso() { 
             try { 
-                // Añadimos el tiempo exacto al final para forzar la actualización en un segundo
                 const respuesta = await fetch(urlEnVivo + "&t=" + new Date().getTime()); 
                 let texto = await respuesta.text(); 
                 
-                console.log("Dato crudo recibido de Google Sheets:", texto); 
-                
-                // Limpiamos comillas, espacios o saltos de línea
                 let valorLimpio = texto.replace(/"/g, "").trim();
-                
                 if (valorLimpio.includes("%")) {
                     valorLimpio = valorLimpio.replace("%", "").trim();
                 }
-                
                 valorLimpio = valorLimpio.replace(",", ".");
                 
                 let num = parseFloat(valorLimpio) || 0;
                 
-                // Si el número viene como fracción (ej: 0.69 debido al formato porcentaje), lo multiplica por 100
+                // Si el porcentaje viene como decimal (ej: 0.69), lo pasa a entero (69)
                 if (num > 0 && num <= 1) { 
                     num = num * 100; 
                 } 
@@ -350,15 +345,16 @@
             } 
         } 
 
-        // Iniciar carga inmediata al entrar a la web y refrescar solo cada 15 segundos
+        // Carga inmediata de la barra al entrar a la web
         cargarProgreso(); 
-        setInterval(cargarProgreso, 15000); 
+
+        // Actualiza el botón grande de WhatsApp inferior con tu número
+        document.getElementById('btn-whatsapp-directo').href = `https://wa.me{miTelefonoWhatsApp}?text=Hola!%20Quiero%20comprar%20números%20para%20el%20sorteo%20de%20la%20Honda%20Bros.`;
 
         // LÓGICA DE LOS COMBOS Y FORMULARIO DE REGISTRO
         let comboActual = "";
-        // Reemplaza esto con tu código real /exec de Google Apps Script si quieres guardar datos en el Excel
+        // Reemplaza esto con tu código real /exec de Google Apps Script cuando quieras activar la base de datos
         const scriptURL = 'REEMPLAZA_CON_TU_URL_DE_APPS_SCRIPT_TERMINADA_EN_EXEC';
-        const miTelefonoWhatsApp = '5491112345678'; // Tu número de WhatsApp completo
 
         function abrirRegistro(nombre) {
             comboActual = nombre;
@@ -409,3 +405,4 @@
     </script>
 </body>
 </html>
+
