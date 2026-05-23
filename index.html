@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SORTEO HONDA BROS 125cc</title>
+    <!-- Corrección del enlace a Google Fonts para cargar Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com" rel="stylesheet">
+    
     <style>
         body {
             font-family: 'Montserrat', Arial, sans-serif;
@@ -191,19 +195,6 @@
             margin-right: 2px;
         }
 
-        .etiqueta-popular {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: #ffaa00;
-            color: #121214;
-            font-size: 0.6rem;
-            font-weight: 900;
-            padding: 1px 8px;
-            border-bottom-left-radius: 6px;
-            text-transform: uppercase;
-        }
-
         .bloque-contacto {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 15px;
@@ -248,7 +239,7 @@
         
         <div class="galeria-contenedor">
             <div class="imagen-principal-borde">
-                <!-- Única imagen configurada estrictamente a ss.jpeg -->
+                <!-- Mantén ss.jpeg si realizaste el cambio de nombre sugerido o modifícalo aquí -->
                 <img src="ss.jpeg" alt="Honda Bros 125cc" class="imagen-principal">
             </div>
         </div>
@@ -281,40 +272,25 @@
                     </div>
                     <div class="combo-precio">3.000</div>
                 </div>
-
-                <div class="item-combo destacado">
-                    <div class="etiqueta-popular">Mejor Valor</div>
-                    <div class="combo-info">
-                        <span class="combo-nombre">Combo 3</span>
-                        <span class="combo-chances">Obtienes <strong>20 chances</strong></span>
-                    </div>
-                    <div class="combo-precio">5.000</div>
-                </div>
             </div>
         </div>
 
         <div class="bloque-contacto">
-            <a href="https://wa.me" class="cta-contacto" target="_blank"></a>
+            <!-- Recuerda colocar el enlace real de tu WhatsApp en el href -->
+            <a href="https://wa.me" target="_blank" class="cta-contacto"></a>
         </div>
     </div>
 
+    <!-- Script para animar la barra automáticamente al cargar -->
     <script>
-        const porcentajeVendido = 20; 
-
         window.addEventListener('DOMContentLoaded', () => {
             const barra = document.getElementById('miBarra');
-            const cartel = document.getElementById('cartelSorteo');
-            
             setTimeout(() => {
-                barra.style.width = porcentajeVendido + '%';
-                barra.textContent = porcentajeVendido + '%';
-                
-                if (porcentajeVendido >= 90) {
-                    cartel.classList.add('meta-alcanzada');
-                    cartel.innerHTML = "🎉 ¡Meta alcanzada! El sorteo se realizará este próximo fin de semana. ¡Mantente atento!";
-                }
+                barra.style.width = '45%';
+                barra.innerText = '45%';
             }, 300);
         });
     </script>
+
 </body>
 </html>
