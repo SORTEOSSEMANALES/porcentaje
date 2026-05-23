@@ -311,7 +311,7 @@
         // Consulta directa en formato JSON (Sáltase el bloqueo de CORS y la caché congelada automáticamente)
         const urlEnVivo = `https://google.com{sheetID}/gviz/tq?tqx=out:json&gid=1263482699&range=A1`; 
 
-        function cargarProgreso() { 
+                function cargarProgreso() { 
             const barra = document.getElementById("miBarra");
             if (!barra) return;
 
@@ -325,10 +325,10 @@
                     const jsonString = texto.substring(inicio, fin + 1);
                     const json = JSON.parse(jsonString);
                     
-                    // Extraemos el valor real dentro de la celda A1 de la Hoja 2
+                    // CORRECCIÓN DEFINITIVA: Accedemos correctamente a la primera fila y primera celda [0]
                     let valorCelda = json.table.rows[0].c[0].v;
                     
-                    // Si el valor viene como formato porcentaje (ej: 0.69), lo pasamos a entero (69)
+                    // Si el valor viene como formato porcentaje de Excel (ej: 0.69), lo pasamos a entero (69)
                     if (valorCelda > 0 && valorCelda <= 1) {
                         valorCelda = valorCelda * 100;
                     }
@@ -343,11 +343,12 @@
                 })
                 .catch(error => {
                     console.error("Error al conectar con Google Sheets:", error);
-                    // Valor de emergencia por si Google no responde a tiempo
+                    // Resguardo de emergencia por si Google no responde a tiempo
                     barra.style.width = '69%'; 
                     barra.textContent = '69%'; 
                 });
         } 
+
 
         // Iniciar carga inmediata automática al entrar a la web
         cargarProgreso(); 
