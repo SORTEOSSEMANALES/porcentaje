@@ -53,7 +53,7 @@
             background-color: #222; 
             border: 2px solid #333;
             border-radius: 25px; 
-            margin: 0 auto 40px auto; 
+            margin: 0 auto 15px auto; 
             overflow: hidden; 
             max-width: 450px; 
             box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
@@ -69,6 +69,20 @@
             font-size: 1.1rem;
             transition: width 1.5s ease-in-out; 
             text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+        }
+
+        /* Cartel informativo del 90% */
+        .aviso-meta {
+            background: rgba(255, 204, 0, 0.1);
+            border: 1px dashed #FFCC00;
+            color: #FFCC00;
+            padding: 12px;
+            border-radius: 10px;
+            max-width: 425px;
+            margin: 0 auto 35px auto;
+            font-size: 0.95rem;
+            font-weight: bold;
+            line-height: 1.4;
         }
 
         /* Diseño de los recuadros de Combos */
@@ -124,6 +138,60 @@
             text-transform: uppercase;
         }
 
+        /* Módulo de Pago y Alias */
+        .pago-container {
+            background: #1c1c1e;
+            border: 1px solid #28A745;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 450px;
+            margin: 0 auto 30px auto;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.4);
+            box-sizing: border-box;
+        }
+        .pago-container h3 {
+            margin-top: 0;
+            color: #4CD964;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        .alias-box {
+            background: #2c2c2e;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 12px;
+            border: 1px solid #444;
+            letter-spacing: 1px;
+        }
+        .btn-copiar {
+            width: 100%;
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+        .btn-copiar:active { background: #0056b3; }
+        .aviso-comprobante {
+            background: rgba(255, 59, 48, 0.15);
+            border-left: 4px solid #FF3B30;
+            color: #ff6b6b;
+            padding: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: left;
+            margin: 0;
+            border-radius: 0 6px 6px 0;
+        }
+
         /* Formulario de Registro */
         .form-container {
             background: #1c1c1e;
@@ -134,6 +202,7 @@
             margin: 0 auto 30px auto;
             box-shadow: 0px 5px 15px rgba(0,0,0,0.4);
             text-align: left;
+            box-sizing: border-box;
         }
         .form-container h3 {
             margin-top: 0;
@@ -187,11 +256,48 @@
             background-color: #1ebd59;
             transform: scale(0.98);
         }
+
+        /* Contenedor Incentivo de Compartir */
+        .compartir-container {
+            background: linear-gradient(135deg, #1e1e24 0%, #111115 100%);
+            border: 2px solid #007AFF;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 450px;
+            margin: 40px auto 20px auto;
+            box-shadow: 0px 5px 15px rgba(0,122,255,0.2);
+            box-sizing: border-box;
+        }
+        .compartir-container h4 {
+            margin-top: 0;
+            color: #007AFF;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .compartir-p {
+            font-size: 0.95rem;
+            color: #ddd;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .btn-compartir {
+            width: 100%;
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .btn-compartir:active { background: #0056b3; }
     </style>
 </head>
 <body>
 
-    <!-- Encabezado principal corregido -->
+    <!-- Encabezado principal -->
     <h1>Sorteo Honda Bros 125cc</h1>
     <p class="eslogan">¡Tu próxima aventura está a un solo número de distancia! 🏍️💨</p>
 
@@ -202,6 +308,11 @@
     <p class="progress-title">Progreso de números vendidos:</p>
     <div class="progress-container">
         <div id="miBarra" class="progress-bar">0%</div>
+    </div>
+
+    <!-- Cartel Dinámico de Meta -->
+    <div class="aviso-meta">
+        📢 ¡ATENCIÓN! Una vez que lleguemos al 90% de las ventas, se dará a conocer oficialmente la fecha definitiva del sorteo. ¡Falta muy poco!
     </div>
 
     <!-- Sección de Combos -->
@@ -218,81 +329,3 @@
         <!-- Combo 2 -->
         <div class="combo-box">
             <div class="combo-title">Combo Avanzado</div>
-            <div class="combo-chances">10 Chances</div>
-            <div class="combo-value">$3.000</div>
-        </div>
-
-        <!-- Combo 3 -->
-        <div class="combo-box combo-popular">
-            <div class="badge">¡Mejor Valor!</div>
-            <div class="combo-title">Combo Imbatible</div>
-            <div class="combo-chances">20 Chances</div>
-            <div class="combo-value">$5.000</div>
-        </div>
-    </div>
-
-    <!-- Formulario para rellenar datos y reservar -->
-    <div class="form-container">
-        <h3>Reserva tus números aquí</h3>
-        
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" placeholder="Ej. Juan" required>
-
-        <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" placeholder="Ej. Pérez" required>
-
-        <label for="combo">Elige tu Combo:</label>
-        <select id="combo">
-            <option value="Combo 1 (1 Chance por $500)">Combo 1 - 1 Chance ($500)</option>
-            <option value="Combo 2 (10 Chances por $3000)">Combo 2 - 10 Chances ($3.000)</option>
-            <option value="Combo 3 (20 Chances por $5000)">Combo 3 - 20 Chances ($5.000)</option>
-        </select>
-
-        <!-- Botón que activa la función de WhatsApp -->
-        <button class="btn-whatsapp" onclick="enviarWhatsApp()">
-            🟢 Reservar por WhatsApp
-        </button>
-    </div>
-
-    <script>
-        // CAMBIA ESTE NÚMERO A MANO CUANDO VENDAS MÁS NÚMEROS
-        const porcentajeActual = 73; 
-
-        // Código de la barra de progreso
-        window.onload = function() {
-            const barra = document.getElementById("miBarra");
-            barra.style.width = porcentajeActual + "%";
-            barra.textContent = porcentajeActual + "% Vendido";
-        };
-
-        // Función para enviar los datos del formulario por WhatsApp
-        function enviarWhatsApp() {
-            // 👇 REEMPLAZA ESTE NÚMERO POR EL TUYO (Debe incluir código de país, sin el + ni espacios)
-            // Ejemplo: 5493764000000 para Argentina
-            const tuTelefono = "5493764000000"; 
-
-            const nombre = document.getElementById('nombre').value.trim();
-            const apellido = document.getElementById('apellido').value.trim();
-            const comboSeleccionado = document.getElementById('combo').value;
-
-            if (nombre === "" || apellido === "") {
-                alert("Por favor, completa tu nombre y apellido antes de enviar.");
-                return;
-            }
-
-            // Construcción del mensaje de texto
-            const mensaje = `Hola! Quiero participar del sorteo de la Honda Bros. Mis datos:\n\n` +
-                            `• Nombre: ${nombre}\n` +
-                            `• Apellido: ${apellido}\n` +
-                            `• Opción: ${comboSeleccionado}\n\n` +
-                            `Pasame los datos de pago para confirmar mis números.`;
-
-            // Encriptar mensaje para URL
-            const mensajeUrl = encodeURIComponent(mensaje);
-            
-            // Abrir enlace de WhatsApp
-            window.open(`https://wa.me{tuTelefono}?text=${mensajeUrl}`, '_blank');
-        }
-    </script>
-</body>
-</html>
