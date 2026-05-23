@@ -305,44 +305,57 @@
         </div>
     </div>
 
-     <script>
-        // Dirección ultra-rápida de tu Google Sheet (Evita por completo el CORS y la caché congelada)
-        const sheetID = '1vTex-rIFtY6vl9905UMGS5rWx1KrbBA0U_WOviZkZqjdti8dzBsFlIg39qj4tePBx4UGSz16ENtVuDk';
-        const urlEnVivo = `https://google.com{sheetID}/gviz/tq?tqx=out:csv&sheet=Hoja%201&range=A1`;
+    <script> 
+        // Tu nuevo enlace CSV de Google Sheets colocado correctamente
+        const urlCsv = "https://google.com"; 
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const barra = document.getElementById('miBarra');
-            if (barra) {
-                fetch(urlEnVivo)
-                    .then(response => response.text())
-                    .then(data => {
-                        // Limpiamos las comillas y símbolos de porcentaje que devuelve Google
-                        let porcentajeLimpio = data.replace(/"/g, '').replace('%', '').trim();
-                        
-                        if (!isNaN(porcentajeLimpio) && porcentajeLimpio !== "") {
-                            let valor = porcentajeLimpio + '%';
-                            barra.style.width = valor;
-                            barra.innerText = valor;
-                        } else {
-                            // Si falla temporalmente, muestra el 55% actual de resguardo
-                            barra.style.width = '55%';
-                            barra.innerText = '55%';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        barra.style.width = '55%';
-                        barra.innerText = '55%';
-                    });
-            }
-        });
+        async function cargarProgreso() { 
+            try { 
+                const conector = urlCsv.includes("?") ? "&" : "?"; 
+                // Añadimos el truco del tiempo para que no se congele la caché
+                const respuesta = await fetch(urlCsv + conector + "t=" + new Date().getTime()); 
+                let texto = await respuesta.text(); 
+                
+                console.log("Dato recibido de tu nuevo Sheet:", texto); 
+                
+                // Limpiamos comillas, espacios o saltos de línea
+                let valorLimpio = texto.replace(/"/g, "").trim();
+                
+                if (valorLimpio.includes("%")) {
+                    valorLimpio = valorLimpio.replace("%", "").trim();
+                }
+                
+                valorLimpio = valorLimpio.replace(",", ".");
+                
+                let num = parseFloat(valorLimpio) || 0;
+                
+                // Si en la celda A1 pusiste 0.55 en lugar de 55, lo convierte solo
+                if (num > 0 && num <= 1) { 
+                    num = num * 100; 
+                } 
+                
+                let porcentaje = Math.round(num);
+                if (porcentaje > 100) porcentaje = 100; 
+                if (porcentaje < 0) porous = 0; 
+                
+                const barra = document.getElementById("miBarra"); 
+                if (barra) {
+                    barra.style.width = porcentaje + "%"; 
+                    barra.textContent = porcentaje + "%"; 
+                }
+            } catch (e) { 
+                console.error("Error al procesar el porcentaje:", e); 
+            } 
+        } 
 
-        // Configuración de la integración para registrar clientes
+        // Iniciar carga inmediata al entrar a la web
+        cargarProgreso(); 
+
+        // LÓGICA DE LOS COMBOS Y FORMULARIO DE REGISTRO
         let comboActual = "";
-        // REEMPLAZA las letras de abajo por la URL larga terminada en /exec de tu Apps Script
-        const scriptURL = 'REEMPLAZA_CON_TU_URL_DE_APPS_SCRIPT_TERMINADA_EN_EXEC';
-        // CONFIGURA AQUÍ TU NÚMERO DE WHATSAPP (Con código de país, sin espacios ni el signo +)
-        const miTelefonoWhatsApp = '5491112345678'; 
+        // Reemplaza esto con tu código real /exec si quieres usar el formulario en el futuro
+        const scriptURL = 'REEMPLAZA_CON_TU_URL_DE_APPS_SCRIPT';
+        const miTelefonoWhatsApp = '5491112345678'; // Tu número de WhatsApp completo
 
         function abrirRegistro(nombre) {
             comboActual = nombre;
@@ -385,13 +398,11 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert("Hubo un problema de conexión al registrar los datos.");
+                alert("Hubo un problema al registrar los datos.");
                 btn.innerText = "Confirmar y Registrar";
                 btn.disabled = false;
             });
         }
     </script>
-</body>
-</html>
 
 
