@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gran Sorteo Honda Bros 125cc</title>
+    <title>Sorteo Honda Bros 125cc</title>
     <style>
         /* Estilos generales oscuros y modernos */
         body { 
@@ -17,14 +17,10 @@
         h1 { 
             color: #FF3B30; 
             font-size: 2.2rem; 
+            margin-top: 10px;
             margin-bottom: 5px; 
             text-transform: uppercase;
             text-shadow: 0px 0px 10px rgba(255, 59, 48, 0.5);
-        }
-        h2 {
-            font-size: 1.6rem;
-            margin-top: 0;
-            color: #ffffff;
         }
         .eslogan { 
             font-size: 1.1rem; 
@@ -81,7 +77,7 @@
             flex-direction: column;
             gap: 20px;
             max-width: 450px;
-            margin: 0 auto;
+            margin: 0 auto 40px auto;
         }
         .combo-box {
             background: #1c1c1e;
@@ -91,10 +87,6 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
-            transition: transform 0.2s;
-        }
-        .combo-box:active {
-            transform: scale(0.98);
         }
         .combo-title {
             font-size: 1.4rem;
@@ -115,8 +107,6 @@
             font-weight: bold;
             margin: 5px 0 0 0;
         }
-
-        /* Destacar el combo más popular (Combo 3) */
         .combo-popular {
             border-color: #FF3B30;
             background: linear-gradient(180deg, #1c1c1e 0%, #2c1212 100%);
@@ -133,16 +123,79 @@
             border-bottom-left-radius: 10px;
             text-transform: uppercase;
         }
+
+        /* Formulario de Registro */
+        .form-container {
+            background: #1c1c1e;
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 450px;
+            margin: 0 auto 30px auto;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.4);
+            text-align: left;
+        }
+        .form-container h3 {
+            margin-top: 0;
+            color: #FFCC00;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background: #2c2c2e;
+            color: white;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #FF3B30;
+        }
+
+        /* Botón de WhatsApp */
+        .btn-whatsapp {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(37, 211, 102, 0.3);
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+        .btn-whatsapp:active {
+            background-color: #1ebd59;
+            transform: scale(0.98);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Encabezado llamativo -->
-    <h1>Sorteo de Honda</h1>
-    <h2>La Honda Bros 125 cc</h2>
+    <!-- Encabezado principal corregido -->
+    <h1>Sorteo Honda Bros 125cc</h1>
     <p class="eslogan">¡Tu próxima aventura está a un solo número de distancia! 🏍️💨</p>
 
-    <!-- Imagen de la moto conectada localmente -->
+    <!-- Imagen de la moto -->
     <img src="ss.jpg" alt="Honda Bros 125cc" class="moto-img">
 
     <!-- Barra de progreso visual -->
@@ -152,10 +205,9 @@
     </div>
 
     <!-- Sección de Combos -->
-    <h3 style="color: #bbb; text-transform: uppercase; font-size: 1.1rem; margin-bottom: 15px;">Selecciona tu Combo Ganador</h3>
+    <h3 style="color: #bbb; text-transform: uppercase; font-size: 1.1rem; margin-bottom: 15px;">Combos Disponibles</h3>
     
     <div class="combos-container">
-        
         <!-- Combo 1 -->
         <div class="combo-box">
             <div class="combo-title">Combo Inicial</div>
@@ -170,26 +222,77 @@
             <div class="combo-value">$3.000</div>
         </div>
 
-        <!-- Combo 3 (Destacado) -->
+        <!-- Combo 3 -->
         <div class="combo-box combo-popular">
             <div class="badge">¡Mejor Valor!</div>
             <div class="combo-title">Combo Imbatible</div>
             <div class="combo-chances">20 Chances</div>
             <div class="combo-value">$5.000</div>
         </div>
+    </div>
 
+    <!-- Formulario para rellenar datos y reservar -->
+    <div class="form-container">
+        <h3>Reserva tus números aquí</h3>
+        
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Ej. Juan" required>
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" placeholder="Ej. Pérez" required>
+
+        <label for="combo">Elige tu Combo:</label>
+        <select id="combo">
+            <option value="Combo 1 (1 Chance por $500)">Combo 1 - 1 Chance ($500)</option>
+            <option value="Combo 2 (10 Chances por $3000)">Combo 2 - 10 Chances ($3.000)</option>
+            <option value="Combo 3 (20 Chances por $5000)">Combo 3 - 20 Chances ($5.000)</option>
+        </select>
+
+        <!-- Botón que activa la función de WhatsApp -->
+        <button class="btn-whatsapp" onclick="enviarWhatsApp()">
+            🟢 Reservar por WhatsApp
+        </button>
     </div>
 
     <script>
         // CAMBIA ESTE NÚMERO A MANO CUANDO VENDAS MÁS NÚMEROS
         const porcentajeActual = 73; 
 
-        // Código automático que dibuja la barra al cargar la web
+        // Código de la barra de progreso
         window.onload = function() {
             const barra = document.getElementById("miBarra");
             barra.style.width = porcentajeActual + "%";
             barra.textContent = porcentajeActual + "% Vendido";
         };
+
+        // Función para enviar los datos del formulario por WhatsApp
+        function enviarWhatsApp() {
+            // 👇 REEMPLAZA ESTE NÚMERO POR EL TUYO (Debe incluir código de país, sin el + ni espacios)
+            // Ejemplo: 5493764000000 para Argentina
+            const tuTelefono = "5493764000000"; 
+
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+            const comboSeleccionado = document.getElementById('combo').value;
+
+            if (nombre === "" || apellido === "") {
+                alert("Por favor, completa tu nombre y apellido antes de enviar.");
+                return;
+            }
+
+            // Construcción del mensaje de texto
+            const mensaje = `Hola! Quiero participar del sorteo de la Honda Bros. Mis datos:\n\n` +
+                            `• Nombre: ${nombre}\n` +
+                            `• Apellido: ${apellido}\n` +
+                            `• Opción: ${comboSeleccionado}\n\n` +
+                            `Pasame los datos de pago para confirmar mis números.`;
+
+            // Encriptar mensaje para URL
+            const mensajeUrl = encodeURIComponent(mensaje);
+            
+            // Abrir enlace de WhatsApp
+            window.open(`https://wa.me{tuTelefono}?text=${mensajeUrl}`, '_blank');
+        }
     </script>
 </body>
 </html>
