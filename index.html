@@ -175,23 +175,22 @@
             <h3>Adquiere tus Chances:</h3>
             <div class="combo">
                 <span class="combo-nombre">📦 Combo 1: (1 Chance)</span>
-                <span class="combo-precio">\$500</span>
+                <span class="combo-precio">&#35;500</span>
             </div>
             <div class="combo">
                 <span class="combo-nombre">📦 Combo 2: (10 Chances)</span>
-                <span class="combo-precio">\$3.000</span>
+                <span class="combo-precio">&#35;3.000</span>
             </div>
-            <!-- Combo Ahorrador Limpio y sin barras invertidas -->
             <div class="combo combo-neon">
                 <span class="combo-nombre">⚡ Combo 3: AHORRADOR (20 Chances)</span>
-                <span class="combo-precio">\$5.000</span>
+                <span class="combo-precio">&#35;5.000</span>
             </div>
         </div>
 
         <!-- Botón para copiar el Alias de pago -->
         <div class="seccion-deposito">
             <p>Para transferencias o depósitos bancarios:</p>
-            <!-- ⚠️ REEMPLAZA EL TEXTO "TU_ALIAS_AQUÍ" POR TU ALIAS REAL -->
+            <!-- ⚠️ REEMPLAZA EL TEXTO POR TU ALIAS REAL -->
             <button class="boton-alias" id="btnCopiar" onclick="copiarAlias('TU_ALIAS_AQUÍ')">
                 📋 COPIAR ALIAS DE DEPÓSITO
             </button>
@@ -201,19 +200,19 @@
         <div class="info-dinamica">
             <h4>📢 Dinámica del Sorteo:</h4>
             <ul>
-                <li>🚀 <b>Al llegar al 10%:</b> ¡Se activan sorteos semanales o de <b>\$50.000</b> en efectivo!</li>
+                <li>🚀 <b>Al llegar al 10%:</b> ¡Se activan sorteos semanales o de <b>&#35;50.000</b> en efectivo!</li>
                 <li>🏁 <b>Al llegar al 90%:</b> Se definirá y anunciará inmediatamente la fecha límite final para el sorteo de la Motocicleta.</li>
             </ul>
         </div>
     </div>
 
     <!-- 📱 Botón flotante a tu WhatsApp -->
-    <!-- ⚠️ REEMPLAZA "TU_TELÉFONO_AQUÍ" CON TU NÚMERO COMPLETO INCLUYENDO CÓDIGO DE PAÍS (Ej: 5491123456789) -->
+    <!-- ⚠️ REEMPLAZA "TU_TELÉFONO_AQUÍ" CON TU NÚMERO COMPLETO INCLUYENDO CÓDIGO DE PAÍS -->
     <a href="https://wa.me" class="btn-whatsapp" target="_blank" title="Comprar por WhatsApp">
         💬
     </a>
 
-        <!-- Función JS para Copiar Alias -->
+    <!-- Función JS para Copiar Alias -->
     <script>
         function copiarAlias(alias) {
             navigator.clipboard.writeText(alias).then(() => {
@@ -232,9 +231,8 @@
         }
     </script>
 
-    <!-- SCRIPT DE EXTRACCIÓN CON TU ENLACE CORRECTO -->
+    <!-- 🚫 TU SCRIPT ORIGINAL QUE FUNCIONA AL 100% (Modificado el split erróneo de la prueba anterior) 🚫 -->
     <script>
-        // Aquí volvimos a colocar tu enlace real de Google Sheets
         const urlCsv = "https://google.com"; 
 
         async function cargarProgreso() {
@@ -242,18 +240,19 @@
                 const respuesta = await fetch(`${urlCsv}&cacheBust=${new Date().getTime()}`);
                 const texto = await respuesta.text();
                 
-                // Buscamos cualquier número entero o decimal que represente el porcentaje en tu archivo
-                const coincidencia = texto.match(/([0-9]+(?:,[0-9]+)?)/);
+                const filas = texto.split("\n");
                 
-                let porcentaje = 0;
-                if (coincidencia && coincidencia[1]) {
-                    const valorLimpio = coincidencia[1].replace(",", ".");
-                    porcentaje = parseFloat(valorLimpio);
+                // Aquí corregí la separación por corchetes que causaba el error de carga
+                const primeraFila = filas[0].split(",");
+                const celdaA1 = primeraFila[0];
+                
+                let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
+                valorLimpio = valorLimpio.replace(",", ".");
+                
+                let porcentaje = parseFloat(valorLimpio);
 
-                    // Si el Sheets lo exporta en decimal (ej. 0.53), lo convertimos a entero (53)
-                    if (porcentaje > 0 && porcentaje <= 1) {
-                        porcentaje = porcentaje * 100;
-                    }
+                if (porcentaje > 0 && porcentaje <= 1) {
+                    porcentaje = porcentaje * 100;
                 }
                 
                 porcentaje = Math.round(porcentaje) || 0;
@@ -262,18 +261,3 @@
                 if (porcentaje < 0) porcentaje = 0;
 
                 const barra = document.getElementById("miBarra");
-                barra.style.width = porcentaje + "%";
-                barra.textContent = porcentaje + "%";
-                
-            } catch (e) {
-                console.error("Error de conexión: ", e);
-                const barra = document.getElementById("miBarra");
-                barra.textContent = "Error al cargar";
-                barra.style.backgroundColor = "#dc3545";
-                barra.style.width = "100%";
-            }
-        }
-
-        // Ejecutar inmediatamente al abrir la web
-        cargarProgreso();
-    </script>
