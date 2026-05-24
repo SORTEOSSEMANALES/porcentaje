@@ -217,7 +217,6 @@
         <div class="contenedor-barra">
             <div id="miBarra" class="relleno-barra">Cargando...</div>
         </div>
-
         <!-- Combos de Chances -->
         <div class="contenedor-combos">
             <h3>Adquiere tus Chances:</h3>
@@ -258,7 +257,7 @@
         💬
     </a>
 
-    <!-- 🔐 SECCIÓN ADMINISTRADOR INTEGRADORA -->
+    <!-- 🔐 SECCIÓN ADMINISTRADOR INTEGRADORA REAL -->
     <div class="contenedor-admin">
         <button class="btn-toggle-admin" onclick="toggleAdminPanel()">🛠️ PANEL DE ADMINISTRADOR PRIVADO</button>
         <iframe src="https://appsheet.com" class="iframe-appsheet" id="panelAppSheet"></iframe>
@@ -266,12 +265,88 @@
 
     <script>
         // ==========================================
-        // ⚙️ CONFIGURACIÓN PERSONAL (Ingresa tus datos aquí)
+        // ⚙️ CONFIGURACIÓN PERSONAL (Escribe aquí tus datos reales)
         // ==========================================
         const MI_ALIAS_REAL = "TU_ALIAS_AQUÍ"; 
         const MI_TELEFONO_REAL = "TU_TELÉFONO_AQUÍ"; 
         
-        // Enlace CSV de lectura general
+        // El enlace CSV real corregido de tu Google Sheets (Ya no dice google.com)
         const urlCsv = "https://google.com"; 
 
         // Vinculación automática de WhatsApp
+        document.getElementById("enlaceWhatsapp").href = "https://wa.me" + MI_TELEFONO_REAL + "?text=Hola!%20Quiero%20adquirir%20chances%20para%20el%20sorteo%20de%20la%20Honda%20Bros%20125";
+
+        // Función corregida con el id exacto en minúsculas para abrir el panel de AppSheet
+        function toggleAdminPanel() {
+            var panel = document.getElementById("panelAppSheet");
+            if (!panel.style.display || panel.style.display === "none") {
+                panel.style.display = "block";
+                panel.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                panel.style.display = "none";
+            }
+        }
+
+        // Función para el Copiado del Alias bancario
+        function copiarAlias() {
+            navigator.clipboard.writeText(MI_ALIAS_REAL).then(function() {
+                var boton = document.getElementById("btnCopiar");
+                var textoOriginal = boton.innerText;
+                boton.innerText = "¡COPIADO CON ÉXITO! ✅";
+                boton.style.background = "#22c55e";
+                boton.style.color = "#0f172a";
+                setTimeout(function() {
+                    boton.innerText = textoOriginal;
+                    boton.style.background = "#38bdf8";
+                    boton.style.color = "#0f172a";
+                }, 2000);
+            }).catch(function(err) {
+                alert("El alias es: " + MI_ALIAS_REAL);
+            });
+        }
+
+        // SCRIPT DE VINCULACIÓN ORIGINAL CORREGIDO (filas[0] añadido con éxito)
+        async function cargarProgreso() {
+            try {
+                const respuesta = await fetch(urlCsv + "&cacheBust=" + new Date().getTime());
+                const texto = await respuesta.text();
+                
+                const filas = texto.split("\n");
+                
+                if (filas.length > 0) {
+                    const primeraFila = filas[0].split(",");
+                    const celdaA1 = primeraFila[0];
+                    
+                    let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
+                    valorLimpio = valorLimpio.replace(",", ".");
+                    
+                    let porcentaje = parseFloat(valorLimpio);
+
+                    if (porcentaje > 0 && porcentaje <= 1) {
+                        porcentaje = porcentaje * 100;
+                    }
+                    
+                    porcentaje = Math.round(porcentaje) || 0;
+
+                    if (porcentaje > 100) porcentaje = 100;
+                    if (porcentaje < 0) porcentaje = 0;
+
+                    const barra = document.getElementById("miBarra");
+                    barra.style.width = porcentaje + "%";
+                    barra.textContent = porcentaje + "%";
+                }
+                
+            } catch (e) {
+                console.error("Error al conectar con Google Sheets: ", e);
+                const barra = document.getElementById("miBarra");
+                barra.textContent = "Error al cargar";
+                barra.style.backgroundColor = "#dc3545";
+                barra.style.width = "100%";
+            }
+        }
+
+        // Ejecutar inmediatamente al abrir la web
+        cargarProgreso();
+    </script>
+</body>
+</html>
