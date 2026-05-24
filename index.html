@@ -69,15 +69,15 @@
             <strong style="display:block; margin-bottom:12px; font-size:15px;">👤 Tus Datos para la Rifa:</strong>
             <div class="form-group">
                 <label for="nombre">Nombre(s):</label>
-                <input type="text" id="nombre" class="form-input" placeholder="Ej: Juan Carlos" oninput="calcularTotal()">
+                <input type="text" id="nombre" class="form-input" placeholder="Ej: Juan Carlos">
             </div>
             <div class="form-group">
                 <label for="apellido">Apellido(s):</label>
-                <input type="text" id="apellido" class="form-input" placeholder="Ej: Pérez" oninput="calcularTotal()">
+                <input type="text" id="apellido" class="form-input" placeholder="Ej: Pérez">
             </div>
             <div class="form-group">
                 <label for="telefono">Número de Teléfono:</label>
-                <input type="tel" id="telefono" class="form-input" placeholder="Ej: 3765123456" oninput="calcularTotal()">
+                <input type="tel" id="telefono" class="form-input" placeholder="Ej: 3765123456">
             </div>
         </div>
 
@@ -89,7 +89,7 @@
                 </div>
                 <div class="input-group">
                     <label for="qty1">Cantidad:</label>
-                    <input type="number" id="qty1" class="input-qty" min="0" value="0" oninput="calcularTotal()">
+                    <input type="number" id="qty1" class="input-qty" min="0" value="0">
                 </div>
             </div>
             <div class="combo-card">
@@ -99,7 +99,7 @@
                 </div>
                 <div class="input-group">
                     <label for="qty2">Cantidad:</label>
-                    <input type="number" id="qty2" class="input-qty" min="0" value="0" oninput="calcularTotal()">
+                    <input type="number" id="qty2" class="input-qty" min="0" value="0">
                 </div>
             </div>
             <div class="combo-card">
@@ -109,7 +109,7 @@
                 </div>
                 <div class="input-group">
                     <label for="qty3">Cantidad:</label>
-                    <input type="number" id="qty3" class="input-qty" min="0" value="0" oninput="calcularTotal()">
+                    <input type="number" id="qty3" class="input-qty" min="0" value="0">
                 </div>
             </div>
         </div>
@@ -128,7 +128,7 @@
         <div class="payment-box">
             <div class="payment-title">📌 Transferencias / Depósitos</div>
             <span id="alias-texto" class="alias-text">cajeromf</span>
-            <button class="btn-copy" onclick="copiarAlias()" id="btn-copiador">Copiar Alias</button>
+            <button class="btn-copy" id="btn-copiador">Copiar Alias</button>
         </div>
 
         <a id="btn-whatsapp" href="#" class="btn-contacto">Completar todos los datos obligatorios</a>
@@ -168,3 +168,5 @@
                 if(q2 > 0) msg += "- " + q2 + " Combo(s) 2 (" + (q2 * 10) + " chances)\n";
                 if(q3 > 0) msg += "- " + q3 + " Combo(s) 3 (" + (q3 * 20) + " chances)\n";
                 
+                msg += "\n*Total a pagar:* ARS " + totalPrecio.toLocaleString("es-AR") + 
+                       "\n*Chances totales:* " + totalChances + 
