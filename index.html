@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gran Sorteo - Honda Bros 125cc</title>
+    <!-- TÍTULO CORREGIDO EN LA PESTAÑA -->
+    <title>SORTEO HONDA BROS 125</title>
     <style>
         :root {
             --primary: #e63946;
@@ -18,8 +19,8 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--light); color: var(--dark); padding: 20px; display: flex; flex-direction: column; align-items: center; }
         .container { max-width: 500px; width: 100%; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
-        h1 { color: var(--primary); margin-bottom: 10px; font-size: 24px; }
-        .subtitle { font-size: 16px; color: var(--accent); margin-bottom: 20px; font-weight: bold; }
+        h1 { color: var(--primary); margin-bottom: 5px; font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+        .subtitle { font-size: 14px; color: #e63946; margin-bottom: 20px; font-weight: bold; background: #ffe3e3; padding: 8px 12px; border-radius: 8px; border: 1px dashed #e63946; line-height: 1.4; }
         .promo-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px solid #ddd; }
         
         .progress-container { background: #e0e0e0; border-radius: 20px; height: 25px; width: 100%; margin: 20px 0; overflow: hidden; position: relative; }
@@ -84,8 +85,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>¡Gran Sorteo Semanal!</h1>
-        <p class="subtitle">Honda Bros 125cc 0km</p>
+        <!-- TÍTULO EN SINGULAR CORREGIDO -->
+        <h1>SORTEO HONDA BROS 125</h1>
+        <p class="subtitle">🔥 ¡Compartí el link con tus amigos!<br>Cuanto más rápido se llene la barra, <b>¡MÁS RÁPIDO SE SORTEA!</b> 🏁</p>
         
         <img src="ss.jpg" alt="Honda Bros 125cc" class="promo-img">
         
@@ -166,7 +168,6 @@
     </div>
 
     <script>
-        // CONFIGURADO CON TU NÚMERO DE TELÉFONO DE WHATSAPP REAL
         var numeroTel = "5493765131387";
 
         function calcularTotal() {
@@ -176,7 +177,3 @@
 
             var qty1 = parseInt(document.getElementById("qty1").value) || 0;
             var qty2 = parseInt(document.getElementById("qty2").value) || 0;
-            var qty3 = parseInt(document.getElementById("qty3").value) || 0;
-
-            if (qty1 < 0) { qty1 = 0; document.getElementById("qty1").value = 0; }
-            if (qty2 < 0) { qty2 = 0; document.getElementById("qty2").value = 0; }
