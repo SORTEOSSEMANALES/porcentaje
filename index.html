@@ -3,286 +3,333 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRAN SORTEO HONDA BROS 125</title>
+    <title>Gran Sorteo - Honda Bros 125</title>
+    <!-- Google Fonts para una tipografía moderna -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    
     <style>
-        /* PALETA DE COLORES ULTRA MODERNA */
+        /* ======================================================= */
+        /*   ESTILOS GENERALES (MODO OSCURO PREMIUM)               */
+        /* ======================================================= */
         :root {
-            --bg-main: #090d16;
-            --bg-container: #111827;
-            --bg-card: #1f2937;
-            --bg-input: #030712;
-            --primary: #ef4444;
-            --primary-hover: #dc2626;
-            --accent: #38bdf8;
-            --success: #22c55e;
-            --purple: #a855f7;
-            --gold: #f59e0b;
-            --text-main: #f9fafb;
-            --text-muted: #9ca3af;
-            --border: #374151;
+            --bg-principal: #0f111a;
+            --bg-tarjetas: #1a1d29;
+            --texto-blanco: #ffffff;
+            --texto-secundario: #a0aec0;
+            --accent-neon: #00ffcc;
+            --gold-neon: #ffcc00;
+            --glow-combo: #ff0077;
         }
 
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
-        
-        body { 
-            background-color: var(--bg-main); 
-            color: var(--text-main); 
-            padding: 15px; 
-            display: flex; 
-            flex-direction: column; 
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-blanco);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-        }
-        
-        /* CONTENEDOR ANCHO Y RESPONSIVO */
-        .container { 
-            max-width: 640px; 
-            width: 100%; 
-            background: var(--bg-container); 
-            padding: 20px; 
-            border-radius: 24px; 
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7); 
-            text-align: center;
-            margin: 15px 0;
-            border: 1px solid #1f2937;
-        }
-        
-        @media (min-width: 480px) {
-            .container { padding: 35px; }
         }
 
-        h1 { 
-            color: var(--text-main); 
-            font-size: 30px; 
-            font-weight: 900; 
-            letter-spacing: -0.5px;
+        .contenedor {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding-bottom: 60px;
+        }
+
+        header {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
             text-transform: uppercase;
-            background: linear-gradient(to right, #ff4d4d, #f9fafb);
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00ffcc, #0077ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-        }
-        
-        .subtitle { 
-            font-size: 14px; 
-            color: var(--primary); 
-            margin-bottom: 25px; 
-            font-weight: 700; 
-            background: rgba(239, 68, 68, 0.07); 
-            padding: 10px 15px; 
-            border-radius: 10px; 
-            border: 1px dashed var(--primary); 
-            display: inline-block;
         }
 
-        /* ESTILO PARA LA IMAGEN DE LA MOTOCICLETA */
-        .moto-img {
+        header p {
+            color: var(--texto-secundario);
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        /* ======================================================= */
+        /*   SECCIÓN DE LA BARRA DE PORCENTAJE (DINÁMICA)          */
+        /* ======================================================= */
+        .seccion-progreso {
+            background-color: var(--bg-tarjetas);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+        }
+
+        .titulo-progreso {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--texto-blanco);
+        }
+
+        .contenedor-barra {
             width: 100%;
-            max-width: 100%;
-            height: auto;
-            border-radius: 16px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--border);
+            background-color: #11141d;
+            height: 30px;
+            border-radius: 50px;
+            padding: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 10px;
+        }
+
+        .barra-relleno {
+            height: 100%;
+            width: 0%; /* Se calcula dinámicamente con JavaScript */
+            background: linear-gradient(90deg, #0077ff, var(--accent-neon));
+            border-radius: 50px;
+            transition: width 1.5s cubic-bezier(0.1, 0.8, 0.3, 1);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
+        }
+
+        .texto-porcentaje {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-neon);
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        /* ======================================================= */
+        /*   GALERÍA DE IMÁGENES (EDITABLE)                        */
+        /* ======================================================= */
+        .seccion-galeria {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .imagen-galeria {
+            width: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        /* ======================================================= */
+        /*   CARTELES DE COMBOS VISTOSOS Y LLAMATIVOS              */
+        /* ======================================================= */
+        .seccion-combos {
+            margin-bottom: 30px;
+        }
+
+        .titulo-seccion {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            color: var(--gold-neon);
+        }
+
+        .combo-card {
+            background-color: var(--bg-tarjetas);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+
+        .combo-info h3 {
+            font-size: 1.3rem;
+            color: var(--texto-blanco);
+        }
+
+        .combo-info p {
+            font-size: 0.9rem;
+            color: var(--texto-secundario);
+        }
+
+        .combo-precio {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent-neon);
+        }
+
+        /* --- SÚPER COMBO DE 5000 CON BRILLO NEÓN --- */
+        .combo-brillante {
+            border: 2px solid var(--glow-combo);
+            background: linear-gradient(145deg, #1a1d29, #251224);
+            animation: pulsoNeon 2s infinite alternate;
+        }
+
+        .tag-ahorro {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: linear-gradient(45deg, #ff0055, #ff5500);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            box-shadow: 0 0 10px rgba(255, 0, 85, 0.6);
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes pulsoNeon {
+            from {
+                box-shadow: 0 0 10px rgba(255, 0, 119, 0.3), inset 0 0 5px rgba(255, 0, 119, 0.2);
+            }
+            to {
+                box-shadow: 0 0 25px rgba(255, 0, 119, 0.8), inset 0 0 10px rgba(255, 0, 119, 0.4);
+                border-color: #ff3399;
+            }
+        }
+
+        /* ======================================================= */
+        /*   SECCIÓN DE ALERTAS DE METAS E HITOS                   */
+        /* ======================================================= */
+        .seccion-alertas {
+            background-color: #131622;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--gold-neon);
+        }
+
+        .alerta-item {
+            margin-bottom: 15px;
+        }
+
+        .alerta-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .alerta-item h4 {
+            font-size: 1rem;
+            color: var(--gold-neon);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .alerta-item p {
+            font-size: 0.85rem;
+            color: var(--texto-secundario);
+            margin-top: 2px;
+        }
+
+        /* ======================================================= */
+        /*   FORMULARIO DE REGISTRO PREVIO                         */
+        /* ======================================================= */
+        .seccion-formulario {
+            background-color: var(--bg-tarjetas);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .seccion-formulario h2 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .sub-formulario {
+            font-size: 0.85rem;
+            color: var(--texto-secundario);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .grupo-input {
+            margin-bottom: 15px;
+        }
+
+        .grupo-input label {
             display: block;
-        }
-        
-        /* BARRA DE PROGRESO DINÁMICA */
-        .progress-section { 
-            background: var(--bg-card); 
-            border: 1px solid var(--border); 
-            padding: 18px; 
-            border-radius: 16px; 
-            margin-bottom: 20px; 
-            text-align: left; 
-        }
-        .progress-label { 
-            display: flex; 
-            justify-content: space-between; 
-            font-size: 14px; 
-            font-weight: bold; 
-            margin-bottom: 10px; 
-        }
-        .progress-bar-container { 
-            background: var(--bg-input); 
-            height: 18px; 
-            border-radius: 50px; 
-            overflow: hidden; 
-            border: 1px solid var(--border); 
-        }
-        .progress-bar-fill { 
-            width: 0%; 
-            height: 100%; 
-            background: linear-gradient(90deg, var(--primary), var(--purple)); 
-            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); 
+            font-size: 0.85rem;
+            color: var(--texto-secundario);
+            margin-bottom: 5px;
+            font-weight: 600;
         }
 
-        /* CUADRO DE CONDICIONES */
-        .condiciones-box { 
-            background: rgba(56, 189, 248, 0.05); 
-            border: 1px solid rgba(56, 189, 248, 0.3); 
-            border-radius: 16px; 
-            padding: 18px; 
-            margin-bottom: 25px; 
-            text-align: left; 
-            font-size: 13.5px; 
-            line-height: 1.6; 
-            color: #e5e7eb; 
-        }
-        .condiciones-box strong { color: var(--accent); display: block; margin-bottom: 6px; }
-        .condiciones-box ul { margin-left: 20px; }
-        .condiciones-box li { margin-bottom: 6px; }
-
-        /* SECCIÓN DE DATOS */
-        .datos-box { 
-            background: var(--bg-card); 
-            border: 1px solid var(--border); 
-            border-radius: 16px; 
-            padding: 22px; 
-            margin-bottom: 25px; 
-            text-align: left; 
-        }
-        .datos-box-title { font-size: 16px; font-weight: 700; margin-bottom: 15px; display: block; color: var(--text-main); }
-        .form-group { margin-bottom: 15px; }
-        .form-group:last-child { margin-bottom: 0; }
-        .form-group label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; }
-        .form-input { 
-            width: 100%; 
-            padding: 12px 14px; 
-            border: 1px solid var(--border); 
-            background: var(--bg-input); 
-            color: var(--text-main); 
-            border-radius: 10px; 
-            font-size: 15px; 
-            outline: none; 
-            transition: all 0.2s ease; 
-        }
-        .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15); }
-
-        /* DISEÑO DE TARJETAS DE COMBOS */
-        .combo-card { 
-            background: var(--bg-card); 
-            border: 1px solid var(--border); 
-            border-radius: 16px; 
-            padding: 20px; 
-            margin-bottom: 16px; 
-            text-align: left; 
-            position: relative; 
-            transition: transform 0.2s ease, border-color 0.2s ease; 
-        }
-        .combo-card:hover { transform: translateY(-2px); border-color: #4b5563; }
-        
-        /* COMBO PREMIUM MEJORADO */
-        .combo-premium { 
-            border: 2px solid var(--gold); 
-            background: linear-gradient(145deg, #1f2937, #2e200f); 
-            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.1); 
-        }
-        .combo-premium:hover { border-color: #fbbf24; }
-        .badge-premium { 
-            position: absolute; 
-            top: -12px; 
-            right: 20px; 
-            background: linear-gradient(135deg, var(--gold), #d97706); 
-            color: #000; 
-            font-size: 11px; 
-            font-weight: 800; 
-            padding: 4px 12px; 
-            border-radius: 50px; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4); 
+        .grupo-input input {
+            width: 100%;
+            background-color: #11141d;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 15px;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: 0.3s;
         }
 
-        .combo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .combo-title { font-weight: 700; font-size: 18px; color: var(--text-main); }
-        .combo-price { color: var(--primary); font-weight: 800; font-size: 22px; }
-        .combo-premium .combo-price { color: var(--gold); }
-        
-        .input-group { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            background: var(--bg-input); 
-            padding: 10px 16px; 
-            border-radius: 10px; 
-            border: 1px solid var(--border); 
+        .grupo-input input:focus {
+            outline: none;
+            border-color: var(--accent-neon);
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
         }
-        .input-group label { color: var(--text-muted); font-size: 14px; }
-        .input-qty { 
-            width: 85px; 
-            padding: 8px; 
-            border: 1px solid var(--border); 
-            background: var(--bg-card); 
-            color: var(--text-main); 
-            border-radius: 8px; 
-            text-align: center; 
-            font-size: 16px; 
-            font-weight: bold; 
-            outline: none; 
-        }
-        .input-qty:focus { border-color: var(--accent); }
-        
-        /* CAJA DE TOTALES */
-        .total-box { 
-            background: var(--bg-input); 
-            padding: 20px; 
-            border-radius: 16px; 
-            margin-top: 25px; 
-            text-align: left; 
-            border: 1px solid var(--border); 
-        }
-        .total-line { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 15px; color: var(--text-muted); }
-        .total-line span:last-child { color: var(--text-main); font-weight: 600; }
-        .total-line.final { 
-            font-size: 24px; 
-            font-weight: 900; 
-            border-top: 1px solid var(--border); 
-            padding-top: 12px; 
-            margin-top: 12px; 
-        }
-        .total-line.final span:first-child { color: var(--text-main); }
-        .total-line.final span:last-child { color: var(--success); text-shadow: 0 0 15px rgba(34, 197, 94, 0.25); }
-        
-        /* SECCIÓN DE PAGO (ALIAS) */
-        .payment-box { 
-            background: rgba(168, 85, 247, 0.05); 
-            border: 2px dashed var(--purple); 
-            padding: 20px; 
-            border-radius: 16px; 
-            margin-top: 25px; 
-            text-align: center; 
-        }
-        .payment-title { font-weight: 700; color: #c084fc; font-size: 15px; margin-bottom: 12px; }
-        .alias-text { 
-            background: var(--bg-input); 
-            border: 1px solid rgba(168, 85, 247, 0.4); 
-            padding: 12px; 
-            font-family: monospace; 
-            font-size: 19px; 
-            font-weight: 700; 
-            color: var(--accent); 
-            display: block; 
-            border-radius: 10px; 
-            margin-bottom: 14px; 
-            letter-spacing: 0.5px; 
-        }
-        .btn-copy { 
-            background: var(--purple); 
-            color: white; 
-            border: none; 
-            padding: 12px 20px; 
-            border-radius: 10px; 
-            font-size: 15px; 
-            font-weight: 700; 
-            cursor: pointer; 
-            width: 100%; 
-            transition: background 0.2s ease; 
-        }
-        .btn-copy:hover { background: #9333ea; }
 
+        .btn-whatsapp {
+            width: 100%;
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            transition: 0.3s;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">
+        
+        <!-- ENCABEZADO -->
+        <header>
+            <h1>Gran Sorteo Moto</h1>
+            <p>Participá por la espectacular Honda Bros 125</p>
+        </header>
+
+        <!-- BARRA DE PROGRESO DINÁMICA -->
