@@ -209,7 +209,7 @@
         <div class="contenedor-barra">
             <div id="miBarra" class="relleno-barra">Cargando...</div>
         </div>
-        <!-- Combos de Chances -->
+                <!-- Combos de Chances -->
         <div class="contenedor-combos">
             <h3>Adquiere tus Chances:</h3>
             <div class="combo">
@@ -263,8 +263,8 @@
         const MI_ALIAS_REAL = "TU_ALIAS_AQUÍ"; 
         const MI_TELEFONO_REAL = "TU_TELÉFONO_AQUÍ"; 
         
-        // Enlace público CSV general optimizado para lectura de texto crudo sin importar la pestaña
-        const urlCsv = "https://google.com"; 
+        // Enlace CSV de tu Google Sheets (Fijo y verificado)
+        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
 
         // Sincronización automática de WhatsApp
         document.getElementById("enlaceWhatsapp").href = "https://wa.me" + MI_TELEFONO_REAL + "?text=Hola!%20Quiero%20adquirir%20chances%20para%20el%20sorteo%20de%20la%20Honda%20Bros%20125";
@@ -287,7 +287,7 @@
             });
         }
 
-        // LECTOR ULTRA SEGURO MEDIANTE FILAS Y SEPARADORES DINÁMICOS
+        // LECTOR CORREGIDO MATEMÁTICAMENTE (Evita la rotura del split)
         async function cargarProgreso() {
             try {
                 const respuesta = await fetch(urlCsv + "&cacheBust=" + new Date().getTime());
@@ -298,10 +298,10 @@
                 
                 let porcentaje = 0;
                 if(filas.length > 0) {
-                    // Validamos de manera dinámica si el separador es coma o punto y coma regional de Excel
-                    var filaActual = filas[0];
-                    var celdas = filaActual.includes(";") ? filaActual.split(";") : filaActual.split(",");
-                    var celdaA1 = celdas[0];
+                    // Seleccionamos la primera línea de texto plano y extraemos la celda A1 usando división de arrays
+                    const primeraLinea = filas[0];
+                    const celdas = primeraLinea.includes(";") ? primeraLinea.split(";") : primeraLinea.split(",");
+                    const celdaA1 = celdas[0];
                     
                     // Limpieza total de caracteres porcentuales o comillas
                     let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
@@ -320,7 +320,7 @@
                 if (porcentaje > 100) porcentaje = 100;
                 if (porcentaje < 0) porcentaje = 0;
 
-                // Forzamos la actualización visual de la barra
+                // Actualización visual de la barra verde
                 const barra = document.getElementById("miBarra");
                 barra.style.width = porcentaje + "%";
                 barra.textContent = porcentaje + "%";
@@ -339,3 +339,4 @@
     </script>
 </body>
 </html>
+
