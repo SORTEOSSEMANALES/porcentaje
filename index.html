@@ -99,7 +99,7 @@
 
         .barra-relleno {
             height: 100%;
-            width: 0%; /* Se calcula dinámicamente con JavaScript */
+            width: 0%; 
             background: linear-gradient(90deg, #0077ff, var(--accent-neon));
             border-radius: 50px;
             transition: width 1.5s cubic-bezier(0.1, 0.8, 0.3, 1);
@@ -320,11 +320,6 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
         }
-        
-        .btn-whatsapp:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
-        }
     </style>
 </head>
 <body>
@@ -334,3 +329,8 @@
         <!-- ENCABEZADO -->
         <header>
             <h1>Gran Sorteo Moto</h1>
+            <p>Participá por la espectacular Honda Bros 125</p>
+        </header>
+
+        <!-- BARRA DE PROGRESO DINÁMICA -->
+        <section class="seccion-progreso">
