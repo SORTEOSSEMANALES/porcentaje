@@ -13,25 +13,13 @@
             --success: #25d366;
             --purple: #6c5ce7;
             --gray: #94a3b8;
-            --gold: #f39c12;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--light); color: var(--dark); padding: 20px; display: flex; flex-direction: column; align-items: center; }
         .container { max-width: 500px; width: 100%; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
         h1 { color: var(--primary); margin-bottom: 5px; font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
         .subtitle { font-size: 14px; color: #e63946; margin-bottom: 20px; font-weight: bold; background: #ffe3e3; padding: 8px 12px; border-radius: 8px; border: 1px dashed #e63946; line-height: 1.4; }
-        .promo-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px solid #ddd; }
         
-        .progress-container { background: #e0e0e0; border-radius: 20px; height: 25px; width: 100%; margin: 20px 0 10px 0; overflow: hidden; position: relative; }
-        .progress-bar { background: linear-gradient(90deg, var(--primary), #ff758c); height: 100%; border-radius: 20px; transition: width 0.5s ease-in-out; }
-        .progress-text { position: absolute; width: 100%; text-align: center; top: 3px; font-weight: bold; color: var(--dark); font-size: 14px; }
-        
-        .info-alert-box { text-align: left; margin-bottom: 20px; font-size: 13px; line-height: 1.4; }
-        .info-alert-item { padding: 10px 12px; border-radius: 8px; margin-bottom: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-        .info-alert-item.weekly { background-color: #e8fced; border: 1px solid #a3e9b9; color: #1e7e34; }
-        .info-alert-item.date-release { background-color: #e3f2fd; border: 1px solid #90caf9; color: #1565c0; }
-        .info-alert-icon { font-size: 18px; }
-
         .datos-box { background: #f8f9fa; border: 1px solid #cbd5e1; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: left; }
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 13px; color: #64748b; margin-bottom: 4px; font-weight: 500; }
@@ -44,33 +32,6 @@
         .combo-price { color: var(--primary); font-weight: bold; font-size: 18px; }
         .input-group { display: flex; align-items: center; justify-content: space-between; background: white; padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; }
         .input-qty { width: 70px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-size: 15px; font-weight: bold; }
-
-        .combo-gold { 
-            background: linear-gradient(135deg, #fffaf0 0%, #fff3cc 100%); 
-            border: 2px solid #f39c12; 
-            box-shadow: 0 0 12px rgba(243, 156, 18, 0.4);
-            animation: pulse-gold 2s infinite alternate;
-        }
-        .combo-gold .combo-title { color: #b7791f; font-size: 17px; }
-        .combo-gold .combo-price { color: #d63031; font-size: 20px; }
-        .badge-descuento {
-            position: absolute;
-            top: -10px;
-            right: 15px;
-            background: #d63031;
-            color: white;
-            font-size: 11px;
-            font-weight: bold;
-            padding: 4px 10px;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        @keyframes pulse-gold {
-            0% { box-shadow: 0 0 8px rgba(243, 156, 18, 0.3); border-color: #f39c12; }
-            100% { box-shadow: 0 0 18px rgba(243, 156, 18, 0.7); border-color: #e67e22; }
-        }
         
         .total-box { background: var(--dark); color: white; padding: 15px; border-radius: 10px; margin-top: 20px; text-align: left; }
         .total-line { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 15px; }
@@ -81,84 +42,72 @@
         .payment-title { font-weight: bold; color: var(--purple); font-size: 15px; margin-bottom: 8px; }
         .alias-text { background: white; border: 1px solid #dcd6f7; padding: 8px; font-family: monospace; font-size: 16px; font-weight: bold; color: var(--dark); display: block; border-radius: 6px; margin-bottom: 10px; }
         .btn-copy { background: var(--purple); color: white; border: none; padding: 8px 15px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; width: 100%; transition: background 0.2s; }
-        .btn-copy:hover { background: #5b4bc4; }
         
-        /* BOTÓN DE CONTACTO OPTIMIZADO */
         .btn-contacto { display: inline-block; width: 100%; background: var(--gray); color: white; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; margin-top: 15px; text-align: center; pointer-events: none; transition: background 0.3s; }
         .btn-contacto.active { background: var(--success) !important; pointer-events: auto !important; cursor: pointer !important; }
-        .btn-contacto.active:hover { background: #128c7e !important; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>SORTEO HONDA BROS 125</h1>
-        <p class="subtitle">🔥 ¡Compartí el link con tus amigos!<br>Cuanto más rápido se llene la barra, <b>¡MÁS RÁPIDO SE SORTEA!</b> 🏁</p>
+        <p class="subtitle">🔥 ¡Compartí el link con tus amigos! 🏁</p>
         
-        <img src="ss.jpg" alt="Honda Bros 125cc" class="promo-img">
-        
-        <p>Estado de la rifa:</p>
-        <div class="progress-container">
-            <div class="progress-bar" style="width: 10%;"></div>
-            <div class="progress-text">10% Vendido</div>
-        </div>
-
-        <div class="info-alert-box">
-            <div class="info-alert-item weekly">
-                <span class="info-alert-icon">💵</span>
-                <span>¡A partir del 10% de la barra se comenzará a sortear \$50.000 todos los lunes!</span>
-            </div>
-            <div class="info-alert-item date-release">
-                <span class="info-alert-icon">📅</span>
-                <span>Al alcanzar el 90% de la barra se dará a conocer oficialmente la fecha del sorteo principal.</span>
-            </div>
-        </div>
-
-        <!-- FORMULARIO DE DATOS -->
+        <!-- DATOS USUARIO -->
         <div class="datos-box">
             <strong style="display:block; margin-bottom:12px; font-size:15px;">👤 Tus Datos para la Rifa:</strong>
             <div class="form-group">
                 <label for="nombre">Nombre(s):</label>
-                <input type="text" id="nombre" class="form-input" placeholder="Ej: Juan Carlos" oninput="validarFormulario()">
+                <input type="text" id="nombre" class="form-input" placeholder="Ej: Juan Carlos" oninput="calcularTotal()">
             </div>
             <div class="form-group">
                 <label for="apellido">Apellido(s):</label>
-                <input type="text" id="apellido" class="form-input" placeholder="Ej: Pérez" oninput="validarFormulario()">
+                <input type="text" id="apellido" class="form-input" placeholder="Ej: Pérez" oninput="calcularTotal()">
             </div>
             <div class="form-group">
                 <label for="telefono">Número de Teléfono:</label>
-                <input type="tel" id="telefono" class="form-input" placeholder="Ej: 3765123456" oninput="validarFormulario()">
+                <input type="tel" id="telefono" class="form-input" placeholder="Ej: 3765123456" oninput="calcularTotal()">
             </div>
         </div>
 
-        <!-- SELECCIÓN DE NÚMEROS / COMBOS -->
+        <!-- SELECCIÓN DE COMBOS (Alineado con tus 3 valores de Sheets) -->
         <div class="combo-card">
             <div class="combo-header">
-                <span class="combo-title">🎟️ 1 Número Estándar</span>
-                <span class="combo-price">\$1.000</span>
+                <span class="combo-title">🎟️ Combo Económico</span>
+                <span class="combo-price">\$500</span>
             </div>
             <div class="input-group">
-                <label for="qty-simple">Cantidad:</label>
-                <input type="number" id="qty-simple" class="input-qty" min="0" value="0" oninput="calcularTotal()">
+                <label>Cantidad:</label>
+                <input type="number" id="qty-c500" class="input-qty" min="0" value="0" oninput="calcularTotal()">
             </div>
         </div>
 
-        <div class="combo-card combo-gold">
-            <div class="badge-descuento">¡Mejor Opción!</div>
+        <div class="combo-card">
             <div class="combo-header">
-                <span class="combo-title">✨ Combo Oro (5 Números)</span>
-                <span class="combo-price">\$4.000</span>
+                <span class="combo-title">⭐ Combo Estándar</span>
+                <span class="combo-price">\$3.000</span>
             </div>
             <div class="input-group">
-                <label for="qty-gold">Cantidad de Combos:</label>
-                <input type="number" id="qty-gold" class="input-qty" min="0" value="0" oninput="calcularTotal()">
+                <label>Cantidad:</label>
+                <input type="number" id="qty-c3000" class="input-qty" min="0" value="0" oninput="calcularTotal()">
             </div>
         </div>
 
-        <!-- CAJA DE TOTALES -->
+        <div class="combo-card">
+            <div class="combo-header">
+                <span class="combo-title">🔥 Combo Premium</span>
+                <span class="combo-price">\$5.000</span>
+            </div>
+            <div class="input-group">
+                <label>Cantidad:</label>
+                <input type="number" id="qty-c5000" class="input-qty" min="0" value="0" oninput="calcularTotal()">
+            </div>
+        </div>
+
+        <!-- CAJA DE TOTALES CORREGIDA -->
         <div class="total-box">
             <div class="total-line">
-                <span>Total Números:</span>
-                <span id="res-numeros">0</span>
+                <span>Combos Seleccionados:</span>
+                <span id="res-combos">0</span>
             </div>
             <div class="total-line final">
                 <span>Total a Pagar:</span>
@@ -166,6 +115,57 @@
             </div>
         </div>
 
-        <!-- DATOS DE PAGO -->
+        <!-- PAGO Y ACCIÓN -->
         <div class="payment-box">
             <p class="payment-title">🏦 Pagá por Transferencia (Alias):</p>
+            <span class="alias-text" id="alias-copiar">HONDA.BROS.SORTEO</span>
+            <button class="btn-copy" onclick="copiarAlias()">📋 Copiar Alias</button>
+        </div>
+
+        <a href="#" id="btn-whatsapp" class="btn-contacto">Completar Datos Obligatorios</a>
+    </div>
+
+    <script>
+        const NUMERO_TELEFONO_DESTINO = "543764901619"; // Tu número de WhatsApp de destino
+
+        function calcularTotal() {
+            // Capturar cantidades de los inputs de combos
+            const c500 = parseInt(document.getElementById('qty-c500').value) || 0;
+            const c3000 = parseInt(document.getElementById('qty-c3000').value) || 0;
+            const c5000 = parseInt(document.getElementById('qty-c5000').value) || 0;
+
+            // Calcular combinaciones matemáticas de dinero y combos totales
+            const totalCombos = c500 + c3000 + c5000;
+            const totalDinero = (c500 * 500) + (c3000 * 3000) + (c5000 * 5000);
+
+            // Inyectar valores dinámicamente en las etiquetas de texto
+            document.getElementById('res-combos').innerText = totalCombos;
+            document.getElementById('res-precio').innerText = "\$" + totalDinero.toLocaleString('es-AR');
+
+            // Verificar si el formulario ya es válido para habilitar el botón verde
+            validarFormulario(c500, c3000, c5000, totalCombos, totalDinero);
+        }
+
+        function validarFormulario(c500, c3000, c5000, totalCombos, totalDinero) {
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const btn = document.getElementById('btn-whatsapp');
+
+            if (nombre !== "" && apellido !== "" && telefono !== "" && totalCombos > 0) {
+                btn.classList.add('active');
+                btn.innerText = "🚀 Enviar Comprobante por WhatsApp";
+                
+                // Formateo de texto limpio para copiar y restar de tu Google Sheets
+                const mensaje = `¡Hola! Quiero registrar mi compra para el Sorteo.%0A%0A` +
+                                `👤 *Datos:* ${nombre} ${apellido} (${telefono})%0A%0A` +
+                                `📦 *Pedido:*%0A` +
+                                (c500 > 0 ? `- Combo $500: ${c500} un.%0A` : '') +
+                                (c3000 > 0 ? `- Combo $3.000: ${c3000} un.%0A` : '') +
+                                (c5000 > 0 ? `- Combo $5.000: ${c5000} un.%0A` : '') +
+                                `%0A💰 *Total a confirmar:* $${totalDinero.toLocaleString('es-AR')}`;
+                
+                btn.href = `https://wa.me{NUMERO_TELEFONO_DESTINO}?text=${mensaje}`;
+            } else {
+                btn.classList.remove('active');
+                btn.href = "#";
