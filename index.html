@@ -21,19 +21,16 @@
         .subtitle { font-size: 16px; color: var(--accent); margin-bottom: 20px; font-weight: bold; }
         .promo-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px solid #ddd; }
         
-        /* Barra de Progreso */
         .progress-container { background: #e0e0e0; border-radius: 20px; height: 25px; width: 100%; margin: 20px 0; overflow: hidden; position: relative; }
         .progress-bar { background: linear-gradient(90deg, var(--primary), #ff758c); height: 100%; border-radius: 20px; transition: width 0.5s ease-in-out; }
         .progress-text { position: absolute; width: 100%; text-align: center; top: 3px; font-weight: bold; color: var(--dark); font-size: 14px; }
         
-        /* Formulario de Datos Personales */
         .datos-box { background: #f8f9fa; border: 1px solid #cbd5e1; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: left; }
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 13px; color: #64748b; margin-bottom: 4px; font-weight: 500; }
         .form-input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; outline: none; }
         .form-input:focus { border-color: var(--accent); }
 
-        /* Contenedores de Combos */
         .combo-card { background: #f8f9fa; border: 2px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 15px; text-align: left; }
         .combo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .combo-title { font-weight: bold; font-size: 16px; color: var(--dark); }
@@ -41,19 +38,16 @@
         .input-group { display: flex; align-items: center; justify-content: space-between; background: white; padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; }
         .input-qty { width: 70px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-size: 15px; font-weight: bold; }
         
-        /* Resumen Total */
         .total-box { background: var(--dark); color: white; padding: 15px; border-radius: 10px; margin-top: 20px; text-align: left; }
         .total-line { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 15px; }
         .total-line.final { font-size: 20px; font-weight: bold; border-top: 1px solid #457b9d; padding-top: 8px; margin-top: 8px; color: #fff; }
         .total-line.final span { color: #51e289; }
         
-        /* Bloque de Pago */
         .payment-box { background: #f3f0ff; border: 2px dashed var(--purple); padding: 15px; border-radius: 10px; margin-top: 20px; text-align: center; }
         .payment-title { font-weight: bold; color: var(--purple); font-size: 15px; margin-bottom: 8px; }
         .alias-text { background: white; border: 1px solid #dcd6f7; padding: 8px; font-family: monospace; font-size: 16px; font-weight: bold; color: var(--dark); display: block; border-radius: 6px; margin-bottom: 10px; }
         .btn-copy { background: var(--purple); color: white; border: none; padding: 8px 15px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; width: 100%; }
         
-        /* Botón de WhatsApp */
         .btn-contacto { display: inline-block; width: 100%; background: var(--gray); color: white; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; margin-top: 15px; text-align: center; pointer-events: none; transition: background 0.3s; }
         .btn-contacto.active { background: var(--success); pointer-events: auto; cursor: pointer; }
         .btn-contacto.active:hover { background: #128c7e; }
@@ -71,7 +65,6 @@
             <div class="progress-text">10% Vendido (Falta el 90%)</div>
         </div>
 
-        <!-- RECAUDACIÓN DE DATOS -->
         <div class="datos-box">
             <strong style="display:block; margin-bottom:12px; font-size:15px;">👤 Tus Datos para la Rifa:</strong>
             <div class="form-group">
@@ -88,7 +81,6 @@
             </div>
         </div>
 
-        <!-- SECCIÓN DE COMBOS -->
         <div class="combos-wrapper">
             <div class="combo-card">
                 <div class="combo-header">
@@ -139,7 +131,6 @@
             <button class="btn-copy" onclick="copiarAlias()" id="btn-copiador">Copiar Alias</button>
         </div>
 
-        <!-- BOTÓN WHATSAPP -->
         <a id="btn-whatsapp" href="#" class="btn-contacto">Completar todos los datos obligatorios</a>
     </div>
 
@@ -147,28 +138,33 @@
         var numeroTel = "5493765131387";
 
         function calcularTotal() {
-            var nombre = document.getElementById('nombre').value.trim();
-            var apellido = document.getElementById('apellido').value.trim();
-            var telefono = document.getElementById('telefono').value.trim();
+            var nombre = document.getElementById("nombre").value.trim();
+            var apellido = document.getElementById("apellido").value.trim();
+            var telefono = document.getElementById("telefono").value.trim();
             
-            var q1 = parseInt(document.getElementById('qty1').value) || 0;
-            var q2 = parseInt(document.getElementById('qty2').value) || 0;
-            var q3 = parseInt(document.getElementById('qty3').value) || 0;
+            var q1 = parseInt(document.getElementById("qty1").value) || 0;
+            var q2 = parseInt(document.getElementById("qty2").value) || 0;
+            var q3 = parseInt(document.getElementById("qty3").value) || 0;
 
             var totalChances = (q1 * 1) + (q2 * 10) + (q3 * 20);
             var totalPrecio = (q1 * 500) + (q2 * 3000) + (q3 * 5000);
 
-            document.getElementById('resumen-chances').innerText = totalChances;
-            document.getElementById('resumen-precio').innerText = 'ARS ' + totalPrecio.toLocaleString('es-AR');
+            document.getElementById("resumen-chances").innerText = totalChances;
+            document.getElementById("resumen-precio").innerText = "ARS " + totalPrecio.toLocaleString("es-AR");
 
-            var btnWhatsapp = document.getElementById('btn-whatsapp');
+            var btnWhatsapp = document.getElementById("btn-whatsapp");
 
             if (nombre !== "" && apellido !== "" && telefono !== "" && totalChances > 0) {
-                btnWhatsapp.classList.add('active');
+                btnWhatsapp.classList.add("active");
                 btnWhatsapp.innerText = "Enviar comprobante por WhatsApp";
                 
-                var msg = "Hola! Quiero reservar números para la rifa.\n\n";
-                msg += "*Datos del Comprador:*\n";
-                msg += "👤 Nombre: " + nombre + " " + apellido + "\n";
-                msg += "📱 Teléfono: " + telefono + "\n\n";
-                msg += "*Pedido:*\n";
+                var msg = "Hola! Quiero reservar numeros para la rifa.\n\n" +
+                          "*Datos del Comprador:*\n" +
+                          "Nombre: " + nombre + " " + apellido + "\n" +
+                          "Telefono: " + telefono + "\n\n" +
+                          "*Pedido:*\n";
+                          
+                if(q1 > 0) msg += "- " + q1 + " Combo(s) 1 (" + (q1 * 1) + " chances)\n";
+                if(q2 > 0) msg += "- " + q2 + " Combo(s) 2 (" + (q2 * 10) + " chances)\n";
+                if(q3 > 0) msg += "- " + q3 + " Combo(s) 3 (" + (q3 * 20) + " chances)\n";
+                
