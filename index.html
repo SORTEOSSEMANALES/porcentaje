@@ -141,32 +141,32 @@
             var nombre = document.getElementById("nombre").value.trim();
             var apellido = document.getElementById("apellido").value.trim();
             var telefono = document.getElementById("telefono").value.trim();
-            
-            var q1 = parseInt(document.getElementById("qty1").value) || 0;
-            var q2 = parseInt(document.getElementById("qty2").value) || 0;
-            var q3 = parseInt(document.getElementById("qty3").value) || 0;
 
-            var totalChances = (q1 * 1) + (q2 * 10) + (q3 * 20);
-            var totalPrecio = (q1 * 500) + (q2 * 3000) + (q3 * 5000);
+            var qty1 = parseInt(document.getElementById("qty1").value) || 0;
+            var qty2 = parseInt(document.getElementById("qty2").value) || 0;
+            var qty3 = parseInt(document.getElementById("qty3").value) || 0;
+
+            if (qty1 < 0) qty1 = 0;
+            if (qty2 < 0) qty2 = 0;
+            if (qty3 < 0) qty3 = 0;
+
+            var totalChances = (qty1 * 1) + (qty2 * 10) + (qty3 * 20);
+            var totalDinero = (qty1 * 500) + (qty2 * 3000) + (qty3 * 5000);
 
             document.getElementById("resumen-chances").innerText = totalChances;
-            document.getElementById("resumen-precio").innerText = "ARS " + totalPrecio.toLocaleString("es-AR");
+            document.getElementById("resumen-precio").innerText = "ARS " + totalDinero.toLocaleString('es-AR');
 
             var btnWhatsapp = document.getElementById("btn-whatsapp");
-
+            
             if (nombre !== "" && apellido !== "" && telefono !== "" && totalChances > 0) {
                 btnWhatsapp.classList.add("active");
                 btnWhatsapp.innerText = "Enviar comprobante por WhatsApp";
                 
-                var msg = "Hola! Quiero reservar numeros para la rifa.\n\n" +
-                          "*Datos del Comprador:*\n" +
-                          "Nombre: " + nombre + " " + apellido + "\n" +
-                          "Telefono: " + telefono + "\n\n" +
-                          "*Pedido:*\n";
-                          
-                if(q1 > 0) msg += "- " + q1 + " Combo(s) 1 (" + (q1 * 1) + " chances)\n";
-                if(q2 > 0) msg += "- " + q2 + " Combo(s) 2 (" + (q2 * 10) + " chances)\n";
-                if(q3 > 0) msg += "- " + q3 + " Combo(s) 3 (" + (q3 * 20) + " chances)\n";
-                
-                msg += "\n*Total a pagar:* ARS " + totalPrecio.toLocaleString("es-AR") + 
-                       "\n*Chances totales:* " + totalChances + 
+                var mensaje = "¡Hola! Quiero registrar mis chances para el sorteo 🎟️\n\n" +
+                              "👤 *Datos:* " + nombre + " " + apellido + "\n" +
+                              "📞 *Teléfono:* " + telefono + "\n\n" +
+                              "📊 *Detalle del pedido:*\n" +
+                              (qty1 > 0 ? "- " + qty1 + "x Combo 1 (1 chance)\n" : "") +
+                              (qty2 > 0 ? "- " + qty2 + "x Combo 2 (10 chances)\n" : "") +
+                              (qty3 > 0 ? "- " + qty3 + "x Combo 3 (20 chances)\n" : "") +
+                              "🍀 *Total Chances:* " + totalChances + "\n" +
