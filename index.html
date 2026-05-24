@@ -93,7 +93,7 @@
             <div class="combo-card">
                 <div class="combo-header">
                     <span class="combo-title">Combo 1: 1 Chance</span>
-                    <span class="combo-price">\$500</span>
+                    <span class="combo-price">ARS 500</span>
                 </div>
                 <div class="input-group">
                     <label for="qty1">Cantidad:</label>
@@ -103,7 +103,7 @@
             <div class="combo-card">
                 <div class="combo-header">
                     <span class="combo-title">Combo 2: 10 Chances</span>
-                    <span class="combo-price">\$3.000</span>
+                    <span class="combo-price">ARS 3.000</span>
                 </div>
                 <div class="input-group">
                     <label for="qty2">Cantidad:</label>
@@ -113,7 +113,7 @@
             <div class="combo-card">
                 <div class="combo-header">
                     <span class="combo-title">Combo 3: 20 Chances</span>
-                    <span class="combo-price">\$5.000</span>
+                    <span class="combo-price">ARS 5.000</span>
                 </div>
                 <div class="input-group">
                     <label for="qty3">Cantidad:</label>
@@ -129,7 +129,7 @@
             </div>
             <div class="total-line final">
                 <span>Total:</span>
-                <span id="resumen-precio">\$0</span>
+                <span id="resumen-precio">ARS 0</span>
             </div>
         </div>
 
@@ -159,11 +159,10 @@
             var totalPrecio = (q1 * 500) + (q2 * 3000) + (q3 * 5000);
 
             document.getElementById('resumen-chances').innerText = totalChances;
-            document.getElementById('resumen-precio').innerText = '\$' + totalPrecio.toLocaleString('es-AR');
+            document.getElementById('resumen-precio').innerText = 'ARS ' + totalPrecio.toLocaleString('es-AR');
 
             var btnWhatsapp = document.getElementById('btn-whatsapp');
 
-            // Habilitar botón solo si hay nombre, apellido, teléfono y al menos 1 combo seleccionado
             if (nombre !== "" && apellido !== "" && telefono !== "" && totalChances > 0) {
                 btnWhatsapp.classList.add('active');
                 btnWhatsapp.innerText = "Enviar comprobante por WhatsApp";
@@ -171,3 +170,5 @@
                 var msg = "Hola! Quiero reservar números para la rifa.\n\n";
                 msg += "*Datos del Comprador:*\n";
                 msg += "👤 Nombre: " + nombre + " " + apellido + "\n";
+                msg += "📱 Teléfono: " + telefono + "\n\n";
+                msg += "*Pedido:*\n";
