@@ -6,42 +6,49 @@
     <title>SORTEO HONDA BROS 125</title>
     <style>
         :root {
-            --primary: #e63946;
-            --dark: #1d3557;
-            --light: #f1faee;
-            --accent: #457b9d;
+            --primary: #ff4d5a;
+            --dark: #0f172a;
+            --light: #1e293b;
+            --card-bg: #334155;
+            --accent: #38bdf8;
             --success: #25d366;
-            --purple: #6c5ce7;
-            --gray: #94a3b8;
+            --purple: #a855f7;
+            --gray: #64748b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--light); color: var(--dark); padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .container { max-width: 500px; width: 100%; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
+        body { background-color: var(--dark); color: var(--text-main); padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { max-width: 500px; width: 100%; background: var(--light); padding: 25px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); text-align: center; }
         h1 { color: var(--primary); margin-bottom: 5px; font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
-        .subtitle { font-size: 14px; color: #e63946; margin-bottom: 20px; font-weight: bold; background: #ffe3e3; padding: 8px 12px; border-radius: 8px; border: 1px dashed #e63946; line-height: 1.4; }
+        .subtitle { font-size: 14px; color: var(--primary); margin-bottom: 20px; font-weight: bold; background: #2d1f2d; padding: 8px 12px; border-radius: 8px; border: 1px dashed var(--primary); line-height: 1.4; }
         
-        .datos-box { background: #f8f9fa; border: 1px solid #cbd5e1; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: left; }
+        .datos-box { background: var(--card-bg); border: 1px solid #475569; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: left; }
         .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 13px; color: #64748b; margin-bottom: 4px; font-weight: 500; }
-        .form-input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; outline: none; }
+        .form-group label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 4px; font-weight: 500; }
+        .form-input { width: 100%; padding: 10px; border: 1px solid #475569; background: var(--dark); color: var(--text-main); border-radius: 8px; font-size: 15px; outline: none; }
         .form-input:focus { border-color: var(--accent); }
 
-        .combo-card { background: #f8f9fa; border: 2px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 15px; text-align: left; position: relative; }
+        .combo-card { background: var(--card-bg); border: 2px solid #475569; border-radius: 12px; padding: 15px; margin-bottom: 15px; text-align: left; position: relative; }
         .combo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .combo-title { font-weight: bold; font-size: 16px; color: var(--dark); }
+        .combo-title { font-weight: bold; font-size: 16px; color: var(--text-main); }
         .combo-price { color: var(--primary); font-weight: bold; font-size: 18px; }
-        .input-group { display: flex; align-items: center; justify-content: space-between; background: white; padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; }
-        .input-qty { width: 70px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-size: 15px; font-weight: bold; }
+        .input-group { display: flex; align-items: center; justify-content: space-between; background: var(--dark); padding: 8px 12px; border-radius: 8px; border: 1px solid #475569; }
+        .input-group label { color: var(--text-muted); font-size: 14px; }
+        .input-qty { width: 70px; padding: 6px; border: 1px solid #475569; background: var(--light); color: var(--text-main); border-radius: 6px; text-align: center; font-size: 15px; font-weight: bold; }
         
-        .total-box { background: var(--dark); color: white; padding: 15px; border-radius: 10px; margin-top: 20px; text-align: left; }
-        .total-line { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 15px; }
-        .total-line.final { font-size: 20px; font-weight: bold; border-top: 1px solid #457b9d; padding-top: 8px; margin-top: 8px; color: #fff; }
-        .total-line.final span { color: #51e289; }
+        .total-box { background: var(--dark); color: white; padding: 15px; border-radius: 10px; margin-top: 20px; text-align: left; border: 1px solid #334155; }
+        .total-line { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 15px; color: var(--text-muted); }
+        .total-line span:last-child { color: var(--text-main); }
+        .total-line.final { font-size: 20px; font-weight: bold; border-top: 1px solid #334155; padding-top: 8px; margin-top: 8px; color: #fff; }
+        .total-line.final span:first-child { color: var(--text-main); }
+        .total-line.final span:last-child { color: #51e289; }
         
-        .payment-box { background: #f3f0ff; border: 2px dashed var(--purple); padding: 15px; border-radius: 10px; margin-top: 20px; text-align: center; }
-        .payment-title { font-weight: bold; color: var(--purple); font-size: 15px; margin-bottom: 8px; }
-        .alias-text { background: white; border: 1px solid #dcd6f7; padding: 8px; font-family: monospace; font-size: 16px; font-weight: bold; color: var(--dark); display: block; border-radius: 6px; margin-bottom: 10px; }
+        .payment-box { background: #2e1a47; border: 2px dashed var(--purple); padding: 15px; border-radius: 10px; margin-top: 20px; text-align: center; }
+        .payment-title { font-weight: bold; color: #d8b4fe; font-size: 15px; margin-bottom: 8px; }
+        .alias-text { background: var(--dark); border: 1px solid #4c1d95; padding: 8px; font-family: monospace; font-size: 16px; font-weight: bold; color: var(--accent); display: block; border-radius: 6px; margin-bottom: 10px; }
         .btn-copy { background: var(--purple); color: white; border: none; padding: 8px 15px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; width: 100%; transition: background 0.2s; }
+        .btn-copy:hover { background: #9333ea; }
         
         .btn-contacto { display: inline-block; width: 100%; background: var(--gray); color: white; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; margin-top: 15px; text-align: center; pointer-events: none; transition: background 0.3s; }
         .btn-contacto.active { background: var(--success) !important; pointer-events: auto !important; cursor: pointer !important; }
@@ -54,7 +61,7 @@
         
         <!-- DATOS USUARIO -->
         <div class="datos-box">
-            <strong style="display:block; margin-bottom:12px; font-size:15px;">👤 Tus Datos para la Rifa:</strong>
+            <strong style="display:block; margin-bottom:12px; font-size:15px; color: var(--text-main);">👤 Tus Datos para la Rifa:</strong>
             <div class="form-group">
                 <label for="nombre">Nombre(s):</label>
                 <input type="text" id="nombre" class="form-input" placeholder="Ej: Juan Carlos" oninput="calcularTotal()">
@@ -69,7 +76,7 @@
             </div>
         </div>
 
-        <!-- SELECCIÓN DE COMBOS (Alineado con tus 3 valores de Sheets) -->
+        <!-- SELECCIÓN DE COMBOS -->
         <div class="combo-card">
             <div class="combo-header">
                 <span class="combo-title">🎟️ Combo Económico</span>
@@ -103,7 +110,7 @@
             </div>
         </div>
 
-        <!-- CAJA DE TOTALES CORREGIDA -->
+        <!-- CAJA DE TOTALES -->
         <div class="total-box">
             <div class="total-line">
                 <span>Combos Seleccionados:</span>
@@ -126,46 +133,40 @@
     </div>
 
     <script>
-        const NUMERO_TELEFONO_DESTINO = "543764901619"; // Tu número de WhatsApp de destino
+        const NUMERO_TELEFONO_DESTINO = "543764901619";
 
         function calcularTotal() {
-            // Capturar cantidades de los inputs de combos
+            const nom = document.getElementById('nombre').value.trim();
+            const ape = document.getElementById('apellido').value.trim();
+            const tel = document.getElementById('telefono').value.trim();
+
             const c500 = parseInt(document.getElementById('qty-c500').value) || 0;
             const c3000 = parseInt(document.getElementById('qty-c3000').value) || 0;
             const c5000 = parseInt(document.getElementById('qty-c5000').value) || 0;
 
-            // Calcular combinaciones matemáticas de dinero y combos totales
             const totalCombos = c500 + c3000 + c5000;
             const totalDinero = (c500 * 500) + (c3000 * 3000) + (c5000 * 5000);
 
-            // Inyectar valores dinámicamente en las etiquetas de texto
             document.getElementById('res-combos').innerText = totalCombos;
             document.getElementById('res-precio').innerText = "\$" + totalDinero.toLocaleString('es-AR');
 
-            // Verificar si el formulario ya es válido para habilitar el botón verde
-            validarFormulario(c500, c3000, c5000, totalCombos, totalDinero);
-        }
-
-        function validarFormulario(c500, c3000, c5000, totalCombos, totalDinero) {
-            const nombre = document.getElementById('nombre').value.trim();
-            const apellido = document.getElementById('apellido').value.trim();
-            const telefono = document.getElementById('telefono').value.trim();
             const btn = document.getElementById('btn-whatsapp');
 
-            if (nombre !== "" && apellido !== "" && telefono !== "" && totalCombos > 0) {
+            if(nom !== "" && ape !== "" && tel !== "" && totalDinero > 0) {
                 btn.classList.add('active');
-                btn.innerText = "🚀 Enviar Comprobante por WhatsApp";
+                btn.innerText = "🚀 Enviar Pedido por WhatsApp";
                 
-                // Formateo de texto limpio para copiar y restar de tu Google Sheets
-                const mensaje = `¡Hola! Quiero registrar mi compra para el Sorteo.%0A%0A` +
-                                `👤 *Datos:* ${nombre} ${apellido} (${telefono})%0A%0A` +
-                                `📦 *Pedido:*%0A` +
-                                (c500 > 0 ? `- Combo $500: ${c500} un.%0A` : '') +
-                                (c3000 > 0 ? `- Combo $3.000: ${c3000} un.%0A` : '') +
-                                (c5000 > 0 ? `- Combo $5.000: ${c5000} un.%0A` : '') +
-                                `%0A💰 *Total a confirmar:* $${totalDinero.toLocaleString('es-AR')}`;
-                
+                const mensaje = `Hola! Quiero participar del sorteo.%0A%0A*Datos del participante:*%0ANombre: ${nom} ${ape}%0ATeléfono: ${tel}%0A%0A*Pedido:*%0A- Económico ($500): ${c500}%0A- Estándar ($3.000): ${c3000}%0A- Premium ($5.000): ${c5000}%0A%0A*Total a pagar:* $${totalDinero.toLocaleString('es-AR')}`;
                 btn.href = `https://wa.me{NUMERO_TELEFONO_DESTINO}?text=${mensaje}`;
             } else {
                 btn.classList.remove('active');
                 btn.href = "#";
+                if(totalDinero === 0 && nom !== "" && ape !== "" && tel !== "") {
+                    btn.innerText = "Selecciona al menos 1 combo";
+                } else {
+                    btn.innerText = "Completar Datos Obligatorios";
+                }
+            }
+        }
+
+        function copiarAlias() {
