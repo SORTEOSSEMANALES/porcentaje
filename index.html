@@ -80,7 +80,8 @@
         .payment-box { background: #f3f0ff; border: 2px dashed var(--purple); padding: 15px; border-radius: 10px; margin-top: 20px; text-align: center; }
         .payment-title { font-weight: bold; color: var(--purple); font-size: 15px; margin-bottom: 8px; }
         .alias-text { background: white; border: 1px solid #dcd6f7; padding: 8px; font-family: monospace; font-size: 16px; font-weight: bold; color: var(--dark); display: block; border-radius: 6px; margin-bottom: 10px; }
-        .btn-copy { background: var(--purple); color: white; border: none; padding: 8px 15px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; width: 100%; }
+        .btn-copy { background: var(--purple); color: white; border: none; padding: 8px 15px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; width: 100%; transition: background 0.2s; }
+        .btn-copy:hover { background: #5b4bc4; }
         
         /* BOTÓN DE CONTACTO OPTIMIZADO */
         .btn-contacto { display: inline-block; width: 100%; background: var(--gray); color: white; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; margin-top: 15px; text-align: center; pointer-events: none; transition: background 0.3s; }
@@ -112,58 +113,59 @@
             </div>
         </div>
 
+        <!-- FORMULARIO DE DATOS -->
         <div class="datos-box">
             <strong style="display:block; margin-bottom:12px; font-size:15px;">👤 Tus Datos para la Rifa:</strong>
             <div class="form-group">
                 <label for="nombre">Nombre(s):</label>
-                <input type="text" id="nombre" class="form-input" placeholder="Ej: Juan Carlos">
+                <input type="text" id="nombre" class="form-input" placeholder="Ej: Juan Carlos" oninput="validarFormulario()">
             </div>
             <div class="form-group">
                 <label for="apellido">Apellido(s):</label>
-                <input type="text" id="apellido" class="form-input" placeholder="Ej: Pérez">
+                <input type="text" id="apellido" class="form-input" placeholder="Ej: Pérez" oninput="validarFormulario()">
             </div>
             <div class="form-group">
                 <label for="telefono">Número de Teléfono:</label>
-                <input type="tel" id="telefono" class="form-input" placeholder="Ej: 3765123456">
+                <input type="tel" id="telefono" class="form-input" placeholder="Ej: 3765123456" oninput="validarFormulario()">
             </div>
         </div>
 
-        <div class="combos-wrapper">
-            <div class="combo-card">
-                <div class="combo-header">
-                    <span class="combo-title">🌱 Combo Económico (1 Chance)</span>
-                    <span class="combo-price">ARS 500</span>
-                </div>
-                <div class="input-group">
-                    <label for="qty1">Cantidad:</label>
-                    <input type="number" id="qty1" class="input-qty" min="0" value="0">
-                </div>
+        <!-- SELECCIÓN DE NÚMEROS / COMBOS -->
+        <div class="combo-card">
+            <div class="combo-header">
+                <span class="combo-title">🎟️ 1 Número Estándar</span>
+                <span class="combo-price">\$1.000</span>
             </div>
-            <div class="combo-card">
-                <div class="combo-header">
-                    <span class="combo-title">🔥 Combo Duplica Suerte (10 Chances)</span>
-                    <span class="combo-price">ARS 3.000</span>
-                </div>
-                <div class="input-group">
-                    <label for="qty2">Cantidad:</label>
-                    <input type="number" id="qty2" class="input-qty" min="0" value="0">
-                </div>
-            </div>
-            <div class="combo-card combo-gold">
-                <div class="badge-descuento">Precio Cuidado - 50% OFF</div>
-                <div class="combo-header">
-                    <span class="combo-title">👑 Super Combo Millonario VIP (20 Chances)</span>
-                    <span class="combo-price">ARS 5.000</span>
-                </div>
-                <div class="input-group">
-                    <label for="qty3">Cantidad:</label>
-                    <input type="number" id="qty3" class="input-qty" min="0" value="0">
-                </div>
+            <div class="input-group">
+                <label for="qty-simple">Cantidad:</label>
+                <input type="number" id="qty-simple" class="input-qty" min="0" value="0" oninput="calcularTotal()">
             </div>
         </div>
 
+        <div class="combo-card combo-gold">
+            <div class="badge-descuento">¡Mejor Opción!</div>
+            <div class="combo-header">
+                <span class="combo-title">✨ Combo Oro (5 Números)</span>
+                <span class="combo-price">\$4.000</span>
+            </div>
+            <div class="input-group">
+                <label for="qty-gold">Cantidad de Combos:</label>
+                <input type="number" id="qty-gold" class="input-qty" min="0" value="0" oninput="calcularTotal()">
+            </div>
+        </div>
+
+        <!-- CAJA DE TOTALES -->
         <div class="total-box">
             <div class="total-line">
-                <span>Chances:</span>
-                <strong id="resumen-chances">0</strong>
+                <span>Total Números:</span>
+                <span id="res-numeros">0</span>
             </div>
+            <div class="total-line final">
+                <span>Total a Pagar:</span>
+                <span id="res-precio">\$0</span>
+            </div>
+        </div>
+
+        <!-- DATOS DE PAGO -->
+        <div class="payment-box">
+            <p class="payment-title">🏦 Pagá por Transferencia (Alias):</p>
