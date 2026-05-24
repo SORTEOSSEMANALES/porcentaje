@@ -3,331 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gran Sorteo - Honda Bros 125</title>
-    <!-- Google Fonts para una tipografía moderna corregida -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com" rel="stylesheet">
-    
+    <title>Progreso de la Rifa</title>
     <style>
-        /* ======================================================= */
-        /*   ESTILOS GENERALES (MODO OSCURO PREMIUM)               */
-        /* ======================================================= */
-        :root {
-            --bg-principal: #0f111a;
-            --bg-tarjetas: #1a1d29;
-            --texto-blanco: #ffffff;
-            --texto-secundario: #a0aec0;
-            --accent-neon: #00ffcc;
-            --gold-neon: #ffcc00;
-            --glow-combo: #ff0077;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-principal);
-            color: var(--texto-blanco);
-            line-height: 1.6;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .contenedor {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            padding-bottom: 60px;
-        }
-
-        header {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        header h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: linear-gradient(45deg, #00ffcc, #0077ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        header p {
-            color: var(--texto-secundario);
-            font-size: 1rem;
-            margin-top: 5px;
-        }
-
-        /* ======================================================= */
-        /*   SECCIÓN DE LA BARRA DE PORCENTAJE (DINÁMICA)          */
-        /* ======================================================= */
-        .seccion-progreso {
-            background-color: var(--bg-tarjetas);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.05);
-            text-align: center;
-        }
-
-        .titulo-progreso {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--texto-blanco);
-        }
-
+        body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f7f6; }
+        
+        h2 { color: #333; margin-bottom: 10px; }
+        
+        /* Contenedor principal de la barra */
         .contenedor-barra {
-            width: 100%;
-            background-color: #11141d;
-            height: 30px;
-            border-radius: 50px;
-            padding: 4px;
+            width: 85%;
+            max-width: 500px;
+            background-color: #e0e0e0;
+            border-radius: 25px;
+            margin: 30px auto;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 10px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .barra-relleno {
-            height: 100%;
-            width: 0%; 
-            background: linear-gradient(90deg, #0077ff, var(--accent-neon));
-            border-radius: 50px;
-            transition: width 1.5s cubic-bezier(0.1, 0.8, 0.3, 1);
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
-        }
-
-        .texto-porcentaje {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--accent-neon);
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
-        }
-
-        /* ======================================================= */
-        /*   GALERÍA DE IMÁGENES (EDITABLE)                        */
-        /* ======================================================= */
-        .seccion-galeria {
-            width: 100%;
-            margin-bottom: 30px;
-        }
-
-        .galeria-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-
-        .imagen-galeria {
-            width: 100%;
-            border-radius: 20px;
-            object-fit: cover;
-            border: 2px solid rgba(255,255,255,0.1);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        }
-
-        /* ======================================================= */
-        /*   CARTELES DE COMBOS VISTOSOS Y LLAMATIVOS              */
-        /* ======================================================= */
-        .seccion-combos {
-            margin-bottom: 30px;
-        }
-
-        .titulo-seccion {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-align: center;
-            color: var(--gold-neon);
-        }
-
-        .combo-card {
-            background-color: var(--bg-tarjetas);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255,255,255,0.05);
-            position: relative;
-        }
-
-        .combo-info h3 {
-            font-size: 1.3rem;
-            color: var(--texto-blanco);
-        }
-
-        .combo-info p {
-            font-size: 0.9rem;
-            color: var(--texto-secundario);
-        }
-
-        .combo-precio {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--accent-neon);
-        }
-
-        /* --- SÚPER COMBO DE 5000 CON BRILLO NEÓN --- */
-        .combo-brillante {
-            border: 2px solid var(--glow-combo);
-            background: linear-gradient(145deg, #1a1d29, #251224);
-            animation: pulsoNeon 2s infinite alternate;
-        }
-
-        .tag-ahorro {
-            position: absolute;
-            top: -12px;
-            left: 20px;
-            background: linear-gradient(45deg, #ff0055, #ff5500);
+        /* Relleno verde de progreso */
+        .relleno-barra {
+            width: 0%; /* Inicia en cero y se expande con la animación */
+            height: 35px;
+            background-color: #28a745;
             color: white;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 50px;
-            text-transform: uppercase;
-            box-shadow: 0 0 10px rgba(255, 0, 85, 0.6);
-            letter-spacing: 0.5px;
-        }
-
-        @keyframes pulsoNeon {
-            from {
-                box-shadow: 0 0 10px rgba(255, 0, 119, 0.3), inset 0 0 5px rgba(255, 0, 119, 0.2);
-            }
-            to {
-                box-shadow: 0 0 25px rgba(255, 0, 119, 0.8), inset 0 0 10px rgba(255, 0, 119, 0.4);
-                border-color: #ff3399;
-            }
-        }
-
-        /* ======================================================= */
-        /*   SECCIÓN DE ALERTAS DE METAS E HITOS                   */
-        /* ======================================================= */
-        .seccion-alertas {
-            background-color: #131622;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-left: 5px solid var(--gold-neon);
-        }
-
-        .alerta-item {
-            margin-bottom: 15px;
-        }
-
-        .alerta-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .alerta-item h4 {
-            font-size: 1rem;
-            color: var(--gold-neon);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .alerta-item p {
-            font-size: 0.85rem;
-            color: var(--texto-secundario);
-            margin-top: 2px;
-        }
-
-        /* ======================================================= */
-        /*   FORMULARIO DE REGISTRO PREVIO                         */
-        /* ======================================================= */
-        .seccion-formulario {
-            background-color: var(--bg-tarjetas);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .seccion-formulario h2 {
-            font-size: 1.3rem;
-            margin-bottom: 5px;
             text-align: center;
-        }
-
-        .sub-formulario {
-            font-size: 0.85rem;
-            color: var(--texto-secundario);
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .grupo-input {
-            margin-bottom: 15px;
-        }
-
-        .grupo-input label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--texto-secundario);
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-
-        .grupo-input input {
-            width: 100%;
-            background-color: #11141d;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px 15px;
-            border-radius: 12px;
-            color: white;
-            font-size: 1rem;
-            transition: 0.3s;
-        }
-
-        .grupo-input input:focus {
-            outline: none;
-            border-color: var(--accent-neon);
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
-        }
-
-        .btn-whatsapp {
-            width: 100%;
-            background: linear-gradient(45deg, #25D366, #128C7E);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-            transition: 0.3s;
-            margin-top: 20px;
-            text-transform: uppercase;
-        }
-
-        .btn-whatsapp:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+            line-height: 35px;
+            font-weight: bold;
+            transition: width 1.5s ease-in-out;
         }
     </style>
 </head>
 <body>
 
-    <div class="contenedor">
-        
-        <!-- ENCABEZADO -->
-        <header>
-            <h1>Gran Sorteo Moto</h1>
+    <h2>Progreso Total Recaudado</h2>
+    
+    <div class="contenedor-barra">
+        <div id="miBarra" class="relleno-barra">0%</div>
+    </div>
+
+    <script>
+        // ⚠️ PEGA AQUÍ TU ENLACE PUBLICADO COMO CSV ⚠️
+        const urlCsv = "TU_ENLACE_DE_GOOGLE_SHEETS_AQUÍ"; 
+
+        async function cargarProgreso() {
+            try {
+                // Evitamos que el navegador guarde en caché datos viejos
+                const respuesta = await fetch(`${urlCsv}&cacheBust=${new Date().getTime()}`);
+                const texto = await respuesta.text();
+                
+                // Dividimos el contenido por filas
+                const filas = texto.split("\n");
+                
+                // Obtenemos la primera fila y la primera celda (Celda A1 de tu imagen)
+                const primeraFila = filas[0].split(",");
+                const celdaA1 = primeraFila[0];
+                
+                // Limpiamos comillas, espacios y el símbolo %
+                let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
+                
+                // Reemplazamos la coma decimal por un punto si es necesario
+                valorLimpio = valorLimpio.replace(",", ".");
+                
+                let porcentaje = parseFloat(valorLimpio);
+
+                // Si Google Sheets envía el porcentaje como decimal (ej: 0.53), lo convertimos a entero (53)
+                if (porcentaje > 0 && porcentaje <= 1) {
+                    porcentaje = porcentaje * 100;
+                }
+                
+                // Redondeamos el número por si acaso
+                porcentaje = Math.round(porcentaje) || 0;
+
+                // Límites de seguridad entre 0 y 100
+                if (porcentaje > 100) porcentaje = 100;
+                if (porcentaje < 0) porcentaje = 0;
+
+                // Modificar la barra visualmente
+                const barra = document.getElementById("miBarra");
+                barra.style.width = porcentaje + "%";
+                barra.textContent = porcentaje + "%";
+                
+            } catch (e) {
+                console.error("Error al conectar con Google Sheets: ", e);
+                // Mensaje visual de error por si falla la conexión
+                document.getElementById("miBarra").textContent = "Error al cargar";
+                document.getElementById("miBarra").style.backgroundColor = "#dc3545";
+                document.getElementById("miBarra").style.width = "100%";
+            }
+        }
+
+        // Ejecutar al abrir la web
+        cargarProgreso();
+    </script>
+</body>
+</html>
