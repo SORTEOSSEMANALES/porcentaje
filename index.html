@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- TÍTULO CORREGIDO EN LA PESTAÑA -->
     <title>SORTEO HONDA BROS 125</title>
     <style>
         :root {
@@ -23,10 +22,16 @@
         .subtitle { font-size: 14px; color: #e63946; margin-bottom: 20px; font-weight: bold; background: #ffe3e3; padding: 8px 12px; border-radius: 8px; border: 1px dashed #e63946; line-height: 1.4; }
         .promo-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px solid #ddd; }
         
-        .progress-container { background: #e0e0e0; border-radius: 20px; height: 25px; width: 100%; margin: 20px 0; overflow: hidden; position: relative; }
+        .progress-container { background: #e0e0e0; border-radius: 20px; height: 25px; width: 100%; margin: 20px 0 10px 0; overflow: hidden; position: relative; }
         .progress-bar { background: linear-gradient(90deg, var(--primary), #ff758c); height: 100%; border-radius: 20px; transition: width 0.5s ease-in-out; }
         .progress-text { position: absolute; width: 100%; text-align: center; top: 3px; font-weight: bold; color: var(--dark); font-size: 14px; }
         
+        .info-alert-box { text-align: left; margin-bottom: 20px; font-size: 13px; line-height: 1.4; }
+        .info-alert-item { padding: 10px 12px; border-radius: 8px; margin-bottom: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .info-alert-item.weekly { background-color: #e8fced; border: 1px solid #a3e9b9; color: #1e7e34; }
+        .info-alert-item.date-release { background-color: #e3f2fd; border: 1px solid #90caf9; color: #1565c0; }
+        .info-alert-icon { font-size: 18px; }
+
         .datos-box { background: #f8f9fa; border: 1px solid #cbd5e1; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: left; }
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 13px; color: #64748b; margin-bottom: 4px; font-weight: 500; }
@@ -40,7 +45,6 @@
         .input-group { display: flex; align-items: center; justify-content: space-between; background: white; padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; }
         .input-qty { width: 70px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-size: 15px; font-weight: bold; }
 
-        /* DISEÑO EXCLUSIVO COMBO DORADO VIP */
         .combo-gold { 
             background: linear-gradient(135deg, #fffaf0 0%, #fff3cc 100%); 
             border: 2px solid #f39c12; 
@@ -85,7 +89,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- TÍTULO EN SINGULAR CORREGIDO -->
         <h1>SORTEO HONDA BROS 125</h1>
         <p class="subtitle">🔥 ¡Compartí el link con tus amigos!<br>Cuanto más rápido se llene la barra, <b>¡MÁS RÁPIDO SE SORTEA!</b> 🏁</p>
         
@@ -95,6 +98,17 @@
         <div class="progress-container">
             <div class="progress-bar" style="width: 10%;"></div>
             <div class="progress-text">10% Vendido</div>
+        </div>
+
+        <div class="info-alert-box">
+            <div class="info-alert-item weekly">
+                <span class="info-alert-icon">💵</span>
+                <span>¡A partir del 10% de la barra se comenzará a sortear \$50.000 todos los lunes!</span>
+            </div>
+            <div class="info-alert-item date-release">
+                <span class="info-alert-icon">📅</span>
+                <span>Al alcanzar el 90% de la barra se dará a conocer oficialmente la fecha del sorteo principal.</span>
+            </div>
         </div>
 
         <div class="datos-box">
@@ -154,26 +168,3 @@
             </div>
             <div class="total-line final">
                 <span>Total:</span>
-                <span id="resumen-precio">ARS 0</span>
-            </div>
-        </div>
-
-        <div class="payment-box">
-            <div class="payment-title">📌 Transferencias / Depósitos</div>
-            <span id="alias-texto" class="alias-text">cajeromf</span>
-            <button class="btn-copy" id="btn-copiador">Copiar Alias</button>
-        </div>
-
-        <a id="btn-whatsapp" href="#" class="btn-contacto">Completar todos los datos obligatorios</a>
-    </div>
-
-    <script>
-        var numeroTel = "5493765131387";
-
-        function calcularTotal() {
-            var nombre = document.getElementById("nombre").value.trim();
-            var apellido = document.getElementById("apellido").value.trim();
-            var telefono = document.getElementById("telefono").value.trim();
-
-            var qty1 = parseInt(document.getElementById("qty1").value) || 0;
-            var qty2 = parseInt(document.getElementById("qty2").value) || 0;
