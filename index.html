@@ -3,25 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SORTEO HONDA BROS 125</title>
+    <title>GRAN SORTEO HONDA BROS 125</title>
     <style>
+        /* PALETA DE COLORES ULTRA MODERNA */
         :root {
-            --primary: #ff4d5a;
-            --dark: #0b0f19;
-            --light: #1e293b;
-            --card-bg: #151f32;
+            --bg-main: #090d16;
+            --bg-container: #111827;
+            --bg-card: #1f2937;
+            --bg-input: #030712;
+            --primary: #ef4444;
+            --primary-hover: #dc2626;
             --accent: #38bdf8;
-            --success: #25d366;
+            --success: #22c55e;
             --purple: #a855f7;
-            --gray: #475569;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --gold: #fbbf24;
+            --gold: #f59e0b;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --border: #374151;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+        }
         
         body { 
-            background-color: var(--dark); 
+            background-color: var(--bg-main); 
             color: var(--text-main); 
             padding: 15px; 
             display: flex; 
@@ -30,138 +39,249 @@
             min-height: 100vh;
         }
         
+        /* CONTENEDOR ANCHO Y RESPONSIVO */
         .container { 
-            max-width: 620px; 
+            max-width: 640px; 
             width: 100%; 
-            background: var(--light); 
+            background: var(--bg-container); 
             padding: 20px; 
-            border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            border-radius: 24px; 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7); 
             text-align: center;
-            margin: 10px 0;
+            margin: 15px 0;
+            border: 1px solid #1f2937;
         }
         
         @media (min-width: 480px) {
-            .container { padding: 30px; }
+            .container { padding: 35px; }
         }
 
-        h1 { color: var(--primary); margin-bottom: 5px; font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
-        .subtitle { font-size: 14px; color: var(--primary); margin-bottom: 20px; font-weight: bold; background: #2d1f2d; padding: 10px 15px; border-radius: 8px; border: 1px dashed var(--primary); line-height: 1.4; }
+        h1 { 
+            color: var(--text-main); 
+            font-size: 30px; 
+            font-weight: 900; 
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #ff4d4d, #f9fafb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
         
-        /* BARRA DE PROGRESO */
-        .progress-section { background: var(--card-bg); border: 1px solid #334155; padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: left; }
-        .progress-label { display: flex; justify-content: space-between; font-size: 14px; font-weight: bold; margin-bottom: 8px; }
-        .progress-bar-container { background: var(--dark); height: 16px; border-radius: 10px; overflow: hidden; border: 1px solid #334155; }
-        .progress-bar-fill { width: 45%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--purple)); transition: width 0.5s ease-in-out; }
+        .subtitle { 
+            font-size: 14px; 
+            color: var(--primary); 
+            margin-bottom: 25px; 
+            font-weight: 700; 
+            background: rgba(239, 68, 68, 0.07); 
+            padding: 10px 15px; 
+            border-radius: 10px; 
+            border: 1px dashed var(--primary); 
+            display: inline-block;
+        }
 
-        /* CONDICIONES */
-        .condiciones-box { background: rgba(56, 189, 248, 0.1); border: 1px solid var(--accent); border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: left; font-size: 13px; line-height: 1.5; color: #e2e8f0; }
-        .condiciones-box ul { margin-left: 18px; margin-top: 5px; }
-        .condiciones-box li { margin-bottom: 4px; }
-
-        /* DATOS */
-        .datos-box { background: var(--card-bg); border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left; }
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 4px; font-weight: 500; }
-        .form-input { width: 100%; padding: 12px; border: 1px solid #334155; background: var(--dark); color: var(--text-main); border-radius: 8px; font-size: 15px; outline: none; transition: border 0.2s; }
-        .form-input:focus { border-color: var(--accent); }
-
-        /* COMBOS */
-        .combo-card { background: linear-gradient(145deg, #162235, var(--card-bg)); border: 1px solid #334155; border-radius: 14px; padding: 18px; margin-bottom: 15px; text-align: left; position: relative; transition: transform 0.2s, border-color 0.2s; }
-        .combo-card:hover { border-color: #475569; }
+        /* ESTILO PARA LA IMAGEN DE LA MOTOCICLETA */
+        .moto-img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+            display: block;
+        }
         
-        /* DISEÑO ESPECIAL COMBO PREMIUM */
-        .combo-premium { border: 2px solid var(--gold); background: linear-gradient(145deg, #1e2030, #1c152b); box-shadow: 0 0 15px rgba(251, 191, 36, 0.15); }
-        .combo-premium:hover { border-color: #fcd34d; }
-        .badge-premium { position: absolute; top: -10px; right: 15px; background: var(--gold); color: var(--dark); font-size: 11px; font-weight: bold; padding: 2px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        /* BARRA DE PROGRESO DINÁMICA */
+        .progress-section { 
+            background: var(--bg-card); 
+            border: 1px solid var(--border); 
+            padding: 18px; 
+            border-radius: 16px; 
+            margin-bottom: 20px; 
+            text-align: left; 
+        }
+        .progress-label { 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 14px; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+        }
+        .progress-bar-container { 
+            background: var(--bg-input); 
+            height: 18px; 
+            border-radius: 50px; 
+            overflow: hidden; 
+            border: 1px solid var(--border); 
+        }
+        .progress-bar-fill { 
+            width: 0%; 
+            height: 100%; 
+            background: linear-gradient(90deg, var(--primary), var(--purple)); 
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
 
-        .combo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .combo-title { font-weight: bold; font-size: 17px; color: var(--text-main); }
-        .combo-price { color: #f43f5e; font-weight: 800; font-size: 20px; }
+        /* CUADRO DE CONDICIONES */
+        .condiciones-box { 
+            background: rgba(56, 189, 248, 0.05); 
+            border: 1px solid rgba(56, 189, 248, 0.3); 
+            border-radius: 16px; 
+            padding: 18px; 
+            margin-bottom: 25px; 
+            text-align: left; 
+            font-size: 13.5px; 
+            line-height: 1.6; 
+            color: #e5e7eb; 
+        }
+        .condiciones-box strong { color: var(--accent); display: block; margin-bottom: 6px; }
+        .condiciones-box ul { margin-left: 20px; }
+        .condiciones-box li { margin-bottom: 6px; }
+
+        /* SECCIÓN DE DATOS */
+        .datos-box { 
+            background: var(--bg-card); 
+            border: 1px solid var(--border); 
+            border-radius: 16px; 
+            padding: 22px; 
+            margin-bottom: 25px; 
+            text-align: left; 
+        }
+        .datos-box-title { font-size: 16px; font-weight: 700; margin-bottom: 15px; display: block; color: var(--text-main); }
+        .form-group { margin-bottom: 15px; }
+        .form-group:last-child { margin-bottom: 0; }
+        .form-group label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; }
+        .form-input { 
+            width: 100%; 
+            padding: 12px 14px; 
+            border: 1px solid var(--border); 
+            background: var(--bg-input); 
+            color: var(--text-main); 
+            border-radius: 10px; 
+            font-size: 15px; 
+            outline: none; 
+            transition: all 0.2s ease; 
+        }
+        .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15); }
+
+        /* DISEÑO DE TARJETAS DE COMBOS */
+        .combo-card { 
+            background: var(--bg-card); 
+            border: 1px solid var(--border); 
+            border-radius: 16px; 
+            padding: 20px; 
+            margin-bottom: 16px; 
+            text-align: left; 
+            position: relative; 
+            transition: transform 0.2s ease, border-color 0.2s ease; 
+        }
+        .combo-card:hover { transform: translateY(-2px); border-color: #4b5563; }
+        
+        /* COMBO PREMIUM MEJORADO */
+        .combo-premium { 
+            border: 2px solid var(--gold); 
+            background: linear-gradient(145deg, #1f2937, #2e200f); 
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.1); 
+        }
+        .combo-premium:hover { border-color: #fbbf24; }
+        .badge-premium { 
+            position: absolute; 
+            top: -12px; 
+            right: 20px; 
+            background: linear-gradient(135deg, var(--gold), #d97706); 
+            color: #000; 
+            font-size: 11px; 
+            font-weight: 800; 
+            padding: 4px 12px; 
+            border-radius: 50px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4); 
+        }
+
+        .combo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .combo-title { font-weight: 700; font-size: 18px; color: var(--text-main); }
+        .combo-price { color: var(--primary); font-weight: 800; font-size: 22px; }
         .combo-premium .combo-price { color: var(--gold); }
         
-        .input-group { display: flex; align-items: center; justify-content: space-between; background: var(--dark); padding: 10px 15px; border-radius: 8px; border: 1px solid #334155; }
+        .input-group { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            background: var(--bg-input); 
+            padding: 10px 16px; 
+            border-radius: 10px; 
+            border: 1px solid var(--border); 
+        }
         .input-group label { color: var(--text-muted); font-size: 14px; }
-        .input-qty { width: 80px; padding: 8px; border: 1px solid #475569; background: var(--light); color: var(--text-main); border-radius: 6px; text-align: center; font-size: 16px; font-weight: bold; outline: none; }
+        .input-qty { 
+            width: 85px; 
+            padding: 8px; 
+            border: 1px solid var(--border); 
+            background: var(--bg-card); 
+            color: var(--text-main); 
+            border-radius: 8px; 
+            text-align: center; 
+            font-size: 16px; 
+            font-weight: bold; 
+            outline: none; 
+        }
+        .input-qty:focus { border-color: var(--accent); }
         
-        /* CAJA TOTALES */
-        .total-box { background: var(--dark); padding: 18px; border-radius: 12px; margin-top: 20px; text-align: left; border: 1px solid #233148; }
-        .total-line { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 15px; color: var(--text-muted); }
+        /* CAJA DE TOTALES */
+        .total-box { 
+            background: var(--bg-input); 
+            padding: 20px; 
+            border-radius: 16px; 
+            margin-top: 25px; 
+            text-align: left; 
+            border: 1px solid var(--border); 
+        }
+        .total-line { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 15px; color: var(--text-muted); }
         .total-line span:last-child { color: var(--text-main); font-weight: 600; }
-        .total-line.final { font-size: 22px; font-weight: bold; border-top: 1px solid #233148; padding-top: 10px; margin-top: 10px; }
+        .total-line.final { 
+            font-size: 24px; 
+            font-weight: 900; 
+            border-top: 1px solid var(--border); 
+            padding-top: 12px; 
+            margin-top: 12px; 
+        }
         .total-line.final span:first-child { color: var(--text-main); }
-        .total-line.final span:last-child { color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.2); }
+        .total-line.final span:last-child { color: var(--success); text-shadow: 0 0 15px rgba(34, 197, 94, 0.25); }
         
-        /* PAGO */
-        .payment-box { background: #1e112f; border: 2px dashed var(--purple); padding: 18px; border-radius: 12px; margin-top: 20px; text-align: center; }
-        .payment-title { font-weight: bold; color: #c084fc; font-size: 15px; margin-bottom: 10px; }
-        .alias-text { background: var(--dark); border: 1px solid #581c87; padding: 10px; font-family: monospace; font-size: 18px; font-weight: bold; color: var(--accent); display: block; border-radius: 8px; margin-bottom: 12px; letter-spacing: 0.5px; }
-        .btn-copy { background: var(--purple); color: white; border: none; padding: 10px 15px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; width: 100%; transition: background 0.2s; }
+        /* SECCIÓN DE PAGO (ALIAS) */
+        .payment-box { 
+            background: rgba(168, 85, 247, 0.05); 
+            border: 2px dashed var(--purple); 
+            padding: 20px; 
+            border-radius: 16px; 
+            margin-top: 25px; 
+            text-align: center; 
+        }
+        .payment-title { font-weight: 700; color: #c084fc; font-size: 15px; margin-bottom: 12px; }
+        .alias-text { 
+            background: var(--bg-input); 
+            border: 1px solid rgba(168, 85, 247, 0.4); 
+            padding: 12px; 
+            font-family: monospace; 
+            font-size: 19px; 
+            font-weight: 700; 
+            color: var(--accent); 
+            display: block; 
+            border-radius: 10px; 
+            margin-bottom: 14px; 
+            letter-spacing: 0.5px; 
+        }
+        .btn-copy { 
+            background: var(--purple); 
+            color: white; 
+            border: none; 
+            padding: 12px 20px; 
+            border-radius: 10px; 
+            font-size: 15px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            width: 100%; 
+            transition: background 0.2s ease; 
+        }
         .btn-copy:hover { background: #9333ea; }
-        
-        /* BOTÓN CONTACTO */
-        .btn-contacto { display: inline-block; width: 100%; background: var(--gray); color: #94a3b8; padding: 16px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 16px; margin-top: 20px; text-align: center; pointer-events: none; transition: all 0.3s; border: 1px solid #334155; }
-        .btn-contacto.active { background: var(--success) !important; color: white !important; pointer-events: auto !important; cursor: pointer !important; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); border: none; }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1>SORTEO HONDA BROS 125</h1>
-        <p class="subtitle">🔥 ¡Compartí el link con tus amigos! 🏁</p>
-        
-        <!-- PROGRESO DEL SORTEO -->
-        <div class="progress-section">
-            <div class="progress-label">
-                <span>📈 Progreso de números vendidos:</span>
-                <span id="progress-text">45%</span>
-            </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar-fill" id="progress-bar" style="width: 45%;"></div>
-            </div>
-        </div>
-
-        <!-- CONDICIONES -->
-        <div class="condiciones-box">
-            <strong>📋 Condiciones Importantes del Sorteo:</strong>
-            <ul>
-                <li><strong>Al llegar al 10%:</strong> Todos los lunes se realizará un sorteo intermedio de <strong>\$50.000</strong> en efectivo entre todos los participantes activos.</li>
-                <li><strong>Al llegar al 90%:</strong> Se dará a conocer públicamente la <strong>fecha oficial</strong> para la realización del sorteo principal por la moto.</li>
-            </ul>
-        </div>
-        
-        <!-- DATOS USUARIO -->
-        <div class="datos-box">
-            <strong style="display:block; margin-bottom:12px; font-size:15px; color: var(--text-main);">👤 Tus Datos para la Rifa:</strong>
-            <div class="form-group">
-                <label for="nombre">Nombre(s):</label>
-                <input type="text" id="nombre" class="form-input" placeholder="Ej: Juan Carlos" oninput="calcularTotal()">
-            </div>
-            <div class="form-group">
-                <label for="apellido">Apellido(s):</label>
-                <input type="text" id="apellido" class="form-input" placeholder="Ej: Pérez" oninput="calcularTotal()">
-            </div>
-            <div class="form-group">
-                <label for="telefono">Número de Teléfono:</label>
-                <input type="tel" id="telefono" class="form-input" placeholder="Ej: 3765123456" oninput="calcularTotal()">
-            </div>
-        </div>
-
-        <!-- COMBOS SELECCIÓN -->
-        <div class="combo-card">
-            <div class="combo-header">
-                <span class="combo-title">🎟️ Combo Económico</span>
-                <span class="combo-price">\$500</span>
-            </div>
-            <div class="input-group">
-                <label>Cantidad de números:</label>
-                <input type="number" id="qty-c500" class="input-qty" min="0" value="0" oninput="calcularTotal()">
-            </div>
-        </div>
-
-        <div class="combo-card">
-            <div class="combo-header">
-                <span class="combo-title">⭐ Combo Estándar</span>
-                <span class="combo-price">\$3.000</span>
-            </div>
-            <div class="input-group">
