@@ -26,9 +26,25 @@
         }
 
         h1 { color: #f8fafc; margin-bottom: 5px; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 1px; }
-        .moto-titulo { color: #38bdf8; font-size: 1.8rem; font-weight: 800; margin: 5px 0 25px 0; text-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
+        .moto-titulo { color: #38bdf8; font-size: 1.8rem; font-weight: 800; margin: 5px 0 15px 0; text-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
         .subtitulo { color: #94a3b8; font-size: 1rem; line-height: 1.5; }
         
+        /* 📸 NUEVA SECCIÓN DE IMÁGENES */
+        .galeria-sorteo {
+            width: 100%;
+            margin: 15px 0 25px 0;
+        }
+        .foto-premio {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            border: 1px solid #475569;
+            object-fit: cover;
+            margin-bottom: 10px; /* Separación por si añades más fotos debajo */
+        }
+
         /* Contenedor principal de la barra */
         .contenedor-barra {
             width: 100%;
@@ -165,6 +181,16 @@
         <div class="moto-titulo">🏍️ HONDA BROS 125</div>
         <p class="subtitulo">¡Participa y llévate esta máquina! El progreso de la recaudación se actualiza en vivo aquí mismo:</p>
         
+        <!-- 📸 SECCIÓN DE FOTOS EDILABLE -->
+        <div class="galeria-sorteo" id="galeriaFotos">
+            <!-- Foto Principal Obligatoria (ss.jpg) -->
+            <img src="ss.jpg" class="foto-premio" alt="Honda Bros 125">
+            
+            <!-- 👇 INDICACIÓN: PARA AGREGAR MÁS FOTOS EN EL FUTURO, SOLO COPIA LA LÍNEA DE ABAJO, 
+                 QUÍTALE LOS SÍMBOLOS DE COMENTARIO "<!--" Y "-->" Y CAMBIA "foto2.jpg" POR TU NUEVA FOTO 👇 -->
+            <!-- <img src="foto2.jpg" class="foto-premio" alt="Honda Bros Vista Trasera"> -->
+        </div>
+
         <!-- Barra de Progreso Sincronizada -->
         <div class="contenedor-barra">
             <div id="miBarra" class="relleno-barra">Cargando...</div>
@@ -190,8 +216,7 @@
         <!-- Botón para copiar el Alias de pago -->
         <div class="seccion-deposito">
             <p>Para transferencias o depósitos bancarios:</p>
-            <!-- ⚠️ REEMPLAZA EL TEXTO POR TU ALIAS REAL -->
-            <button class="boton-alias" id="btnCopiar" onclick="copiarAlias('TU_ALIAS_AQUÍ')">
+            <button class="boton-alias" id="btnCopiar" onclick="copiarAlias()">
                 📋 COPIAR ALIAS DE DEPÓSITO
             </button>
         </div>
@@ -207,54 +232,27 @@
     </div>
 
     <!-- 📱 Botón flotante a tu WhatsApp -->
-    <!-- ⚠️ REEMPLAZA "TU_TELÉFONO_AQUÍ" CON TU NÚMERO COMPLETO INCLUYENDO CÓDIGO DE PAÍS -->
-    <a href="https://wa.me" class="btn-whatsapp" target="_blank" title="Comprar por WhatsApp">
+    <a href="#" id="enlaceWhatsapp" class="btn-whatsapp" target="_blank" title="Comprar por WhatsApp">
         💬
     </a>
 
-    <!-- Función JS para Copiar Alias -->
+    <!-- SECCIÓN CONFIGURABLE Y SCRIPT DE VINCULACIÓN ORIGINAL -->
     <script>
-        function copiarAlias(alias) {
-            navigator.clipboard.writeText(alias).then(() => {
+        // ==========================================
+        // ⚙️ CONFIGURACIÓN PERSONAL (EDITA AQUÍ SOLO ESTOS DOS CAMPOS)
+        // ==========================================
+        const MI_ALIAS_REAL = "TU_ALIAS_AQUÍ"; // 👈 Escribe tu alias entre las comillas
+        const MI_TELEFONO_REAL = "TU_TELÉFONO_AQUÍ"; // 👈 Escribe tu celular con código de país (Ej: 5491123456789)
+        
+        // Enlace CSV de tu hoja de cálculo (Validado y Fijo)
+        const urlCsv = "https://google.com"; 
+
+        // Inyección automática de tus datos configurados arriba en los botones de la interfaz
+        document.getElementById("enlaceWhatsapp").href = `https://wa.me{MI_TELEFONO_REAL}?text=Hola!%20Quiero%20adquirir%20chances%20para%20el%20sorteo%20de%20la%20Honda%20Bros%20125`;
+
+        // Función JS para Copiar Alias
+        function copiarAlias() {
+            navigator.clipboard.writeText(MI_ALIAS_REAL).then(() => {
                 const boton = document.getElementById("btnCopiar");
                 const textoOriginal = boton.innerText;
                 boton.innerText = "¡COPIADO CON ÉXITO! ✅";
-                boton.style.background = "#22c55e";
-                boton.style.color = "#0f172a";
-                setTimeout(() => {
-                    boton.innerText = textoOriginal;
-                    boton.style.background = "#38bdf8";
-                }, 2000);
-            }).catch(err => {
-                alert("No se pudo copiar automáticamente. El alias es: " + alias);
-            });
-        }
-    </script>
-
-    <!-- SCRIPT DE VINCULACIÓN CORREGIDO CON TUS FILAS DE EXCEL -->
-    <script>
-        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
-
-        async function cargarProgreso() {
-            try {
-                const respuesta = await fetch(`${urlCsv}&cacheBust=${new Date().getTime()}`);
-                const texto = await respuesta.text();
-                
-                // Cortamos el documento por saltos de línea (Filas)
-                const filas = texto.split("\n");
-                
-                // Obtenemos de forma ultra segura la primera fila y cortamos por comas (Celdas)
-                const primeraFila = filas[0].split(",");
-                const celdaA1 = primeraFila[0];
-                
-                // Limpiamos comillas, espacios, retornos de carro y signos porcentuales
-                let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
-                valorLimpio = valorLimpio.replace(",", ".");
-                
-                let porcentaje = parseFloat(valorLimpio);
-
-                // Multiplicamos por 100 si la hoja nos devuelve un decimal tipo 0.53
-                if (porcentaje > 0 && porcentaje <= 1) {
-                    porcentaje = porcentaje * 100;
-                }
-                
