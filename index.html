@@ -42,7 +42,6 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.4);
             border: 1px solid #475569;
             object-fit: cover;
-            margin-bottom: 10px;
         }
 
         /* Contenedor principal de la barra */
@@ -137,7 +136,6 @@
             box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);
         }
         .boton-alias:hover { background: #7dd3fc; transform: translateY(-1px); }
-        .boton-alias:active { transform: translateY(1px); }
 
         /* Información de Dinámica del Sorteo */
         .info-dinamica {
@@ -172,6 +170,35 @@
             transition: transform 0.2s;
         }
         .btn-whatsapp:hover { transform: scale(1.1); }
+
+        /* 🔐 PANEL PRIVADO DE APPSHEET */
+        .contenedor-admin {
+            max-width: 600px;
+            margin: 40px auto 10px auto;
+            padding: 0 10px;
+        }
+        .btn-toggle-admin {
+            background-color: #334155;
+            color: #94a3b8;
+            border: 1px dashed #475569;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-toggle-admin:hover { background-color: #475569; color: #f8fafc; }
+        .iframe-appsheet {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #334155;
+            border-radius: 16px;
+            margin-top: 15px;
+            display: none;
+            background-color: #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
     </style>
 </head>
 <body>
@@ -184,8 +211,6 @@
         <!-- Sección de Fotos -->
         <div class="galeria-sorteo" id="galeriaFotos">
             <img src="ss.jpg" class="foto-premio" alt="Honda Bros 125">
-            <!-- Para añadir otra foto en el futuro, quita las marcas de comentario de abajo -->
-            <!-- <img src="foto2.jpg" class="foto-premio" alt="Foto adicional"> -->
         </div>
 
         <!-- Barra de Progreso Sincronizada -->
@@ -198,15 +223,15 @@
             <h3>Adquiere tus Chances:</h3>
             <div class="combo">
                 <span class="combo-nombre">📦 Combo 1: (1 Chance)</span>
-                <span class="combo-precio">ARS 500</span>
+                <span class="combo-precio">\$500</span>
             </div>
             <div class="combo">
                 <span class="combo-nombre">📦 Combo 2: (10 Chances)</span>
-                <span class="combo-precio">ARS 3.000</span>
+                <span class="combo-precio">\$3.000</span>
             </div>
             <div class="combo combo-neon">
                 <span class="combo-nombre">⚡ Combo 3: AHORRADOR (20 Chances)</span>
-                <span class="combo-precio">ARS 5.000</span>
+                <span class="combo-precio">\$5.000</span>
             </div>
         </div>
 
@@ -222,7 +247,7 @@
         <div class="info-dinamica">
             <h4>📢 Dinámica del Sorteo:</h4>
             <ul>
-                <li>🚀 <b>Al llegar al 10%:</b> ¡Se activan sorteos semanales o de <b>ARS 50.000</b> en efectivo!</li>
+                <li>🚀 <b>Al llegar al 10%:</b> ¡Se activan sorteos semanales o de <b>\$50.000</b> en efectivo!</li>
                 <li>🏁 <b>Al llegar al 90%:</b> Se definirá y anunciará inmediatamente la fecha límite final para el sorteo de la Motocicleta.</li>
             </ul>
         </div>
@@ -233,6 +258,12 @@
         💬
     </a>
 
+    <!-- 🔐 SECCIÓN ADMINISTRADOR INTEGRADORA -->
+    <div class="contenedor-admin">
+        <button class="btn-toggle-admin" onclick="toggleAdminPanel()">🛠️ PANEL DE ADMINISTRADOR PRIVADO</button>
+        <iframe src="https://www.appsheet.com/start/c6d60cda-0f9d-460f-8ee5-2e3efbd1e019" class="iframe-appsheet" id="panelAppSheet"></iframe>
+    </div>
+
     <script>
         // ==========================================
         // ⚙️ CONFIGURACIÓN PERSONAL (Modifica lo que hay entre comillas)
@@ -241,27 +272,4 @@
         const MI_TELEFONO_REAL = "TU_TELÉFONO_AQUÍ"; 
         const urlCsv = "https://google.com";
 
-        // Vinculación automática e inmediata de WhatsApp
-        document.getElementById("enlaceWhatsapp").href = "https://wa.me" + MI_TELEFONO_REAL + "?text=Hola!%20Quiero%20adquirir%20chances%20para%20el%20sorteo%20de%20la%20Honda%20Bros%20125";
-
-        // Función corregida para el Copiado Exitoso
-        function copiarAlias() {
-            navigator.clipboard.writeText(MI_ALIAS_REAL).then(function() {
-                var boton = document.getElementById("btnCopiar");
-                var textoOriginal = boton.innerText;
-                boton.innerText = "¡COPIADO CON ÉXITO! ✅";
-                boton.style.background = "#22c55e";
-                boton.style.color = "#0f172a";
-                setTimeout(function() {
-                    boton.innerText = textoOriginal;
-                    boton.style.background = "#38bdf8";
-                    boton.style.color = "#0f172a";
-                }, 2000);
-            }).catch(function(err) {
-                alert("El alias es: " + MI_ALIAS_REAL);
-            });
-        }
-
-        // Sistema de Sincronización basado exactamente en tus variables originales estables
-        async function cargarProgreso() {
-            try {
+        // Vinculación automática de WhatsApp
