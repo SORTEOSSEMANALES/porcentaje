@@ -6,7 +6,6 @@
     <title>Progreso de la Rifa</title>
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f7f6; }
-        
         h2 { color: #333; margin-bottom: 10px; }
         
         /* Contenedor principal de la barra */
@@ -22,7 +21,7 @@
 
         /* Relleno verde de progreso */
         .relleno-barra {
-            width: 0%; /* Inicia en cero y se expande con la animación */
+            width: 0%;
             height: 35px;
             background-color: #28a745;
             color: white;
@@ -38,61 +37,61 @@
     <h2>Progreso Total Recaudado</h2>
     
     <div class="contenedor-barra">
-        <div id="miBarra" class="relleno-barra">0%</div>
+        <div id="miBarra" class="relleno-barra">Cargando...</div>
     </div>
 
     <script>
-        // ⚠️ PEGA AQUÍ TU ENLACE PUBLICADO COMO CSV ⚠️
-        const urlCsv = "TU_ENLACE_DE_GOOGLE_SHEETS_AQUÍ"; 
+        // Enlace CSV proporcionado de tu hoja de cálculo
+        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
 
         async function cargarProgreso() {
             try {
-                // Evitamos que el navegador guarde en caché datos viejos
+                // cacheBust evita que el navegador cargue una versión desactualizada desde su memoria
                 const respuesta = await fetch(`${urlCsv}&cacheBust=${new Date().getTime()}`);
                 const texto = await respuesta.text();
                 
-                // Dividimos el contenido por filas
+                // Dividimos el CSV por filas
                 const filas = texto.split("\n");
                 
-                // Obtenemos la primera fila y la primera celda (Celda A1 de tu imagen)
+                // Tomamos la primera celda disponible (A1)
                 const primeraFila = filas[0].split(",");
                 const celdaA1 = primeraFila[0];
                 
-                // Limpiamos comillas, espacios y el símbolo %
+                // Limpiamos comillas, espacios, retornos de carro y el signo de porcentaje %
                 let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
                 
-                // Reemplazamos la coma decimal por un punto si es necesario
+                // Reemplazamos comas decimales por puntos si fuera necesario
                 valorLimpio = valorLimpio.replace(",", ".");
                 
                 let porcentaje = parseFloat(valorLimpio);
 
-                // Si Google Sheets envía el porcentaje como decimal (ej: 0.53), lo convertimos a entero (53)
+                // Si el formato viene puro como decimal (ej: 0.53 en vez de 53), lo convertimos
                 if (porcentaje > 0 && porcentaje <= 1) {
                     porcentaje = porcentaje * 100;
                 }
                 
-                // Redondeamos el número por si acaso
+                // Redondeamos para no mostrar decimales feos en la barra
                 porcentaje = Math.round(porcentaje) || 0;
 
-                // Límites de seguridad entre 0 y 100
+                // Límites lógicos del porcentaje
                 if (porcentaje > 100) porcentaje = 100;
                 if (porcentaje < 0) porcentaje = 0;
 
-                // Modificar la barra visualmente
+                // Modificamos la barra visualmente en el navegador
                 const barra = document.getElementById("miBarra");
                 barra.style.width = porcentaje + "%";
                 barra.textContent = porcentaje + "%";
                 
             } catch (e) {
                 console.error("Error al conectar con Google Sheets: ", e);
-                // Mensaje visual de error por si falla la conexión
-                document.getElementById("miBarra").textContent = "Error al cargar";
-                document.getElementById("miBarra").style.backgroundColor = "#dc3545";
-                document.getElementById("miBarra").style.width = "100%";
+                const barra = document.getElementById("miBarra");
+                barra.textContent = "Error al cargar";
+                barra.style.backgroundColor = "#dc3545";
+                barra.style.width = "100%";
             }
         }
 
-        // Ejecutar al abrir la web
+        // Ejecutar inmediatamente al abrir la web
         cargarProgreso();
     </script>
 </body>
