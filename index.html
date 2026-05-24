@@ -82,9 +82,10 @@
         .alias-text { background: white; border: 1px solid #dcd6f7; padding: 8px; font-family: monospace; font-size: 16px; font-weight: bold; color: var(--dark); display: block; border-radius: 6px; margin-bottom: 10px; }
         .btn-copy { background: var(--purple); color: white; border: none; padding: 8px 15px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; width: 100%; }
         
+        /* BOTÓN DE CONTACTO OPTIMIZADO */
         .btn-contacto { display: inline-block; width: 100%; background: var(--gray); color: white; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; margin-top: 15px; text-align: center; pointer-events: none; transition: background 0.3s; }
-        .btn-contacto.active { background: var(--success); pointer-events: auto; cursor: pointer; }
-        .btn-contacto.active:hover { background: #128c7e; }
+        .btn-contacto.active { background: var(--success) !important; pointer-events: auto !important; cursor: pointer !important; }
+        .btn-contacto.active:hover { background: #128c7e !important; }
     </style>
 </head>
 <body>
@@ -166,5 +167,3 @@
                 <span>Chances:</span>
                 <strong id="resumen-chances">0</strong>
             </div>
-            <div class="total-line final">
-                <span>Total:</span>
