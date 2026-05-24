@@ -13,6 +13,7 @@
             --success: #25d366;
             --purple: #6c5ce7;
             --gray: #94a3b8;
+            --gold: #f39c12;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--light); color: var(--dark); padding: 20px; display: flex; flex-direction: column; align-items: center; }
@@ -31,12 +32,40 @@
         .form-input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; outline: none; }
         .form-input:focus { border-color: var(--accent); }
 
-        .combo-card { background: #f8f9fa; border: 2px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 15px; text-align: left; }
+        .combo-card { background: #f8f9fa; border: 2px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 15px; text-align: left; position: relative; }
         .combo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .combo-title { font-weight: bold; font-size: 16px; color: var(--dark); }
         .combo-price { color: var(--primary); font-weight: bold; font-size: 18px; }
         .input-group { display: flex; align-items: center; justify-content: space-between; background: white; padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; }
         .input-qty { width: 70px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-size: 15px; font-weight: bold; }
+
+        /* DISEÑO EXCLUSIVO COMBO DORADO VIP */
+        .combo-gold { 
+            background: linear-gradient(135deg, #fffaf0 0%, #fff3cc 100%); 
+            border: 2px solid #f39c12; 
+            box-shadow: 0 0 12px rgba(243, 156, 18, 0.4);
+            animation: pulse-gold 2s infinite alternate;
+        }
+        .combo-gold .combo-title { color: #b7791f; font-size: 17px; }
+        .combo-gold .combo-price { color: #d63031; font-size: 20px; }
+        .badge-descuento {
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            background: #d63031;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 8px rgba(243, 156, 18, 0.3); border-color: #f39c12; }
+            100% { box-shadow: 0 0 18px rgba(243, 156, 18, 0.7); border-color: #e67e22; }
+        }
         
         .total-box { background: var(--dark); color: white; padding: 15px; border-radius: 10px; margin-top: 20px; text-align: left; }
         .total-line { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 15px; }
@@ -58,7 +87,6 @@
         <h1>¡Gran Sorteo Semanal!</h1>
         <p class="subtitle">Honda Bros 125cc 0km</p>
         
-        <!-- IMAGEN CONFIGURADA CON TU ARCHIVO LOCAL -->
         <img src="ss.jpg" alt="Honda Bros 125cc" class="promo-img">
         
         <p>Estado de la rifa:</p>
@@ -86,7 +114,7 @@
         <div class="combos-wrapper">
             <div class="combo-card">
                 <div class="combo-header">
-                    <span class="combo-title">Combo 1: 1 Chance</span>
+                    <span class="combo-title">🌱 Combo Económico (1 Chance)</span>
                     <span class="combo-price">ARS 500</span>
                 </div>
                 <div class="input-group">
@@ -96,7 +124,7 @@
             </div>
             <div class="combo-card">
                 <div class="combo-header">
-                    <span class="combo-title">Combo 2: 10 Chances</span>
+                    <span class="combo-title">🔥 Combo Duplica Suerte (10 Chances)</span>
                     <span class="combo-price">ARS 3.000</span>
                 </div>
                 <div class="input-group">
@@ -104,9 +132,10 @@
                     <input type="number" id="qty2" class="input-qty" min="0" value="0">
                 </div>
             </div>
-            <div class="combo-card">
+            <div class="combo-card combo-gold">
+                <div class="badge-descuento">Precio Cuidado - 50% OFF</div>
                 <div class="combo-header">
-                    <span class="combo-title">Combo 3: 20 Chances</span>
+                    <span class="combo-title">👑 Super Combo Millonario VIP (20 Chances)</span>
                     <span class="combo-price">ARS 5.000</span>
                 </div>
                 <div class="input-group">
@@ -137,6 +166,7 @@
     </div>
 
     <script>
+        // CONFIGURADO CON TU NÚMERO DE TELÉFONO DE WHATSAPP REAL
         var numeroTel = "5493765131387";
 
         function calcularTotal() {
@@ -150,25 +180,3 @@
 
             if (qty1 < 0) { qty1 = 0; document.getElementById("qty1").value = 0; }
             if (qty2 < 0) { qty2 = 0; document.getElementById("qty2").value = 0; }
-            if (qty3 < 0) { qty3 = 0; document.getElementById("qty3").value = 0; }
-
-            var totalChances = (qty1 * 1) + (qty2 * 10) + (qty3 * 20);
-            var totalDinero = (qty1 * 500) + (qty2 * 3000) + (qty3 * 5000);
-
-            document.getElementById("resumen-chances").innerText = totalChances;
-            document.getElementById("resumen-precio").innerText = "ARS " + totalDinero.toLocaleString('es-AR');
-
-            var btnWhatsapp = document.getElementById("btn-whatsapp");
-            
-            if (nombre !== "" && apellido !== "" && telefono !== "" && totalChances > 0) {
-                btnWhatsapp.classList.add("active");
-                btnWhatsapp.innerText = "Enviar comprobante por WhatsApp";
-                
-                var mensaje = "¡Hola! Quiero registrar mis chances para el sorteo 🎟️\n\n" +
-                              "📋 *DATOS PARA PLANILLA:*\n" +
-                              "Nombre: " + nombre + "\n" +
-                              "Apellido: " + apellido + "\n" +
-                              "Telefono: " + telefono + "\n" +
-                              "Chances: " + totalChances + "\n" +
-                              "Monto: " + totalDinero + "\n\n" +
-                              "📌 *Detalle de combos:*\n" +
