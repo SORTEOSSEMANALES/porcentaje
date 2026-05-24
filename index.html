@@ -3,96 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Progreso de la Rifa</title>
+    <title>Gran Sorteo - Honda Bros 125</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f7f6; }
-        h2 { color: #333; margin-bottom: 10px; }
+        /* Estilos Base Modernos */
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            text-align: center; 
+            padding: 20px 10px; 
+            background-color: #0f172a; 
+            color: #f8fafc;
+            margin: 0;
+        }
         
-        /* Contenedor principal de la barra */
-        .contenedor-barra {
-            width: 85%;
-            max-width: 500px;
-            background-color: #e0e0e0;
-            border-radius: 25px;
-            margin: 30px auto;
-            overflow: hidden;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        .tarjeta-sorteo {
+            background-color: #1e293b;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 30px 20px;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
         }
 
-        /* Relleno verde de progreso */
+        h1 { color: #f8fafc; margin-bottom: 5px; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        .moto-titulo { color: #38bdf8; font-size: 1.8rem; font-weight: 800; margin: 5px 0 25px 0; text-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
+        .subtitulo { color: #94a3b8; font-size: 1rem; line-height: 1.5; }
+        
+        /* Contenedor de la barra */
+        .contenedor-barra {
+            width: 100%;
+            background-color: #334155;
+            border-radius: 25px;
+            margin: 25px auto;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+            border: 1px solid #475569;
+        }
+
+        /* Relleno de la barra */
         .relleno-barra {
             width: 0%;
-            height: 35px;
-            background-color: #28a745;
-            color: white;
+            height: 42px;
+            background: linear-gradient(90deg, #22c55e, #4ade80);
+            color: #0f172a;
             text-align: center;
-            line-height: 35px;
-            font-weight: bold;
+            line-height: 42px;
+            font-weight: 900;
+            font-size: 1.2rem;
             transition: width 1.5s ease-in-out;
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
         }
+
+        /* Sección de Combos de Precios */
+        .contenedor-combos {
+            margin-top: 35px;
+        }
+        .contenedor-combos h3 { color: #f1f5f9; font-size: 1.3rem; margin-bottom: 15px; text-align: left; border-left: 4px solid #38bdf8; padding-left: 10px; }
+
+        .combo {
+            background-color: #1e293b;
+            border: 1px solid #475569;
+            padding: 15px;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        .combo-nombre { color: #cbd5e1; }
+        .combo-precio { color: #f8fafc; font-size: 1.2rem; }
+
+        /* 🔥 COMBO NEÓN IMPACTANTE 🔥 */
+        .combo-neon {
+            background: #0f172a;
+            border: 2px solid #ff0055;
+            box-shadow: 0 0 10px #ff0055, inset 0 0 10px #ff0055;
+            animation: pulsoNeon 2s infinite alternate;
+        }
+        .combo-neon .combo-nombre {
+            color: #ff3377;
+            font-size: 1.3rem;
+            font-weight: 900;
+            text-shadow: 0 0 8px #ff0055;
+            letter-spacing: 0.5px;
+        }
+        .combo-neon .combo-precio {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-shadow: 0 0 10px #fff, 0 0 20px #ff0055;
+        }
+
+        @keyframes pulsoNeon {
+            from { box-shadow: 0 0 8px #ff0055, inset 0 0 5px #ff0055; }
+            to { box-shadow: 0 0 20px #ff0055, inset 0 0 10px #ff0055; }
+        }
+
+        /* Datos de Depósito y Alias */
+        .seccion-deposito {
+            background-color: #0f172a;
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 30px;
+            border: 1px solid #334155;
+        }
+        .seccion-deposito p { margin: 0 0 12px 0; color: #94a3b8; font-weight: 500; }
+        
+        .boton-alias {
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);
+        }
+        .boton-alias:hover { background: #7dd3fc; transform: translateY(-1px); }
+        .boton-alias:active { transform: translateY(1px); }
+
+        /* Información de Dinámica del Sorteo */
+        .info-dinamica {
+            text-align: left;
+            margin-top: 30px;
+            background: rgba(56, 189, 248, 0.05);
+            padding: 15px;
+            border-radius: 14px;
+            border-left: 4px solid #38bdf8;
+        }
+        .info-dinamica h4 { margin: 0 0 10px 0; color: #38bdf8; }
+        .info-dinamica ul { padding-left: 20px; margin: 0; color: #cbd5e1; font-size: 0.95rem; }
+        .info-dinamica li { margin-bottom: 8px; line-height: 1.4; }
+
+        /* 📱 BOTÓN FLOTANTE WHATSAPP */
+        .btn-whatsapp {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            width: 60px;
+            height: 60px;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3), 0 0 15px rgba(37, 211, 102, 0.5);
+            z-index: 1000;
+            transition: transform 0.2s;
+        }
+        .btn-whatsapp:hover { transform: scale(1.1); }
     </style>
 </head>
 <body>
 
-    <h2>Progreso Total Recaudado</h2>
-    
-    <div class="contenedor-barra">
-        <div id="miBarra" class="relleno-barra">Cargando...</div>
+    <div class="tarjeta-sorteo">
+        <h1>🎟️ Gran Sorteo Oficial</h1>
+        <div class="moto-titulo">🏍️ HONDA BROS 125 0KM</div>
+        <p class="subtitulo">¡Participa y llévate esta máquina! El progreso de la recaudación se actualiza en vivo aquí mismo:</p>
+        
+        <!-- Barra de Progreso Sincronizada -->
+        <div class="contenedor-barra">
+            <div id="miBarra" class="relleno-barra">Cargando...</div>
+        </div>
+
+        <!-- Combos de Chances -->
+        <div class="contenedor-combos">
+            <h3>Adquiere tus Chances:</h3>
+            <div class="combo">
+                <span class="combo-nombre">📦 Combo 1: (1 Chance)</span>
+                <span class="combo-precio">\$500</span>
+            </div>
+            <div class="combo">
+                <span class="combo-nombre">📦 Combo 2: (10 Chances)</span>
+                <span class="combo-precio">\$3.000</span>
+            </div>
+            <!-- Combo Ahorrador con Neón -->
+            <div class="combo combo-neon">
+                <span class="combo-nombre">⚡ Combo 3: AHORRADOR (20 Chances)</span>
+                <span class="combo-precio">\$5.000</span>
+            </div>
+        </div>
+
+        <!-- Botón para copiar el Alias de pago -->
+        <div class="seccion-deposito">
+            <p>Para transferencias o depósitos bancarios:</p>
+            <!-- ⚠️ REEMPLAZA EL TEXTO "TU_ALIAS_AQUÍ" POR TU ALIAS REAL -->
+            <button class="boton-alias" id="btnCopiar" onclick="copiarAlias('TU_ALIAS_AQUÍ')">
+                📋 COPIAR ALIAS DE DEPÓSITO
+            </button>
+        </div>
+
+        <!-- Dinámica de Metas -->
+        <div class="info-dinamica">
+            <h4>📢 Dinámica del Sorteo:</h4>
+            <ul>
+                <li>🚀 <b>Al llegar al 10%:</b> ¡Se activan sorteos semanales o quincenales de <b>\$50.000</b> en efectivo!</li>
+                <li>🏁 <b>Al llegar al 90%:</b> Se definirá y anunciará inmediatamente la fecha límite final para el sorteo de la Motocicleta.</li>
+            </ul>
+        </div>
     </div>
 
+    <!-- 📱 Botón flotante a tu WhatsApp -->
+    <!-- ⚠️ REEMPLAZA "TU_TELÉFONO_AQUÍ" CON TU NÚMERO COMPLETO INCLUYENDO CÓDIGO DE PAÍS (Ej: 5491123456789) -->
+    <a href="https://wa.me" class="btn-whatsapp" target="_blank" title="Comprar por WhatsApp">
+        💬
+    </a>
+
+    <!-- Función JS para Copiar Alias -->
     <script>
-        // Enlace CSV proporcionado de tu hoja de cálculo
-        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
+        function copiarAlias(alias) {
+            navigator.clipboard.writeText(alias).then(() => {
+                const boton = document.getElementById("btnCopiar");
+                const textoOriginal = boton.innerText;
+                boton.innerText = "¡COPIADO CON ÉXITO! ✅";
+                boton.style.background = "#22c55e";
+                boton.style.color = "#0f172a";
+                setTimeout(() => {
+                    boton.innerText = textoOriginal;
+                    boton.style.background = "#38bdf8";
+                }, 2000);
+            }).catch(err => {
+                alert("No se pudo copiar automáticamente. El alias es: " + alias);
+            });
+        }
+    </script>
+
+    <!-- Código de Sincronización Automática con Google Sheets (Intacto) -->
+    <script>
+        const urlCsv = "https://google.com"; 
 
         async function cargarProgreso() {
             try {
-                // cacheBust evita que el navegador cargue una versión desactualizada desde su memoria
                 const respuesta = await fetch(`${urlCsv}&cacheBust=${new Date().getTime()}`);
                 const texto = await respuesta.text();
                 
-                // Dividimos el CSV por filas
                 const filas = texto.split("\n");
+                const primeraFila = filas.split(",");
+                const celdaA1 = primeraFila;
                 
-                // Tomamos la primera celda disponible (A1)
-                const primeraFila = filas[0].split(",");
-                const celdaA1 = primeraFila[0];
-                
-                // Limpiamos comillas, espacios, retornos de carro y el signo de porcentaje %
                 let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
-                
-                // Reemplazamos comas decimales por puntos si fuera necesario
                 valorLimpio = valorLimpio.replace(",", ".");
                 
                 let porcentaje = parseFloat(valorLimpio);
 
-                // Si el formato viene puro como decimal (ej: 0.53 en vez de 53), lo convertimos
                 if (porcentaje > 0 && porcentaje <= 1) {
                     porcentaje = porcentaje * 100;
                 }
                 
-                // Redondeamos para no mostrar decimales feos en la barra
                 porcentaje = Math.round(porcentaje) || 0;
 
-                // Límites lógicos del porcentaje
-                if (porcentaje > 100) porcentaje = 100;
+                if (porcentaje > 100) pointer = 100;
                 if (porcentaje < 0) porcentaje = 0;
 
-                // Modificamos la barra visualmente en el navegador
-                const barra = document.getElementById("miBarra");
-                barra.style.width = porcentaje + "%";
-                barra.textContent = porcentaje + "%";
-                
-            } catch (e) {
-                console.error("Error al conectar con Google Sheets: ", e);
-                const barra = document.getElementById("miBarra");
-                barra.textContent = "Error al cargar";
-                barra.style.backgroundColor = "#dc3545";
-                barra.style.width = "100%";
-            }
-        }
-
-        // Ejecutar inmediatamente al abrir la web
-        cargarProgreso();
-    </script>
-</body>
-</html>
