@@ -13,7 +13,7 @@
             --text-muted: #a0a0a0;
             --input-bg: #2d2d2d;
             --border: #333333;
-            --accent: #ffd700; /* Color dorado para destacar */
+            --accent: #ffd700; /* Color dorado */
         }
 
         body {
@@ -148,29 +148,35 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
-            overflow: hidden;
+            box-sizing: border-box;
         }
 
-        /* Variación Destacada para el Combo Mayor */
+        /* Variación Destacada (Combo 20) */
         .combo-card.featured {
             border: 2px solid var(--accent);
             background: linear-gradient(180deg, #1f1c10 0%, #181818 100%);
+            padding-top: 0; 
+            overflow: hidden;
         }
 
-        /* Etiqueta de Ahorro Imperdible */
-        .badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
+        /* Barra de Ahorro Animada */
+        .badge-bar {
             background-color: var(--accent);
             color: #000000;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: bold;
-            padding: 4px 8px;
-            border-radius: 20px;
+            padding: 8px 0;
+            width: 100%;
             text-transform: uppercase;
-            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            animation: pulseBlink 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseBlink {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
         }
 
         .combo-card h3 {
@@ -224,6 +230,7 @@
             gap: 8px;
             text-decoration: none;
             transition: background-color 0.2s;
+            box-sizing: border-box;
         }
 
         .btn-whatsapp:hover {
@@ -237,6 +244,49 @@
 
         .combo-card.featured .btn-whatsapp:hover {
             background-color: #e6c200;
+        }
+
+        /* Nueva sección: Bases y Condiciones Legales */
+        .rules-section {
+            margin-top: 35px;
+            background-color: #161616;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .rules-section h4 {
+            margin: 0 0 15px 0;
+            color: var(--primary);
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 6px;
+        }
+
+        .rule-item {
+            display: flex;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .rule-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .rule-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .rule-highlight {
+            color: var(--text-main);
+            font-weight: 500;
         }
     </style>
 </head>
@@ -269,8 +319,8 @@
         <div class="combo-card">
             <h3>Ticket Cooperativo</h3>
             <p class="chances">1 Chance</p>
-            <p class="price">$500</p>
-            <button class="btn-whatsapp" onclick="sendOrder('Ticket Cooperativo (1 Chance por $500)')">
+            <p class="price">\$500</p>
+            <button class="btn-whatsapp" onclick="sendOrder('Ticket Cooperativo (1 Chance por \$500)')">
                 💬 Comprar por WhatsApp
             </button>
         </div>
@@ -279,45 +329,32 @@
         <div class="combo-card">
             <h3>Pack Multiplicador</h3>
             <p class="chances">10 Chances</p>
-            <p class="price">$3,000</p>
-            <button class="btn-whatsapp" onclick="sendOrder('Pack Multiplicador (10 Chances por $3.000)')">
+            <p class="price">\$3,000</p>
+            <button class="btn-whatsapp" onclick="sendOrder('Pack Multiplicador (10 Chances por \$3.000)')">
                 💬 Comprar por WhatsApp
             </button>
         </div>
 
-        <!-- Combo 3 (Destacado y Optimizada comercialmente) -->
+        <!-- Combo 3 -->
         <div class="combo-card featured">
-            <span class="badge">🔥 ¡Más vendido!</span>
+            <div class="badge-bar">🔥 ¡AHORRA EL 50%!</div>
             <h3>Combo Rompe-Banca</h3>
             <p class="chances">20 Chances de Ganar</p>
-            <p class="price">$5,000</p>
-            <p class="saving-text">Ahorras 50% por chance ($250 c/u)</p>
-            <button class="btn-whatsapp" onclick="sendOrder('Combo Rompe-Banca (20 Chances por $5.000 - Ahorro 50%)')">
+            <p class="price">\$5,000</p>
+            <p class="saving-text">Ahorras 50% por chance (\$250 c/u)</p>
+            <button class="btn-whatsapp" onclick="sendOrder('Combo Rompe-Banca (20 Chances por \$5.000 - Ahorro 50%)')">
                 🚀 Llevar Combo de la Suerte
             </button>
         </div>
 
     </div>
-</div>
 
-<script>
-    // Recuerda ingresar tu número sin el signo '+' ni espacios
-    const WHATSAPP_NUMBER = "TU_NUMERO_AQUI"; 
-
-    function sendOrder(comboName) {
-        const nameInput = document.getElementById('fullName').value.trim();
+    <!-- Sección de Información Importante y Legal -->
+    <div class="rules-section">
+        <h4>📋 Términos e información útil</h4>
         
-        if (nameInput === "") {
-            alert("Por favor, ingresa tu Nombre y Apellido antes de elegir un combo.");
-            document.getElementById('fullName').focus();
-            return;
-        }
+        <div class="rule-item">
+            <span class="rule-icon">🔞</span>
+            <span><span class="rule-highlight">Restricción de edad:</span> Queda estrictamente prohibida la venta de números a menores de edad.</span>
+        </div>
 
-        const textMessage = `¡Hola! Quiero participar en el Sorteo Honda Bros 125cc.%0A%0A*Mis Datos:*%0A👤 Nombre: ${encodeURIComponent(nameInput)}%0A%0A*Combo Elegido:*%0A🎫 ${encodeURIComponent(comboName)}`;
-        const whatsappUrl = `https://wa.me{WHATSAPP_NUMBER}?text=${textMessage}`;
-        window.open(whatsappUrl, '_blank');
-    }
-</script>
-
-</body>
-</html>
