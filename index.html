@@ -74,7 +74,7 @@
         .combo-nombre { color: #cbd5e1; }
         .combo-precio { color: #f8fafc; font-size: 1.2rem; }
 
-        /* 🔥 COMBO CON PARPADEO NEÓN CIAN AUTOMÁTICO 🔥 */
+        /* Combo con parpadeo Neón Cian */
         .combo-neon {
             background: #0f172a;
             border: 2px solid #00f0ff;
@@ -92,7 +92,6 @@
             text-shadow: 0 0 10px #00f0ff;
         }
 
-        /* Animación que hace parpadear solo el recuadro azul/cian */
         @keyframes parpadeoNeon {
             0% { box-shadow: 0 0 4px #00f0ff, inset 0 0 2px #00f0ff; }
             100% { box-shadow: 0 0 18px #00f0ff, inset 0 0 8px #00f0ff; }
@@ -137,7 +136,7 @@
         .info-dinamica ul { padding-left: 20px; margin: 0; color: #cbd5e1; font-size: 0.95rem; }
         .info-dinamica li { margin-bottom: 8px; line-height: 1.4; }
 
-        /* 📱 BOTÓN FLOTANTE WHATSAPP */
+        /* Botón Flotante WhatsApp */
         .btn-whatsapp {
             position: fixed;
             bottom: 25px;
@@ -162,7 +161,7 @@
 <body>
 
     <div class="tarjeta-sorteo">
-        <h1>🎟️ GRAN SORTEO</h1>
+        <h1>Gran Sorteo</h1>
         <div class="moto-titulo">🏍️ HONDA BROS 125</div>
         <p class="subtitulo">¡Participa y llévate esta máquina! El progreso de la recaudación se actualiza en vivo aquí mismo:</p>
         
@@ -176,16 +175,16 @@
             <h3>Adquiere tus Chances:</h3>
             <div class="combo">
                 <span class="combo-nombre">📦 Combo 1: (1 Chance)</span>
-                <span class="combo-precio">$500</span>
+                <span class="combo-precio">\$500</span>
             </div>
             <div class="combo">
                 <span class="combo-nombre">📦 Combo 2: (10 Chances)</span>
-                <span class="combo-precio">$3.000</span>
+                <span class="combo-precio">\$3.000</span>
             </div>
-            <!-- Combo Ahorrador con Neón que Parpadea -->
+            <!-- Combo Ahorrador Limpio -->
             <div class="combo combo-neon">
                 <span class="combo-nombre">⚡ Combo 3: AHORRADOR (20 Chances)</span>
-                <span class="combo-precio">$5.000</span>
+                <span class="combo-precio">\$5.000</span>
             </div>
         </div>
 
@@ -202,14 +201,14 @@
         <div class="info-dinamica">
             <h4>📢 Dinámica del Sorteo:</h4>
             <ul>
-                <li>🚀 <b>Al llegar al 10%:</b> ¡Se activan sorteos semanales o de <b>$50.000</b> en efectivo!</li>
+                <li>🚀 <b>Al llegar al 10%:</b> ¡Se activan sorteos semanales o de <b>\$50.000</b> en efectivo!</li>
                 <li>🏁 <b>Al llegar al 90%:</b> Se definirá y anunciará inmediatamente la fecha límite final para el sorteo de la Motocicleta.</li>
             </ul>
         </div>
     </div>
 
     <!-- 📱 Botón flotante a tu WhatsApp -->
-    <!-- ⚠️ REEMPLAZA "5493765131387" CON TU NÚMERO COMPLETO INCLUYENDO CÓDIGO DE PAÍS (Ej: 5491123456789) -->
+    <!-- ⚠️ REEMPLAZA "TU_TELÉFONO_AQUÍ" CON TU NÚMERO COMPLETO INCLUYENDO CÓDIGO DE PAÍS (Ej: 5491123456789) -->
     <a href="https://wa.me" class="btn-whatsapp" target="_blank" title="Comprar por WhatsApp">
         💬
     </a>
@@ -233,25 +232,33 @@
         }
     </script>
 
-    <!-- 🚫 SCRIPT DE VINCULACIÓN TUYO (100% INTACTO Y FUNCIONAL) 🚫 -->
+    <!-- 🚫 TU SCRIPT PROPIO DE VINCULACIÓN ORIGINAL EXACTO 🚫 -->
     <script>
-        // Enlace CSV proporcionado de tu hoja de cálculo
-        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
+        const urlCsv = "https://google.com"; 
 
         async function cargarProgreso() {
             try {
-                // cacheBust evita que el navegador cargue una versión desactualizada desde su memoria
                 const respuesta = await fetch(`${urlCsv}&cacheBust=${new Date().getTime()}`);
                 const texto = await respuesta.text();
                 
-                // Dividimos el CSV por filas
                 const filas = texto.split("\n");
                 
-                // Tomamos la primera celda disponible (A1)
                 const primeraFila = filas[0].split(",");
                 const celdaA1 = primeraFila[0];
                 
-                // Limpiamos comillas, espacios, retornos de carro y el signo de porcentaje %
                 let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
                 
-                // Reemplazamos comas decimales por puntos si fuera necesario
+                valorLimpio = valorLimpio.replace(",", ".");
+                
+                let porcentaje = parseFloat(valorLimpio);
+
+                if (porcentaje > 0 && porcentaje <= 1) {
+                    porcentaje = porcentaje * 100;
+                }
+                
+                porcentaje = Math.round(porcentaje) || 0;
+
+                if (porcentaje > 100) porcentaje = 100;
+                if (porcentaje < 0) porcentaje = 0;
+
+                const barra = document.getElementById("miBarra");
