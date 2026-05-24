@@ -171,34 +171,26 @@
         }
         .btn-whatsapp:hover { transform: scale(1.1); }
 
-        /* PANEL PRIVADO DE APPSHEET */
+        /* PANEL PRIVADO DE ADMINISTRADOR SEGURO */
         .contenedor-admin {
             max-width: 600px;
-            margin: 40px auto 10px auto;
+            margin: 40px auto 30px auto;
             padding: 0 10px;
         }
-        .btn-toggle-admin {
-            background-color: #334155;
+        .btn-admin-seguro {
+            background-color: #1e293b;
             color: #94a3b8;
             border: 1px dashed #475569;
-            padding: 8px 16px;
-            font-size: 0.85rem;
-            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
             transition: all 0.2s;
         }
-        .btn-toggle-admin:hover { background-color: #475569; color: #f8fafc; }
-        .iframe-appsheet {
-            width: 100%;
-            height: 600px;
-            border: 2px solid #334155;
-            border-radius: 16px;
-            margin-top: 15px;
-            display: none;
-            background-color: #ffffff;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
+        .btn-admin-seguro:hover { background-color: #334155; color: #f8fafc; border-color: #38bdf8; }
     </style>
 </head>
 <body>
@@ -257,37 +249,27 @@
         💬
     </a>
 
-    <!-- 🔐 SECCIÓN ADMINISTRADOR INTEGRADORA REAL -->
+    <!-- 🔐 ACCESO SEGURO A TU APPSHEET PRIVADO -->
     <div class="contenedor-admin">
-        <button class="btn-toggle-admin" onclick="toggleAdminPanel()">🛠️ PANEL DE ADMINISTRADOR PRIVADO</button>
-        <iframe src="https://appsheet.com" class="iframe-appsheet" id="panelAppSheet"></iframe>
+        <a href="https://appsheet.com" target="_blank" class="btn-admin-seguro">
+            🛠️ ABRIR PANEL DE CONTROL EN PESTAÑA PRIVADA
+        </a>
     </div>
 
     <script>
         // ==========================================
-        // ⚙️ CONFIGURACIÓN PERSONAL (Escribe aquí tus datos reales)
+        // ⚙️ CONFIGURACIÓN PERSONAL (Modifica lo que hay entre comillas)
         // ==========================================
         const MI_ALIAS_REAL = "TU_ALIAS_AQUÍ"; 
         const MI_TELEFONO_REAL = "TU_TELÉFONO_AQUÍ"; 
         
-        // El enlace CSV real corregido de tu Google Sheets (Ya no dice google.com)
+        // Enlace público CSV general optimizado para lectura de texto crudo sin importar la pestaña
         const urlCsv = "https://google.com"; 
 
-        // Vinculación automática de WhatsApp
+        // Sincronización automática de WhatsApp
         document.getElementById("enlaceWhatsapp").href = "https://wa.me" + MI_TELEFONO_REAL + "?text=Hola!%20Quiero%20adquirir%20chances%20para%20el%20sorteo%20de%20la%20Honda%20Bros%20125";
 
-        // Función corregida con el id exacto en minúsculas para abrir el panel de AppSheet
-        function toggleAdminPanel() {
-            var panel = document.getElementById("panelAppSheet");
-            if (!panel.style.display || panel.style.display === "none") {
-                panel.style.display = "block";
-                panel.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                panel.style.display = "none";
-            }
-        }
-
-        // Función para el Copiado del Alias bancario
+        // Función para copiar el Alias
         function copiarAlias() {
             navigator.clipboard.writeText(MI_ALIAS_REAL).then(function() {
                 var boton = document.getElementById("btnCopiar");
@@ -305,39 +287,46 @@
             });
         }
 
-        // SCRIPT DE VINCULACIÓN ORIGINAL CORREGIDO (filas[0] añadido con éxito)
+        // LECTOR ULTRA SEGURO MEDIANTE FILAS Y SEPARADORES DINÁMICOS
         async function cargarProgreso() {
             try {
                 const respuesta = await fetch(urlCsv + "&cacheBust=" + new Date().getTime());
                 const texto = await respuesta.text();
                 
-                const filas = texto.split("\n");
+                // Dividimos de forma robusta por renglones
+                const filas = texto.split(/\r?\n/);
                 
-                if (filas.length > 0) {
-                    const primeraFila = filas[0].split(",");
-                    const celdaA1 = primeraFila[0];
+                let porcentaje = 0;
+                if(filas.length > 0) {
+                    // Validamos de manera dinámica si el separador es coma o punto y coma regional de Excel
+                    var filaActual = filas[0];
+                    var celdas = filaActual.includes(";") ? filaActual.split(";") : filaActual.split(",");
+                    var celdaA1 = celdas[0];
                     
+                    // Limpieza total de caracteres porcentuales o comillas
                     let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
                     valorLimpio = valorLimpio.replace(",", ".");
                     
-                    let porcentaje = parseFloat(valorLimpio);
+                    porcentaje = parseFloat(valorLimpio) || 0;
 
+                    // Ajuste si Google Sheets entrega en formato decimal (ej: 0.23 en vez de 23)
                     if (porcentaje > 0 && porcentaje <= 1) {
                         porcentaje = porcentaje * 100;
                     }
-                    
-                    porcentaje = Math.round(porcentaje) || 0;
-
-                    if (porcentaje > 100) porcentaje = 100;
-                    if (porcentaje < 0) porcentaje = 0;
-
-                    const barra = document.getElementById("miBarra");
-                    barra.style.width = porcentaje + "%";
-                    barra.textContent = porcentaje + "%";
                 }
                 
+                porcentaje = Math.round(porcentaje) || 0;
+
+                if (porcentaje > 100) porcentaje = 100;
+                if (porcentaje < 0) porcentaje = 0;
+
+                // Forzamos la actualización visual de la barra
+                const barra = document.getElementById("miBarra");
+                barra.style.width = porcentaje + "%";
+                barra.textContent = porcentaje + "%";
+                
             } catch (e) {
-                console.error("Error al conectar con Google Sheets: ", e);
+                console.error("Error de conexión: ", e);
                 const barra = document.getElementById("miBarra");
                 barra.textContent = "Error al cargar";
                 barra.style.backgroundColor = "#dc3545";
@@ -345,8 +334,8 @@
             }
         }
 
-        // Ejecutar inmediatamente al abrir la web
-        cargarProgreso();
+        // Iniciar la lectura al cargar la web
+        window.onload = cargarProgreso;
     </script>
 </body>
 </html>
