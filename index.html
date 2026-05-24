@@ -18,160 +18,115 @@
         .container { max-width: 500px; width: 100%; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
         h1 { color: var(--primary); margin-bottom: 10px; font-size: 24px; }
         .subtitle { font-size: 16px; color: var(--accent); margin-bottom: 20px; font-weight: bold; }
-        
-        /* Espacio para la Imagen */
         .promo-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px solid #ddd; }
-        
-        /* Barra de Progreso */
         .progress-container { background: #e0e0e0; border-radius: 20px; height: 25px; width: 100%; margin: 20px 0; overflow: hidden; position: relative; }
         .progress-bar { background: linear-gradient(90deg, var(--primary), #ff758c); height: 100%; border-radius: 20px; transition: width 0.5s ease-in-out; }
         .progress-text { position: absolute; width: 100%; text-align: center; top: 3px; font-weight: bold; color: var(--dark); font-size: 14px; }
-        
-        /* Contenedores de Combos */
         .combo-card { background: #f8f9fa; border: 2px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 15px; text-align: left; transition: transform 0.2s; }
         .combo-card:hover { transform: translateY(-2px); border-color: var(--accent); }
         .combo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .combo-title { font-weight: bold; font-size: 16px; color: var(--dark); }
         .combo-price { color: var(--primary); font-weight: bold; font-size: 18px; }
-        
-        /* Inputs y Selectores */
         .input-group { display: flex; align-items: center; justify-content: space-between; background: white; padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; }
         .input-group label { font-size: 14px; color: #64748b; }
         .input-qty { width: 70px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-size: 15px; font-weight: bold; }
-        
-        /* Resumen Total */
         .total-box { background: var(--dark); color: white; padding: 15px; border-radius: 10px; margin-top: 20px; text-align: left; }
         .total-line { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 15px; }
         .total-line.final { font-size: 20px; font-weight: bold; border-top: 1px solid #457b9d; padding-top: 8px; margin-top: 8px; color: #fff; }
         .total-line.final span { color: #51e289; }
-
-        /* Bloque de Pago Alias */
         .payment-box { background: #f3f0ff; border: 2px dashed var(--purple); padding: 15px; border-radius: 10px; margin-top: 20px; text-align: center; }
         .payment-title { font-weight: bold; color: var(--purple); font-size: 15px; margin-bottom: 8px; }
         .alias-text { background: white; border: 1px solid #dcd6f7; padding: 8px; font-family: monospace; font-size: 16px; font-weight: bold; color: var(--dark); display: block; border-radius: 6px; margin-bottom: 10px; letter-spacing: 0.5px; }
         .btn-copy { background: var(--purple); color: white; border: none; padding: 8px 15px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; width: 100%; transition: background 0.2s; }
         .btn-copy:hover { background: #5649c0; }
-
-        /* Botón de Acción */
         .btn-contacto { display: inline-block; width: 100%; background: var(--success); color: white; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; transition: background 0.3s; margin-top: 15px; text-align: center; border: none; cursor: pointer; }
         .btn-contacto:hover { background: #128c7e; }
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1>¡Gran Sorteo Semanal!</h1>
         <p class="subtitle">Honda Bros 125cc 0km</p>
-        
-        <!-- ======================================================= -->
-        <!-- 📸 EDITAR MOTO: Reemplaza la URL entre comillas por tu foto -->
-        <!-- ======================================================= -->
         <img src="https://unsplash.com" alt="Honda Bros 125cc" class="promo-img">
-        
         <p>Estado de la rifa:</p>
-        
-        <!-- ======================================================= -->
-        <!-- 📊 EDITAR PORCENTAJE: Cambiá el width: 45%; por tu número -->
-        <!-- ======================================================= -->
         <div class="progress-container">
-            <div class="progress-bar" style="width: 45%;"></div>
-            <div class="progress-text">10% Vendido (Falta el 80%)</div>
+            <div class="progress-bar" style="width: 10%;"></div>
+            <div class="progress-text">10% Vendido (Falta el 90%)</div>
         </div>
-
-        <!-- SECCIÓN DE COMBOS -->
         <div class="combos-wrapper">
-            <!-- Combo 1 -->
             <div class="combo-card">
                 <div class="combo-header">
                     <span class="combo-title">Combo 1: 1 Chance</span>
                     <span class="combo-price">$500</span>
                 </div>
                 <div class="input-group">
-                    <label for="qty1">Cantidad de combos:</label>
+                    <label for="qty1">Cantidad:</label>
                     <input type="number" id="qty1" class="input-qty" min="0" value="0" oninput="calcularTotal()">
                 </div>
             </div>
-
-            <!-- Combo 2 -->
             <div class="combo-card">
                 <div class="combo-header">
                     <span class="combo-title">Combo 2: 10 Chances</span>
                     <span class="combo-price">$3.000</span>
                 </div>
                 <div class="input-group">
-                    <label for="qty2">Cantidad de combos:</label>
+                    <label for="qty2">Cantidad:</label>
                     <input type="number" id="qty2" class="input-qty" min="0" value="0" oninput="calcularTotal()">
                 </div>
             </div>
-
-            <!-- Combo 3 -->
             <div class="combo-card">
                 <div class="combo-header">
                     <span class="combo-title">Combo 3: 20 Chances</span>
                     <span class="combo-price">$5.000</span>
                 </div>
                 <div class="input-group">
-                    <label for="qty3">Cantidad de combos:</label>
+                    <label for="qty3">Cantidad:</label>
                     <input type="number" id="qty3" class="input-qty" min="0" value="0" oninput="calcularTotal()">
                 </div>
             </div>
         </div>
-
-        <!-- CUADRO DE TOTALES -->
         <div class="total-box">
             <div class="total-line">
-                <span>Chances totales:</span>
+                <span>Chances:</span>
                 <strong id="resumen-chances">0</strong>
             </div>
             <div class="total-line final">
-                <span>Total a pagar:</span>
-                <span id="resumen-precio">\$0</span>
+                <span>Total:</span>
+                <span id="resumen-precio">$0</span>
             </div>
         </div>
-
-        <!-- SECCIÓN ALIAS BANCARIO -->
         <div class="payment-box">
             <div class="payment-title">📌 Transferencias / Depósitos</div>
-            
-            <!-- ======================================================= -->
-            <!-- 💳 EDITAR ALIAS: Reemplaza TU.ALIAS.AQUI por tu alias real -->
-            <!-- ======================================================= -->
             <span id="alias-texto" class="alias-text">cajeromf</span>
-            
             <button class="btn-copy" onclick="copiarAlias()" id="btn-copiador">Copiar Alias</button>
         </div>
-
-        <!-- BOTÓN WHATSAPP -->
-        <a id="btn-whatsapp" href="https://wa.me" class="btn-contacto" target="_blank">
-            Enviar comprobante por WhatsApp
-        </a>
+        <a id="btn-whatsapp" href="#" class="btn-contacto" target="_blank">Enviar comprobante</a>
     </div>
-
     <script>
-        const numeroTel = "3765131387"; 
-
+        var numeroTel = "5493765131387";
         function calcularTotal() {
-            const q1 = parseInt(document.getElementById('qty1').value) || 0;
-            const q2 = parseInt(document.getElementById('qty2').value) || 0;
-            const q3 = parseInt(document.getElementById('qty3').value) || 0;
-
-            const totalChances = (q1 * 1) + (q2 * 10) + (q3 * 20);
-            const totalPrecio = (q1 * 500) + (q2 * 3000) + (q3 * 5000);
-
+            var q1 = parseInt(document.getElementById('qty1').value) || 0;
+            var q2 = parseInt(document.getElementById('qty2').value) || 0;
+            var q3 = parseInt(document.getElementById('qty3').value) || 0;
+            var totalChances = (q1 * 1) + (q2 * 10) + (q3 * 20);
+            var totalPrecio = (q1 * 500) + (q2 * 3000) + (q3 * 5000);
             document.getElementById('resumen-chances').innerText = totalChances;
-            document.getElementById('resumen-precio').innerText = '\$' + totalPrecio.toLocaleString('es-AR');
-
-            let mensaje = "Hola! Quiero reservar números para la rifa. Mi pedido:\n";
-            if(q1 > 0) mensaje += "- " + q1 + " Combo(s) 1 (" + (q1 * 1) + " chances)\n";
-            if(q2 > 0) mensaje += "- " + q2 + " Combo(s) 2 (" + (q2 * 10) + " chances)\n";
-            if(q3 > 0) mensaje += "- " + q3 + " Combo(s) 3 (" + (q3 * 20) + " chances)\n";
-            mensaje += "\n*Total de chances:* " + totalChances + "\n*Monto total:* \$" + totalPrecio.toLocaleString('es-AR') + "\n\nYa copié el alias para hacer el depósito y te adjunto el comprobante.";
-            
-            document.getElementById('btn-whatsapp').href = "https://wa.me" + numeroTel + "?text=" + encodeURIComponent(mensaje);
+            document.getElementById('resumen-precio').innerText = '$' + totalPrecio.toLocaleString('es-AR');
+            var msg = "Hola! Quiero reservar números para la rifa:\n";
+            if(q1 > 0) msg += q1 + " Combo(s) 1\n";
+            if(q2 > 0) msg += q2 + " Combo(s) 2\n";
+            if(q3 > 0) msg += q3 + " Combo(s) 3\n";
+            msg += "\n*Total:* $" + totalPrecio.toLocaleString('es-AR') + "\n*Chances:* " + totalChances;
+            document.getElementById('btn-whatsapp').href = "https://wa.me" + numeroTel + "?text=" + encodeURIComponent(msg);
         }
-
         function copiarAlias() {
-            const alias = document.getElementById('alias-texto').innerText;
-            navigator.clipboard.writeText(alias).then(() => {
-                const btn = document.getElementById('btn-copiador');
-                btn.innerText = "¡Copiado con éxito! ✅";
+            var alias = document.getElementById('alias-texto').innerText;
+            navigator.clipboard.writeText(alias).then(function() {
+                var btn = document.getElementById('btn-copiador');
+                btn.innerText = "¡Copiado! ✅";
+                setTimeout(() => btn.innerText = "Copiar Alias", 2000);
+            });
+        }
+    </script>
+</body>
+</html>
