@@ -175,15 +175,15 @@
             <h3>Adquiere tus Chances:</h3>
             <div class="combo">
                 <span class="combo-nombre">📦 Combo 1: (1 Chance)</span>
-                <span class="combo-precio">&#35;500</span>
+                <span class="combo-precio">ARS 500</span>
             </div>
             <div class="combo">
                 <span class="combo-nombre">📦 Combo 2: (10 Chances)</span>
-                <span class="combo-precio">&#35;3.000</span>
+                <span class="combo-precio">ARS 3.000</span>
             </div>
             <div class="combo combo-neon">
                 <span class="combo-nombre">⚡ Combo 3: AHORRADOR (20 Chances)</span>
-                <span class="combo-precio">&#35;5.000</span>
+                <span class="combo-precio">ARS 5.000</span>
             </div>
         </div>
 
@@ -200,7 +200,7 @@
         <div class="info-dinamica">
             <h4>📢 Dinámica del Sorteo:</h4>
             <ul>
-                <li>🚀 <b>Al llegar al 10%:</b> ¡Se activan sorteos semanales o de <b>&#35;50.000</b> en efectivo!</li>
+                <li>🚀 <b>Al llegar al 10%:</b> ¡Se activan sorteos semanales o de <b>ARS 50.000</b> en efectivo!</li>
                 <li>🏁 <b>Al llegar al 90%:</b> Se definirá y anunciará inmediatamente la fecha límite final para el sorteo de la Motocicleta.</li>
             </ul>
         </div>
@@ -231,33 +231,30 @@
         }
     </script>
 
-    <!-- 🚫 TU SCRIPT ORIGINAL QUE FUNCIONA AL 100% (Modificado el split erróneo de la prueba anterior) 🚫 -->
+    <!-- SCRIPT DE VINCULACIÓN CORREGIDO CON TUS FILAS DE EXCEL -->
     <script>
-        const urlCsv = "https://google.com"; 
+        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
 
         async function cargarProgreso() {
             try {
                 const respuesta = await fetch(`${urlCsv}&cacheBust=${new Date().getTime()}`);
                 const texto = await respuesta.text();
                 
+                // Cortamos el documento por saltos de línea (Filas)
                 const filas = texto.split("\n");
                 
-                // Aquí corregí la separación por corchetes que causaba el error de carga
+                // Obtenemos de forma ultra segura la primera fila y cortamos por comas (Celdas)
                 const primeraFila = filas[0].split(",");
                 const celdaA1 = primeraFila[0];
                 
+                // Limpiamos comillas, espacios, retornos de carro y signos porcentuales
                 let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
                 valorLimpio = valorLimpio.replace(",", ".");
                 
                 let porcentaje = parseFloat(valorLimpio);
 
+                // Multiplicamos por 100 si la hoja nos devuelve un decimal tipo 0.53
                 if (porcentaje > 0 && porcentaje <= 1) {
                     porcentaje = porcentaje * 100;
                 }
                 
-                porcentaje = Math.round(porcentaje) || 0;
-
-                if (porcentaje > 100) porcentaje = 100;
-                if (porcentaje < 0) porcentaje = 0;
-
-                const barra = document.getElementById("miBarra");
