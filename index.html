@@ -181,7 +181,7 @@
                 <span class="combo-nombre">📦 Combo 2: (10 Chances)</span>
                 <span class="combo-precio">\$3.000</span>
             </div>
-            <!-- Combo Ahorrador Limpio -->
+            <!-- Combo Ahorrador Limpio y sin barras invertidas -->
             <div class="combo combo-neon">
                 <span class="combo-nombre">⚡ Combo 3: AHORRADOR (20 Chances)</span>
                 <span class="combo-precio">\$5.000</span>
@@ -232,7 +232,7 @@
         }
     </script>
 
-    <!-- 🚫 TU SCRIPT PROPIO DE VINCULACIÓN ORIGINAL EXACTO 🚫 -->
+    <!-- SCRIPT INFALIBLE DE EXTRACCIÓN DIRECTA -->
     <script>
         const urlCsv = "https://google.com"; 
 
@@ -241,19 +241,18 @@
                 const respuesta = await fetch(`${urlCsv}&cacheBust=${new Date().getTime()}`);
                 const texto = await respuesta.text();
                 
-                const filas = texto.split("\n");
+                // Buscamos cualquier número entero o decimal que represente el porcentaje en tu archivo
+                const coincidencia = texto.match(/([0-9]+(?:,[0-9]+)?)/);
                 
-                const primeraFila = filas[0].split(",");
-                const celdaA1 = primeraFila[0];
-                
-                let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
-                
-                valorLimpio = valorLimpio.replace(",", ".");
-                
-                let porcentaje = parseFloat(valorLimpio);
+                let porcentaje = 0;
+                if (coincidencia && coincidencia[1]) {
+                    const valorLimpio = coincidencia[1].replace(",", ".");
+                    porcentaje = parseFloat(valorLimpio);
 
-                if (porcentaje > 0 && porcentaje <= 1) {
-                    porcentaje = porcentaje * 100;
+                    // Si el Sheets lo exporta en decimal (ej. 0.53), lo convertimos a entero (53)
+                    if (porcentaje > 0 && porcentaje <= 1) {
+                        porcentaje = porcentaje * 100;
+                    }
                 }
                 
                 porcentaje = Math.round(porcentaje) || 0;
@@ -261,4 +260,3 @@
                 if (porcentaje > 100) porcentaje = 100;
                 if (porcentaje < 0) porcentaje = 0;
 
-                const barra = document.getElementById("miBarra");
