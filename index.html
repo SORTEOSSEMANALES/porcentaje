@@ -29,7 +29,7 @@
         .moto-titulo { color: #38bdf8; font-size: 1.8rem; font-weight: 800; margin: 5px 0 15px 0; text-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
         .subtitulo { color: #94a3b8; font-size: 1rem; line-height: 1.5; }
         
-        /* 📸 NUEVA SECCIÓN DE IMÁGENES */
+        /* Sección de Fotos */
         .galeria-sorteo {
             width: 100%;
             margin: 15px 0 25px 0;
@@ -42,7 +42,7 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.4);
             border: 1px solid #475569;
             object-fit: cover;
-            margin-bottom: 10px; /* Separación por si añades más fotos debajo */
+            margin-bottom: 10px;
         }
 
         /* Contenedor principal de la barra */
@@ -181,14 +181,11 @@
         <div class="moto-titulo">🏍️ HONDA BROS 125</div>
         <p class="subtitulo">¡Participa y llévate esta máquina! El progreso de la recaudación se actualiza en vivo aquí mismo:</p>
         
-        <!-- 📸 SECCIÓN DE FOTOS EDILABLE -->
+        <!-- Sección de Fotos -->
         <div class="galeria-sorteo" id="galeriaFotos">
-            <!-- Foto Principal Obligatoria (ss.jpg) -->
             <img src="ss.jpg" class="foto-premio" alt="Honda Bros 125">
-            
-            <!-- 👇 INDICACIÓN: PARA AGREGAR MÁS FOTOS EN EL FUTURO, SOLO COPIA LA LÍNEA DE ABAJO, 
-                 QUÍTALE LOS SÍMBOLOS DE COMENTARIO "<!--" Y "-->
-            <!-- <img src="foto2.jpg" class="foto-premio" alt="Honda Bros Vista Trasera"> -->
+            <!-- Para añadir otra foto en el futuro, quita las marcas de comentario de abajo -->
+            <!-- <img src="foto2.jpg" class="foto-premio" alt="Foto adicional"> -->
         </div>
 
         <!-- Barra de Progreso Sincronizada -->
@@ -231,28 +228,40 @@
         </div>
     </div>
 
-    <!-- 📱 Botón flotante a tu WhatsApp -->
+    <!-- Botón flotante a tu WhatsApp -->
     <a href="#" id="enlaceWhatsapp" class="btn-whatsapp" target="_blank" title="Comprar por WhatsApp">
         💬
     </a>
 
-    <!-- SECCIÓN CONFIGURABLE Y SCRIPT DE VINCULACIÓN ORIGINAL -->
     <script>
         // ==========================================
-        // ⚙️ CONFIGURACIÓN PERSONAL (EDITA AQUÍ SOLO ESTOS DOS CAMPOS)
+        // ⚙️ CONFIGURACIÓN PERSONAL (Modifica lo que hay entre comillas)
         // ==========================================
-        const MI_ALIAS_REAL = "TU_ALIAS_AQUÍ"; // 👈 Escribe tu alias entre las comillas
-        const MI_TELEFONO_REAL = "TU_TELÉFONO_AQUÍ"; // 👈 Escribe tu celular con código de país (Ej: 5491123456789)
-        
-        // Enlace CSV de tu hoja de cálculo (Validado y Fijo)
-        const urlCsv = "https://google.com"; 
+        const MI_ALIAS_REAL = "TU_ALIAS_AQUÍ"; 
+        const MI_TELEFONO_REAL = "TU_TELÉFONO_AQUÍ"; 
+        const urlCsv = "https://google.com";
 
-        // Inyección automática de tus datos configurados arriba en los botones de la interfaz
-        document.getElementById("enlaceWhatsapp").href = `https://wa.me{MI_TELEFONO_REAL}?text=Hola!%20Quiero%20adquirir%20chances%20para%20el%20sorteo%20de%20la%20Honda%20Bros%20125`;
+        // Vinculación automática e inmediata de WhatsApp
+        document.getElementById("enlaceWhatsapp").href = "https://wa.me" + MI_TELEFONO_REAL + "?text=Hola!%20Quiero%20adquirir%20chances%20para%20el%20sorteo%20de%20la%20Honda%20Bros%20125";
 
-        // Función JS para Copiar Alias
+        // Función corregida para el Copiado Exitoso
         function copiarAlias() {
-            navigator.clipboard.writeText(MI_ALIAS_REAL).then(() => {
-                const boton = document.getElementById("btnCopiar");
-                const textoOriginal = boton.innerText;
+            navigator.clipboard.writeText(MI_ALIAS_REAL).then(function() {
+                var boton = document.getElementById("btnCopiar");
+                var textoOriginal = boton.innerText;
                 boton.innerText = "¡COPIADO CON ÉXITO! ✅";
+                boton.style.background = "#22c55e";
+                boton.style.color = "#0f172a";
+                setTimeout(function() {
+                    boton.innerText = textoOriginal;
+                    boton.style.background = "#38bdf8";
+                    boton.style.color = "#0f172a";
+                }, 2000);
+            }).catch(function(err) {
+                alert("El alias es: " + MI_ALIAS_REAL);
+            });
+        }
+
+        // Sistema de Sincronización basado exactamente en tus variables originales estables
+        async function cargarProgreso() {
+            try {
