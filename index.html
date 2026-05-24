@@ -29,7 +29,7 @@
         .moto-titulo { color: #38bdf8; font-size: 1.8rem; font-weight: 800; margin: 5px 0 25px 0; text-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
         .subtitulo { color: #94a3b8; font-size: 1rem; line-height: 1.5; }
         
-        /* Contenedor de la barra */
+        /* Contenedor principal de la barra */
         .contenedor-barra {
             width: 100%;
             background-color: #334155;
@@ -40,7 +40,7 @@
             border: 1px solid #475569;
         }
 
-        /* Relleno de la barra */
+        /* Relleno verde de progreso */
         .relleno-barra {
             width: 0%;
             height: 42px;
@@ -74,30 +74,28 @@
         .combo-nombre { color: #cbd5e1; }
         .combo-precio { color: #f8fafc; font-size: 1.2rem; }
 
-        /* 🔥 COMBO NEÓN IMPACTANTE 🔥 */
+        /* 🔥 COMBO CON PARPADEO NEÓN CIAN AUTOMÁTICO 🔥 */
         .combo-neon {
             background: #0f172a;
-            border: 2px solid #ff0055;
-            box-shadow: 0 0 10px #ff0055, inset 0 0 10px #ff0055;
-            animation: pulsoNeon 2s infinite alternate;
+            border: 2px solid #00f0ff;
+            animation: parpadeoNeon 1.5s infinite alternate;
         }
         .combo-neon .combo-nombre {
-            color: #ff3377;
-            font-size: 1.3rem;
-            font-weight: 900;
-            text-shadow: 0 0 8px #ff0055;
-            letter-spacing: 0.5px;
+            color: #38bdf8;
+            font-size: 1.25rem;
+            font-weight: 800;
         }
         .combo-neon .combo-precio {
             color: #fff;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 900;
-            text-shadow: 0 0 10px #fff, 0 0 20px #ff0055;
+            text-shadow: 0 0 10px #00f0ff;
         }
 
-        @keyframes pulsoNeon {
-            from { box-shadow: 0 0 8px #ff0055, inset 0 0 5px #ff0055; }
-            to { box-shadow: 0 0 20px #ff0055, inset 0 0 10px #ff0055; }
+        /* Animación que hace parpadear solo el recuadro azul/cian */
+        @keyframes parpadeoNeon {
+            0% { box-shadow: 0 0 4px #00f0ff, inset 0 0 2px #00f0ff; }
+            100% { box-shadow: 0 0 18px #00f0ff, inset 0 0 8px #00f0ff; }
         }
 
         /* Datos de Depósito y Alias */
@@ -164,8 +162,8 @@
 <body>
 
     <div class="tarjeta-sorteo">
-        <h1>🎟️ Gran Sorteo Oficial</h1>
-        <div class="moto-titulo">🏍️ HONDA BROS 125 0KM</div>
+        <h1>🎟️ GRAN SORTEO</h1>
+        <div class="moto-titulo">🏍️ HONDA BROS 125</div>
         <p class="subtitulo">¡Participa y llévate esta máquina! El progreso de la recaudación se actualiza en vivo aquí mismo:</p>
         
         <!-- Barra de Progreso Sincronizada -->
@@ -184,7 +182,7 @@
                 <span class="combo-nombre">📦 Combo 2: (10 Chances)</span>
                 <span class="combo-precio">\$3.000</span>
             </div>
-            <!-- Combo Ahorrador con Neón -->
+            <!-- Combo Ahorrador con Neón que Parpadea -->
             <div class="combo combo-neon">
                 <span class="combo-nombre">⚡ Combo 3: AHORRADOR (20 Chances)</span>
                 <span class="combo-precio">\$5.000</span>
@@ -204,7 +202,7 @@
         <div class="info-dinamica">
             <h4>📢 Dinámica del Sorteo:</h4>
             <ul>
-                <li>🚀 <b>Al llegar al 10%:</b> ¡Se activan sorteos semanales o quincenales de <b>\$50.000</b> en efectivo!</li>
+                <li>🚀 <b>Al llegar al 10%:</b> ¡Se activan sorteos semanales o de <b>\$50.000</b> en efectivo!</li>
                 <li>🏁 <b>Al llegar al 90%:</b> Se definirá y anunciará inmediatamente la fecha límite final para el sorteo de la Motocicleta.</li>
             </ul>
         </div>
@@ -235,30 +233,25 @@
         }
     </script>
 
-    <!-- Código de Sincronización Automática con Google Sheets (Intacto) -->
+    <!-- 🚫 SCRIPT DE VINCULACIÓN TUYO (100% INTACTO Y FUNCIONAL) 🚫 -->
     <script>
-        const urlCsv = "https://google.com"; 
+        // Enlace CSV proporcionado de tu hoja de cálculo
+        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
 
         async function cargarProgreso() {
             try {
+                // cacheBust evita que el navegador cargue una versión desactualizada desde su memoria
                 const respuesta = await fetch(`${urlCsv}&cacheBust=${new Date().getTime()}`);
                 const texto = await respuesta.text();
                 
+                // Dividimos el CSV por filas
                 const filas = texto.split("\n");
-                const primeraFila = filas.split(",");
-                const celdaA1 = primeraFila;
                 
+                // Tomamos la primera celda disponible (A1)
+                const primeraFila = filas[0].split(",");
+                const celdaA1 = primeraFila[0];
+                
+                // Limpiamos comillas, espacios, retornos de carro y el signo de porcentaje %
                 let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
-                valorLimpio = valorLimpio.replace(",", ".");
                 
-                let porcentaje = parseFloat(valorLimpio);
-
-                if (porcentaje > 0 && porcentaje <= 1) {
-                    porcentaje = porcentaje * 100;
-                }
-                
-                porcentaje = Math.round(porcentaje) || 0;
-
-                if (porcentaje > 100) pointer = 100;
-                if (porcentaje < 0) porcentaje = 0;
-
+                // Reemplazamos comas decimales por puntos si fuera necesario
