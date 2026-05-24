@@ -75,7 +75,7 @@
         <!-- ======================================================= -->
         <div class="progress-container">
             <div class="progress-bar" style="width: 45%;"></div>
-            <div class="progress-text">45% Vendido (Falta el 55%)</div>
+            <div class="progress-text">10% Vendido (Falta el 80%)</div>
         </div>
 
         <!-- SECCIÓN DE COMBOS -->
@@ -84,7 +84,7 @@
             <div class="combo-card">
                 <div class="combo-header">
                     <span class="combo-title">Combo 1: 1 Chance</span>
-                    <span class="combo-price">\$500</span>
+                    <span class="combo-price">$500</span>
                 </div>
                 <div class="input-group">
                     <label for="qty1">Cantidad de combos:</label>
@@ -96,7 +96,7 @@
             <div class="combo-card">
                 <div class="combo-header">
                     <span class="combo-title">Combo 2: 10 Chances</span>
-                    <span class="combo-price">\$3.000</span>
+                    <span class="combo-price">$3.000</span>
                 </div>
                 <div class="input-group">
                     <label for="qty2">Cantidad de combos:</label>
@@ -108,7 +108,7 @@
             <div class="combo-card">
                 <div class="combo-header">
                     <span class="combo-title">Combo 3: 20 Chances</span>
-                    <span class="combo-price">\$5.000</span>
+                    <span class="combo-price">$5.000</span>
                 </div>
                 <div class="input-group">
                     <label for="qty3">Cantidad de combos:</label>
@@ -136,7 +136,7 @@
             <!-- ======================================================= -->
             <!-- 💳 EDITAR ALIAS: Reemplaza TU.ALIAS.AQUI por tu alias real -->
             <!-- ======================================================= -->
-            <span id="alias-texto" class="alias-text">TU.ALIAS.AQUI</span>
+            <span id="alias-texto" class="alias-text">cajeromf</span>
             
             <button class="btn-copy" onclick="copiarAlias()" id="btn-copiador">Copiar Alias</button>
         </div>
@@ -148,10 +148,7 @@
     </div>
 
     <script>
-        // =======================================================
-        // 📱 WHATSAPP: Tu número de celular ya está configurado acá abajo
-        // =======================================================
-        const numeroTel = "5493765131387"; 
+        const numeroTel = "3765131387"; 
 
         function calcularTotal() {
             const q1 = parseInt(document.getElementById('qty1').value) || 0;
@@ -164,15 +161,17 @@
             document.getElementById('resumen-chances').innerText = totalChances;
             document.getElementById('resumen-precio').innerText = '\$' + totalPrecio.toLocaleString('es-AR');
 
-            let mensaje = `Hola! Quiero reservar números para la rifa. Mi pedido:\n`;
-            if(q1 > 0) mensaje += `- ${q1} Combo(s) 1 (${q1 * 1} chances)\n`;
-            if(q2 > 0) mensaje += `- ${q2} Combo(s) 2 (${q2 * 10} chances)\n`;
-            if(q3 > 0) mensaje += `- ${q3} Combo(s) 3 (${q3 * 20} chances)\n`;
-            mensaje += `\n*Total de chances:* ${totalChances}\n*Monto total:* $${totalPrecio.toLocaleString('es-AR')}\n\nYa copié el alias para hacer el depósito y te adjunto el comprobante.`;
+            let mensaje = "Hola! Quiero reservar números para la rifa. Mi pedido:\n";
+            if(q1 > 0) mensaje += "- " + q1 + " Combo(s) 1 (" + (q1 * 1) + " chances)\n";
+            if(q2 > 0) mensaje += "- " + q2 + " Combo(s) 2 (" + (q2 * 10) + " chances)\n";
+            if(q3 > 0) mensaje += "- " + q3 + " Combo(s) 3 (" + (q3 * 20) + " chances)\n";
+            mensaje += "\n*Total de chances:* " + totalChances + "\n*Monto total:* \$" + totalPrecio.toLocaleString('es-AR') + "\n\nYa copié el alias para hacer el depósito y te adjunto el comprobante.";
             
-            document.getElementById('btn-whatsapp').href = `https://wa.me{numeroTel}?text=${encodeURIComponent(mensaje)}`;
+            document.getElementById('btn-whatsapp').href = "https://wa.me" + numeroTel + "?text=" + encodeURIComponent(mensaje);
         }
 
         function copiarAlias() {
             const alias = document.getElementById('alias-texto').innerText;
             navigator.clipboard.writeText(alias).then(() => {
+                const btn = document.getElementById('btn-copiador');
+                btn.innerText = "¡Copiado con éxito! ✅";
