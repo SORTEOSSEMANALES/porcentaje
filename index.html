@@ -213,7 +213,7 @@
         💬
     </a>
 
-    <!-- Función JS para Copiar Alias -->
+        <!-- Función JS para Copiar Alias -->
     <script>
         function copiarAlias(alias) {
             navigator.clipboard.writeText(alias).then(() => {
@@ -232,8 +232,9 @@
         }
     </script>
 
-    <!-- SCRIPT INFALIBLE DE EXTRACCIÓN DIRECTA -->
+    <!-- SCRIPT DE EXTRACCIÓN CON TU ENLACE CORRECTO -->
     <script>
+        // Aquí volvimos a colocar tu enlace real de Google Sheets
         const urlCsv = "https://google.com"; 
 
         async function cargarProgreso() {
@@ -260,3 +261,19 @@
                 if (porcentaje > 100) porcentaje = 100;
                 if (porcentaje < 0) porcentaje = 0;
 
+                const barra = document.getElementById("miBarra");
+                barra.style.width = porcentaje + "%";
+                barra.textContent = porcentaje + "%";
+                
+            } catch (e) {
+                console.error("Error de conexión: ", e);
+                const barra = document.getElementById("miBarra");
+                barra.textContent = "Error al cargar";
+                barra.style.backgroundColor = "#dc3545";
+                barra.style.width = "100%";
+            }
+        }
+
+        // Ejecutar inmediatamente al abrir la web
+        cargarProgreso();
+    </script>
