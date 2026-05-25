@@ -347,30 +347,34 @@
             }
         }
 
-        // 3. FUNCIÓN QUE ENVÍA LA ORDEN A WHATSAPP
+                // 3. FUNCIÓN QUE ENVÍA LA ORDEN A WHATSAPP
         function procesarEnvio() {
             if (totalPrecioAcumulado === 0) {
                 alert("Por favor, selecciona al menos un combo antes de enviar.");
                 return;
             }
 
-            let textoMensaje = `👋 *¡Hola! Quiero adquirir mis chances:*\n\n`;
+            // \uD83D\uDC4B = Mano saludando 👋
+            let textoMensaje = `\uD83D\uDC4B *¡Hola! Quiero adquirir mis chances:*\n\n`;
             
             inputs.forEach(input => {
                 const cantidad = parseInt(input.value) || 0;
                 if (cantidad > 0) {
                     const contenedor = input.closest('.combo');
                     const nombre = contenedor.getAttribute('data-nombre');
-                    textoMensaje += `▪️ *${cantidad}x* ${nombre}\n`;
+                    // \u25AA\uFE0F = Cuadradito negro de lista ▪️
+                    textoMensaje += `\u25AA\uFE0F *${cantidad}x* ${nombre}\n`;
                 }
             });
 
-            textoMensaje += `\n📊 *Resumen de mi Orden:*`;
-            textoMensaje += `\n✨ *Total de Chances:* ${totalChancesAcumulado}`;
-            textoMensaje += `\n💰 *Total Neto:* ARS ${totalPrecioAcumulado.toLocaleString('es-AR')}`;
+            // \uD83D\uDCCA = 📊 | \u2728 = ✨ | \uD83D\uDCB0 = 💰
+            textoMensaje += `\n\uD83D\uDCCA *Resumen de mi Orden:*`;
+            textoMensaje += `\n\u2728 *Total de Chances:* ` + totalChancesAcumulado;
+            textoMensaje += `\n\uD83D\uDCB0 *Total Neto:* ARS ` + totalPrecioAcumulado.toLocaleString('es-AR');
 
-            const urlFinal = "https://wa.me/" + MI_TELEFONO_REAL + "?text=" + encodeURIComponent(textoMensaje);
-
+            // URL CORREGIDA MANUALMENTE CON LA BARRA "/" INCLUIDA
+            const urlFinal = "https://wa.me" + MI_TELEFONO_REAL + "?text=" + encodeURIComponent(textoMensaje);
+            
             window.open(urlFinal, '_blank');
         }
 
