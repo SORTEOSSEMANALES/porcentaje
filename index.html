@@ -301,7 +301,7 @@
         textoMensaje += `\n✨ *Total de Chances:* ${totalChancesAcumulado}`;
         textoMensaje += `\n💰 *Total Neto:* ARS ${totalPrecioAcumulado.toLocaleString('es-AR')}`;
 
-         // LÍNEA CORREGIDA CON TU NÚMERO DEFINITIVO Y LA BARRA DIAGONAL MÓVIL:
+            // LÍNEA CORREGIDA CON TU NÚMERO Y LA BARRA DIAGONAL INCLUIDA:
     const urlFinal = "https://wa.me" + encodeURIComponent(textoMensaje);
 
     window.open(urlFinal, '_blank');
@@ -315,6 +315,7 @@ inputs.forEach(elementoInput => {
 btnWA.addEventListener('click', procesarEnvio);
 })();
 </script>
+
 
 <style>
 .combo {
