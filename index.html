@@ -481,32 +481,53 @@ Ya tengo copiado tu alias (${MI_ALIAS_REAL}). Pásame los datos para confirmar.`
         }
 
         // LECTOR CORREGIDO MATEMÁTICAMENTE (Evita la rotura del split)
-        async function cargarProgreso() {
-            try {
-                const respuesta = await fetch(urlCsv + "&cacheBust=" + new Date().getTime());
-                const texto = await respuesta.text();
-                
-                // Dividimos de forma robusta por renglones
-                const filas = texto.split(/\r?\n/);
-                
-                let porcentaje = 0;
-                if(filas.length > 0) {
-                    // Seleccionamos la primera línea de texto plano y extraemos la celda A1 usando división de arrays
-                    const primeraLinea = filas[0];
-                    const celdas = primeraLinea.includes(";") ? primeraLinea.split(";") : primeraLinea.split(",");
-                    const celdaA1 = celdas[0];
-                    
-                    // Limpieza total de caracteres porcentuales o comillas
-                    let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
-                    valorLimpio = valorLimpio.replace(",", ".");
-                    
-                    porcentaje = parseFloat(valorLimpio) || 0;
+       async function cargarProgreso() {
+    try {
+        const respuesta = await fetch(urlCsv + "&cacheBust=" + new Date().getTime());
+        const texto = await respuesta.text();
+        
+        // Dividimos de forma robusta por renglones
+        const filas = texto.split(/\r?\n/);
+        
+        let porcentaje = 0;
+        if(filas.length > 0) {
+            // Seleccionamos la primera línea de texto plano y extraemos la celda A1 usando división de arrays
+            const primeraLinea = filas[0];
+            const celdas = primeraLinea.includes(";") ? primeraLinea.split(";") : primeraLinea.split(",");
+            const celdaA1 = celdas[0];
+            
+            // Limpieza total de caracteres porcentuales o comillas
+            let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
+            valorLimpio = valorLimpio.replace(",", ".");
+            
+            porcentaje = parseFloat(valorLimpio) || 0;
 
-                    // Ajuste si Google Sheets entrega en formato decimal (ej: 0.23 en vez de 23)
-                    if (porcentaje > 0 && porcentaje <= 1) {
-                        porcentaje = porcentaje * 100;
-                    }
-                }
+            // Ajuste si Google Sheets entrega en formato decimal (ej: 0.23 en vez de 23)
+            if (porcentaje > 0 && porcentaje <= 1) {
+                porcentaje = porcentaje * 100;
+            }
+        }
+        
+        porcentaje = Math.round(porcentaje) || 0;
+
+        if (porcentaje > 100) porcentaje = 100;
+        if (porcentaje < 0) porcentaje = 0;
+
+        // Actualización visual de la barra verde y remoción del estado de error
+        const barra = document.getElementById("miBarra");
+        barra.style.width = porcentaje + "%";
+        barra.textContent = porcentaje + "%";
+        barra.style.backgroundColor = ""; // Quita el rojo de error y vuelve al verde del CSS
+        
+    } catch (e) {
+        console.error("Error de conexión: ", e);
+        const barra = document.getElementById("miBarra");
+        barra.textContent = "Error al cargar";
+        barra.style.backgroundColor = "#dc3545";
+        barra.style.width = "100%";
+    }
+}
+
                 
                 porcentaje = Math.round(porcentaje) || 0;
 
