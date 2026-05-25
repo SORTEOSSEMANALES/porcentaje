@@ -69,129 +69,127 @@
             box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
         }
 
-      /* ==========================================
-   Sección de Combos y Formulario de Compra
-   ========================================== */
-.contenedor-combos {
-    margin-top: 35px;
-}
-.contenedor-combos h3 { 
-    color: #f1f5f9; 
-    font-size: 1.3rem; 
-    margin-bottom: 15px; 
-    text-align: left; 
-    border-left: 4px solid #38bdf8; 
-    padding-left: 10px; 
-}
+        /* Sección de Combos y Formulario de Compra */
+        .contenedor-combos {
+            margin-top: 35px;
+        }
+        .contenedor-combos h3 { 
+            color: #f1f5f9; 
+            font-size: 1.3rem; 
+            margin-bottom: 15px; 
+            text-align: left; 
+            border-left: 4px solid #38bdf8; 
+            padding-left: 10px; 
+        }
 
-.combo {
-    background-color: #1e293b;
-    border: 1px solid #475569;
-    padding: 15px;
-    border-radius: 14px;
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 600;
-}
+        .combo {
+            background-color: #1e293b;
+            border: 1px solid #475569;
+            padding: 15px;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
 
-.combo-info {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
+        .combo-info {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
 
-.combo-nombre { color: #cbd5e1; }
-.combo-precio { color: #f8fafc; font-size: 1.2rem; }
+        .combo-nombre { color: #cbd5e1; }
+        .combo-precio { color: #f8fafc; font-size: 1.2rem; }
 
-/* Combo con parpadeo Neón Cian */
-.combo-neon {
-    background: #0f172a;
-    border: 2px solid #00f0ff;
-    animation: parpadeoNeon 1.5s infinite alternate;
-}
-.combo-neon .combo-nombre {
-    color: #38bdf8;
-    font-size: 1.25rem;
-    font-weight: 800;
-}
-.combo-neon .combo-precio {
-    color: #fff;
-    font-size: 1.4rem;
-    font-weight: 900;
-    text-shadow: 0 0 10px #00f0ff;
-}
+        /* Combo con parpadeo Neón Cian */
+        .combo-neon {
+            background: #0f172a;
+            border: 2px solid #00f0ff;
+            animation: parpadeoNeon 1.5s infinite alternate;
+        }
+        .combo-neon .combo-nombre {
+            color: #38bdf8;
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+        .combo-neon .combo-precio {
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 900;
+            text-shadow: 0 0 10px #00f0ff;
+        }
 
-/* Estilos de los selectores de cantidad */
-.selector-cantidad {
-    background-color: #0f172a;
-    color: #f8fafc;
-    border: 1px solid #475569;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    outline: none;
-}
-.selector-cantidad:focus { border-color: #38bdf8; }
+        /* Estilos de los selectores de cantidad */
+        .selector-cantidad {
+            background-color: #0f172a;
+            color: #f8fafc;
+            border: 1px solid #475569;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            outline: none;
+        }
+        .selector-cantidad:focus { border-color: #38bdf8; }
 
-/* Campo de entrada para Nombre y Apellido */
-.campo-datos { margin: 15px 0; }
-.campo-datos input {
-    width: 100%;
-    padding: 14px;
-    background-color: #0f172a;
-    border: 1px solid #475569;
-    border-radius: 12px;
-    color: #f8fafc;
-    font-size: 1rem;
-    box-sizing: border-box;
-    outline: none;
-    transition: border-color 0.2s;
-}
-.campo-datos input:focus { border-color: #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+        /* Campo de entrada para Nombre y Apellido */
+        .campo-datos { margin: 15px 0; }
+        .campo-datos input {
+            width: 100%;
+            padding: 14px;
+            background-color: #0f172a;
+            border: 1px solid #475569;
+            border-radius: 12px;
+            color: #f8fafc;
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .campo-datos input:focus { border-color: #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
 
-/* Tarjeta de Resumen de Totales */
-.tarjeta-resumen {
-    background-color: #0f172a;
-    border: 1px solid #334155;
-    border-radius: 14px;
-    padding: 15px;
-    margin: 20px 0;
-}
-.fila-resumen {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-.fila-resumen:last-child { margin-bottom: 0; }
-.total-destacado {
-    border-top: 1px dashed #334155;
-    padding-top: 8px;
-    margin-top: 8px;
-    font-size: 1.3rem;
-    color: #22c55e;
-}
+        /* Tarjeta de Resumen de Totales */
+        .tarjeta-resumen {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .fila-resumen {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .fila-resumen:last-child { margin-bottom: 0; }
+        .total-destacado {
+            border-top: 1px dashed #334155;
+            padding-top: 8px;
+            margin-top: 8px;
+            font-size: 1.3rem;
+            color: #22c55e;
+        }
 
-/* Botón Verde para enviar el pedido */
-.boton-enviar-pedido {
-    background: linear-gradient(90deg, #25d366, #128c7e);
-    color: white;
-    border: none;
-    padding: 15px 20px;
-    font-size: 1.1rem;
-    font-weight: 800;
-    border-radius: 12px;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.2s;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-}
-.boton-enviar-pedido:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
+        /* Botón Verde para enviar el pedido */
+        .boton-enviar-pedido {
+            background: linear-gradient(90deg, #25d366, #128c7e);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+        .boton-enviar-pedido:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
 
         @keyframes parpadeoNeon {
             0% { box-shadow: 0 0 4px #00f0ff, inset 0 0 2px #00f0ff; }
@@ -295,7 +293,7 @@
         <div class="contenedor-barra">
             <div id="miBarra" class="relleno-barra">Cargando...</div>
         </div>
-                <!-- Combos de Chances -->
+
         <!-- Formulario de Compra Interactiva -->
         <div class="contenedor-combos">
             <h3>Paso 1: Elige tus Combos</h3>
@@ -303,255 +301,4 @@
             <!-- Combo 1 -->
             <div class="combo">
                 <div class="combo-info">
-                    <span class="combo-nombre">📦 Combo 1: (1 Chance)</span>
-                    <span class="combo-precio">ARS 500</span>
-                </div>
-                <select class="selector-cantidad" id="cantCombo1" onchange="calcularTotales()">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-
-            <!-- Combo 2 -->
-            <div class="combo">
-                <div class="combo-info">
-                    <span class="combo-nombre">📦 Combo 2: (10 Chances)</span>
-                    <span class="combo-precio">ARS 3.000</span>
-                </div>
-                <select class="selector-cantidad" id="cantCombo2" onchange="calcularTotales()">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-
-            <!-- Combo 3 Neon -->
-            <div class="combo combo-neon">
-                <div class="combo-info">
-                    <span class="combo-nombre">⚡ Combo 3: AHORRADOR (20 Chances)</span>
-                    <span class="combo-precio">ARS 5.000</span>
-                </div>
-                <select class="selector-cantidad" id="cantCombo3" onchange="calcularTotales()">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-
-            <!-- Paso 2: Datos del Comprador -->
-            <h3>Paso 2: Tus Datos</h3>
-            <div class="campo-datos">
-                <input type="text" id="nombreComprador" placeholder="Nombre y Apellido Completo" required>
-            </div>
-
-            <!-- Resumen de Calculos en Vivo -->
-            <div class="tarjeta-resumen">
-                <div class="fila-resumen">
-                    <span>Total Chances:</span>
-                    <strong id="resumenChances" style="color: #38bdf8;">0</strong>
-                </div>
-                <div class="fila-resumen total-destacado">
-                    <span>Total a Pagar:</span>
-                    <strong id="resumenDinero">ARS 0</strong>
-                </div>
-            </div>
-
-            <!-- Botón de Envío -->
-            <button class="boton-enviar-pedido" onclick="enviarPedidoWhatsApp()">
-                💬 ENVIAR PEDIDO POR WHATSAPP
-            </button>
-        </div>
-
-
-        <!-- Botón para copiar el Alias de pago -->
-        <div class="seccion-deposito">
-            <p>Para transferencias o depósitos bancarios:</p>
-            <button class="boton-alias" id="btnCopiar" onclick="copiarAlias()">
-                📋 COPIAR ALIAS DE DEPÓSITO
-            </button>
-        </div>
-
-        <!-- Dinámica de Metas -->
-        <div class="info-dinamica">
-            <h4>📢 Dinámica del Sorteo:</h4>
-            <ul>
-                <li>🚀 <b>Al llegar al 10%:</b> ¡Se activan sorteos semanales o de <b>ARS 50.000</b> en efectivo!</li>
-                <li>🏁 <b>Al llegar al 90%:</b> Se definirá y anunciará inmediatamente la fecha límite final para el sorteo de la Motocicleta.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Botón flotante a tu WhatsApp -->
-    <a href="#" id="enlaceWhatsapp" class="btn-whatsapp" target="_blank" title="Comprar por WhatsApp">
-        💬
-    </a>
-
-    <!-- 🔐 ACCESO SEGURO A TU APPSHEET PRIVADO -->
-    <div class="contenedor-admin">
-        <a href="https://appsheet.com" target="_blank" class="btn-admin-seguro">
-            🛠️ ABRIR PANEL DE CONTROL EN PESTAÑA PRIVADA
-        </a>
-    </div>
-
-         <script>
-        // ==========================================
-        // ⚙️ CONFIGURACIÓN PERSONAL ACTUALIZADA
-        // ==========================================
-        const MI_ALIAS_REAL = "cajeromf"; 
-        const WA_LINK_PERSONALIZADO = "https://wa.link"; 
-        
-        // Enlace CSV de tu Google Sheets (Fijo para tu barra de carga de AppSheet)
-        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
-
-        // Función para copiar el Alias
-        function copiarAlias() {
-            navigator.clipboard.writeText(MI_ALIAS_REAL).then(function() {
-                var boton = document.getElementById("btnCopiar");
-                var textoOriginal = boton.innerText;
-                boton.innerText = "¡COPIADO CON ÉXITO! ✅";
-                boton.style.background = "#22c55e";
-                boton.style.color = "#0f172a";
-                setTimeout(function() {
-                    boton.innerText = textoOriginal;
-                    boton.style.background = "#38bdf8";
-                    boton.style.color = "#0f172a";
-                }, 2000);
-            }).catch(function(err) {
-                alert("El alias es: " + MI_ALIAS_REAL);
-            });
-        }
-
-        // ==========================================
-        // 🧮 LÓGICA DE DETECCION Y SUMA DE COMBOS
-        // ==========================================
-        function calcularTotales() {
-            const c1 = parseInt(document.getElementById("cantCombo1").value) || 0;
-            const c2 = parseInt(document.getElementById("cantCombo2").value) || 0;
-            const c3 = parseInt(document.getElementById("cantCombo3").value) || 0;
-
-            const totalChances = (c1 * 1) + (c2 * 10) + (c3 * 20);
-            const totalDinero = (c1 * 500) + (c2 * 3000) + (c3 * 5000);
-
-            document.getElementById("resumenChances").innerText = totalChances;
-            document.getElementById("resumenDinero").innerText = "ARS " + totalDinero.toLocaleString('es-AR');
-        }
-
-        function enviarPedidoWhatsApp() {
-            const nombre = document.getElementById("nombreComprador").value.trim();
-            const c1 = parseInt(document.getElementById("cantCombo1").value) || 0;
-            const c2 = parseInt(document.getElementById("cantCombo2").value) || 0;
-            const c3 = parseInt(document.getElementById("cantCombo3").value) || 0;
-            
-            const chances = document.getElementById("resumenChances").innerText;
-            const dinero = document.getElementById("resumenDinero").innerText;
-
-            if (!nombre) {
-                alert("Por favor, ingresa tu Nombre y Apellido para registrar tus chances.");
-                document.getElementById("nombreComprador").focus();
-                return;
-            }
-
-            if (chances === "0") {
-                alert("Debes seleccionar al menos 1 combo para realizar el pedido.");
-                return;
-            }
-
-            let mensaje = `👋 ¡Hola! Quiero registrar mi pedido para el Sorteo de la Honda Bros 125:\n\n`;
-            mensaje += `👤 *Nombre:* ${nombre}\n`;
-            mensaje += `📦 *Detalle de la compra:*\n`;
-            if(c1 > 0) mensaje += `• Combo 1 (1 chance): ${c1} unidades\n`;
-            if(c2 > 0) mensaje += `• Combo 2 (10 chances): ${c2} unidades\n`;
-            if(c3 > 0) mensaje += `• Combo 3 Ahorrador (20 chances): ${c3} unidades\n`;
-            mensaje += `\n🎟️ *Total de Chances:* ${chances}\n`;
-            mensaje += `💰 *Total a pagar:* ${dinero}\n\n`;
-            mensaje += `Ya tengo copiado tu alias (${MI_ALIAS_REAL}). Pásame los datos para confirmar.`;
-
-            window.open(WA_LINK_PERSONALIZADO + "?text=" + encodeURIComponent(mensaje), "_blank");
-        }
-
-               // ==========================================
-        // 📊 LECTOR DE PROGRESO DE GOOGLE SHEETS
-        // ==========================================
-        async function cargarProgreso() {
-            try {
-                const respuesta = await fetch(urlCsv + "&cacheBust=" + new Date().getTime());
-                const texto = await respuesta.text();
-                
-                // Separación por renglones
-                const filas = texto.split(/\r?\n/);
-                
-                let porcentaje = 0;
-                if(filas.length > 0) {
-                    // Índices de variables seguras para evitar roturas de texto
-                    const filaIndex = 0;
-                    const celdaIndex = 0;
-                    
-                    const primeraLinea = filas[filaIndex];
-                    const celdas = primeraLinea.includes(";") ? primeraLinea.split(";") : primeraLinea.split(",");
-                    const celdaA1 = celdas[celdaIndex];
-                    
-                    let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
-                    valorLimpio = valorLimpio.replace(",", ".");
-                    
-                    porcentaje = parseFloat(valorLimpio) || 0;
-
-                    // Ajuste si Google Sheets entrega en formato decimal (ej: 0.23 en vez de 23)
-                    if (porcentaje > 0 && porcentaje <= 1) {
-                        porcentaje = porcentaje * 100;
-                    }
-                }
-                
-                porcentaje = Math.round(porcentaje) || 0;
-
-                if (porcentaje > 100) porcentaje = 100;
-                if (porcentaje < 0) porcentaje = 0;
-
-                // Actualización visual de la barra verde
-                const barra = document.getElementById("miBarra");
-                barra.style.width = porcentaje + "%";
-                barra.textContent = porcentaje + "%";
-                barra.style.backgroundColor = ""; // Quita el color rojo y reactiva el verde original
-                
-            } catch (e) {
-                console.error("Error de conexión: ", e);
-                const barra = document.getElementById("miBarra");
-                barra.textContent = "Error al cargar";
-                barra.style.backgroundColor = "#dc3545";
-                barra.style.width = "100%";
-            }
-        }
-
-                
-                porcentaje = Math.round(porcentaje) || 0;
-
-                if (porcentaje > 100) porcentaje = 100;
-                if (porcentaje < 0) porcentaje = 0;
-
-                const barra = document.getElementById("miBarra");
-                barra.style.width = porcentaje + "%";
-                barra.textContent = porcentaje + "%";
-                barra.style.backgroundColor = ""; 
-                
-            } catch (e) {
-                console.error("Error de conexión: ", e);
-                const barra = document.getElementById("miBarra");
-                barra.textContent = "Error al cargar";
-                barra.style.backgroundColor = "#dc3545";
-                barra.style.width = "100%";
-            }
-        }
-
-        window.onload = cargarProgreso;
-    </script>
-</body>
-</html>
+                    <span class="combo-nombre">📦 Cant. Chances Sueltas (1 Chance)</span>
