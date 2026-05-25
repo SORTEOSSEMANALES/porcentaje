@@ -301,18 +301,18 @@
         textoMensaje += `\n✨ *Total de Chances:* ${totalChancesAcumulado}`;
         textoMensaje += `\n💰 *Total Neto:* ARS ${totalPrecioAcumulado.toLocaleString('es-AR')}`;
 
-       //  REEMPLAZA POR ESTA LÍNEA CORREGIDA:
-const urlFinal = "https://wa.me" + TELEFONO_WHATSAPP + "?text=" + encodeURIComponent(textoMensaje);
+         // LÍNEA CORREGIDA CON TU NÚMERO DEFINITIVO Y LA BARRA DIAGONAL MÓVIL:
+    const urlFinal = "https://wa.me" + encodeURIComponent(textoMensaje);
 
-        window.open(urlFinal, '_blank');
-    }
+    window.open(urlFinal, '_blank');
+}
 
-    inputs.forEach(elementoInput => {
-        elementoInput.addEventListener('input', recalcularTotales);
-        elementoInput.addEventListener('change', recalcularTotales);
-    });
+inputs.forEach(elementoInput => {
+    elementoInput.addEventListener('input', recalcularTotales);
+    elementoInput.addEventListener('change', recalcularTotales);
+});
 
-    btnWA.addEventListener('click', procesarEnvio);
+btnWA.addEventListener('click', procesarEnvio);
 })();
 </script>
 
@@ -338,6 +338,7 @@ const urlFinal = "https://wa.me" + TELEFONO_WHATSAPP + "?text=" + encodeURICompo
     text-align: center;
 }
 </style>
+
 
 
         <!-- Botón para copiar el Alias de pago -->
