@@ -411,7 +411,7 @@
         const WA_LINK_PERSONALIZADO = "https://wa.link"; 
         
         // Enlace CSV de tu Google Sheets (Fijo para tu barra de carga de AppSheet)
-        const urlCsv = "https://google.com"; 
+        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
 
         // Función para copiar el Alias
         function copiarAlias() {
@@ -479,7 +479,7 @@
             window.open(WA_LINK_PERSONALIZADO + "?text=" + encodeURIComponent(mensaje), "_blank");
         }
 
-        // ==========================================
+               // ==========================================
         // 📊 LECTOR DE PROGRESO DE GOOGLE SHEETS
         // ==========================================
         async function cargarProgreso() {
@@ -487,23 +487,50 @@
                 const respuesta = await fetch(urlCsv + "&cacheBust=" + new Date().getTime());
                 const texto = await respuesta.text();
                 
+                // Separación por renglones
                 const filas = texto.split(/\r?\n/);
                 
                 let porcentaje = 0;
                 if(filas.length > 0) {
-                    const primeraLinea = filas.at(0);
+                    // Índices de variables seguras para evitar roturas de texto
+                    const filaIndex = 0;
+                    const celdaIndex = 0;
+                    
+                    const primeraLinea = filas[filaIndex];
                     const celdas = primeraLinea.includes(";") ? primeraLinea.split(";") : primeraLinea.split(",");
-                    const celdaA1 = celdas.at(0);
+                    const celdaA1 = celdas[celdaIndex];
                     
                     let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
                     valorLimpio = valorLimpio.replace(",", ".");
                     
                     porcentaje = parseFloat(valorLimpio) || 0;
 
+                    // Ajuste si Google Sheets entrega en formato decimal (ej: 0.23 en vez de 23)
                     if (porcentaje > 0 && porcentaje <= 1) {
                         porcentaje = porcentaje * 100;
                     }
                 }
+                
+                porcentaje = Math.round(porcentaje) || 0;
+
+                if (porcentaje > 100) porcentaje = 100;
+                if (porcentaje < 0) porcentaje = 0;
+
+                // Actualización visual de la barra verde
+                const barra = document.getElementById("miBarra");
+                barra.style.width = porcentaje + "%";
+                barra.textContent = porcentaje + "%";
+                barra.style.backgroundColor = ""; // Quita el color rojo y reactiva el verde original
+                
+            } catch (e) {
+                console.error("Error de conexión: ", e);
+                const barra = document.getElementById("miBarra");
+                barra.textContent = "Error al cargar";
+                barra.style.backgroundColor = "#dc3545";
+                barra.style.width = "100%";
+            }
+        }
+
                 
                 porcentaje = Math.round(porcentaje) || 0;
 
