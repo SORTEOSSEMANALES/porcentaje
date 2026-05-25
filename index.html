@@ -403,64 +403,14 @@
         </a>
     </div>
 
-    <script>
-              // ==========================================
+           // ==========================================
         // ⚙️ CONFIGURACIÓN PERSONAL ACTUALIZADA
         // ==========================================
         const MI_ALIAS_REAL = "cajeromf"; 
         const WA_LINK_PERSONALIZADO = "https://wa.link"; 
-
-        // ==========================================
-        // 🧮 LÓGICA DE DETECCION Y SUMA DE COMBOS
-        // ==========================================
-        function calcularTotales() {
-            const c1 = parseInt(document.getElementById("cantCombo1").value) || 0;
-            const c2 = parseInt(document.getElementById("cantCombo2").value) || 0;
-            const c3 = parseInt(document.getElementById("cantCombo3").value) || 0;
-
-            const totalChances = (c1 * 1) + (c2 * 10) + (c3 * 20);
-            const totalDinero = (c1 * 500) + (c2 * 3000) + (c3 * 5000);
-
-            document.getElementById("resumenChances").innerText = totalChances;
-            document.getElementById("resumenDinero").innerText = "ARS " + totalDinero.toLocaleString('es-AR');
-        }
-
-        function enviarPedidoWhatsApp() {
-            const nombre = document.getElementById("nombreComprador").value.trim();
-            const c1 = document.getElementById("cantCombo1").value;
-            const c2 = document.getElementById("cantCombo2").value;
-            const c3 = document.getElementById("cantCombo3").value;
-            
-            const chances = document.getElementById("resumenChances").innerText;
-            const dinero = document.getElementById("resumenDinero").innerText;
-
-            if (!nombre) {
-                alert("Por favor, ingresa tu Nombre y Apellido para registrar tus chances.");
-                document.getElementById("nombreComprador").focus();
-                return;
-            }
-
-            if (chances === "0") {
-                alert("Debes seleccionar al menos 1 combo para realizar el pedido.");
-                return;
-            }
-
-                        let mensaje = `👋 ¡Hola! Quiero registrar mi pedido para el Sorteo de la Honda Bros 125:
-
-👤 *Nombre:* ${nombre}
-📦 *Detalle de la compra:*
-${c1 > 0 ? `• Combo 1 (1 chance): ${c1} unidades\n` : ''}${c2 > 0 ? `• Combo 2 (10 chances): ${c2} unidades\n` : ''}${c3 > 0 ? `• Combo 3 Ahorrador (20 chances): ${c3} unidades\n` : ''}
-🎟️ *Total de Chances:* ${chances}
-💰 *Total a pagar:* ${dinero}
-
-Ya tengo copiado tu alias (${MI_ALIAS_REAL}). Pásame los datos para confirmar.`;
-
-            // Codificamos todo el bloque limpio para la URL de WhatsApp
-            window.open(WA_LINK_PERSONALIZADO + "?text=" + encodeURIComponent(mensaje), "_blank");
-
-
-            window.open(WA_LINK_PERSONALIZADO + "?text=" + mensaje, "_blank");
-        }
+        
+        // Enlace CSV de tu Google Sheets (Fijo para tu barra de carga de AppSheet)
+        const urlCsv = "https://google.com"; 
 
         // Función para copiar el Alias
         function copiarAlias() {
@@ -480,64 +430,101 @@ Ya tengo copiado tu alias (${MI_ALIAS_REAL}). Pásame los datos para confirmar.`
             });
         }
 
-        // LECTOR CORREGIDO MATEMÁTICAMENTE (Evita la rotura del split)
-       async function cargarProgreso() {
-    try {
-        const respuesta = await fetch(urlCsv + "&cacheBust=" + new Date().getTime());
-        const texto = await respuesta.text();
-        
-        // Dividimos de forma robusta por renglones
-        const filas = texto.split(/\r?\n/);
-        
-        let porcentaje = 0;
-        if(filas.length > 0) {
-            // Seleccionamos la primera línea de texto plano y extraemos la celda A1 usando división de arrays
-            const primeraLinea = filas[0];
-            const celdas = primeraLinea.includes(";") ? primeraLinea.split(";") : primeraLinea.split(",");
-            const celdaA1 = celdas[0];
-            
-            // Limpieza total de caracteres porcentuales o comillas
-            let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
-            valorLimpio = valorLimpio.replace(",", ".");
-            
-            porcentaje = parseFloat(valorLimpio) || 0;
+        // ==========================================
+        // 🧮 LÓGICA DE DETECCION Y SUMA DE COMBOS
+        // ==========================================
+        function calcularTotales() {
+            // Obtener cantidades seleccionadas por el cliente
+            const c1 = parseInt(document.getElementById("cantCombo1").value) || 0;
+            const c2 = parseInt(document.getElementById("cantCombo2").value) || 0;
+            const c3 = parseInt(document.getElementById("cantCombo3").value) || 0;
 
-            // Ajuste si Google Sheets entrega en formato decimal (ej: 0.23 en vez de 23)
-            if (porcentaje > 0 && porcentaje <= 1) {
-                porcentaje = porcentaje * 100;
-            }
+            // Fórmulas matemáticas de acumulación y conteo
+            const totalChances = (c1 * 1) + (c2 * 10) + (c3 * 20);
+            const totalDinero = (c1 * 500) + (c2 * 3000) + (c3 * 5000);
+
+            // Reflejar los resultados numéricos en pantalla en tiempo real
+            document.getElementById("resumenChances").innerText = totalChances;
+            document.getElementById("resumenDinero").innerText = "ARS " + totalDinero.toLocaleString('es-AR');
         }
-        
-        porcentaje = Math.round(porcentaje) || 0;
 
-        if (porcentaje > 100) porcentaje = 100;
-        if (porcentaje < 0) porcentaje = 0;
+        // Validación y armado del texto limpio para tu WhatsApp
+        function enviarPedidoWhatsApp() {
+            const nombre = document.getElementById("nombreComprador").value.trim();
+            const c1 = document.getElementById("cantCombo1").value;
+            const c2 = document.getElementById("cantCombo2").value;
+            const c3 = document.getElementById("cantCombo3").value;
+            
+            const chances = document.getElementById("resumenChances").innerText;
+            const dinero = document.getElementById("resumenDinero").innerText;
 
-        // Actualización visual de la barra verde y remoción del estado de error
-        const barra = document.getElementById("miBarra");
-        barra.style.width = porcentaje + "%";
-        barra.textContent = porcentaje + "%";
-        barra.style.backgroundColor = ""; // Quita el rojo de error y vuelve al verde del CSS
-        
-    } catch (e) {
-        console.error("Error de conexión: ", e);
-        const barra = document.getElementById("miBarra");
-        barra.textContent = "Error al cargar";
-        barra.style.backgroundColor = "#dc3545";
-        barra.style.width = "100%";
-    }
-}
+            // Validación: Obligar a poner nombre y apellido
+            if (!nombre) {
+                alert("Por favor, ingresa tu Nombre y Apellido para registrar tus chances.");
+                document.getElementById("nombreComprador").focus();
+                return;
+            }
 
+            // Validación: Obligar a que elija al menos 1 combo
+            if (chances === "0") {
+                alert("Debes seleccionar al menos 1 combo para realizar el pedido.");
+                return;
+            }
+
+            let mensaje = `👋 ¡Hola! Quiero registrar mi pedido para el Sorteo de la Honda Bros 125:
+
+👤 *Nombre:* ${nombre}
+📦 *Detalle de la compra:*
+${c1 > 0 ? `• Combo 1 (1 chance): ${c1} unidades\n` : ''}${c2 > 0 ? `• Combo 2 (10 chances): ${c2} unidades\n` : ''}${c3 > 0 ? `• Combo 3 Ahorrador (20 chances): ${c3} unidades\n` : ''}
+🎟️ *Total de Chances:* ${chances}
+💰 *Total a pagar:* ${dinero}
+
+Ya tengo copiado tu alias (${MI_ALIAS_REAL}). Pásame los datos para confirmar.`;
+
+            // Redirección usando tu wa.link exacto con el texto predefinido adjunto
+            window.open(WA_LINK_PERSONALIZADO + "?text=" + encodeURIComponent(mensaje), "_blank");
+        }
+
+        // ==========================================
+        // 📊 LECTOR DE PROGRESO DE GOOGLE SHEETS (Sincronizado)
+        // ==========================================
+        async function cargarProgreso() {
+            try {
+                const respuesta = await fetch(urlCsv + "&cacheBust=" + new Date().getTime());
+                const texto = await respuesta.text();
+                
+                // Dividimos de forma robusta por renglones
+                const filas = texto.split(/\r?\n/);
+                
+                let porcentaje = 0;
+                if(filas.length > 0) {
+                    // Seleccionamos la primera línea de texto plano y extraemos la celda A1 usando división de arrays
+                    const primeraLinea = filas[0];
+                    const celdas = primeraLinea.includes(";") ? primeraLinea.split(";") : primeraLinea.split(",");
+                    const celdaA1 = celdas[0];
+                    
+                    // Limpieza total de caracteres porcentuales o comillas
+                    let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
+                    valorLimpio = valorLimpio.replace(",", ".");
+                    
+                    porcentaje = parseFloat(valorLimpio) || 0;
+
+                    // Ajuste si Google Sheets entrega en formato decimal (ej: 0.23 en vez de 23)
+                    if (porcentaje > 0 && porcentaje <= 1) {
+                        porcentaje = porcentaje * 100;
+                    }
+                }
                 
                 porcentaje = Math.round(porcentaje) || 0;
 
                 if (porcentaje > 100) porcentaje = 100;
                 if (porcentaje < 0) porcentaje = 0;
 
-                // Actualización visual de la barra verde
+                // Actualización visual de la barra verde y remoción del estado de error
                 const barra = document.getElementById("miBarra");
                 barra.style.width = porcentaje + "%";
                 barra.textContent = porcentaje + "%";
+                barra.style.backgroundColor = ""; // Quita el rojo de error y vuelve al verde del CSS
                 
             } catch (e) {
                 console.error("Error de conexión: ", e);
@@ -548,9 +535,9 @@ Ya tengo copiado tu alias (${MI_ALIAS_REAL}). Pásame los datos para confirmar.`
             }
         }
 
-        // Iniciar la lectura al cargar la web
+        // Iniciar la lectura automática de la barra vinculada al cargar la web
         window.onload = cargarProgreso;
-    </script>
+
 </body>
 </html>
 
