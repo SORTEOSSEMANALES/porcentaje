@@ -316,14 +316,15 @@ function procesarEnvio() {
     window.open(urlFinal, '_blank');
 }
 
-inputs.forEach(elementoInput => {
-    elementoInput.addEventListener('input', recalcularTotales);
-    elementoInput.addEventListener('change', recalcularTotales);
-});
+    // DETECTORES DE ACCIÓN
+    inputs.forEach(elementoInput => {
+        elementoInput.addEventListener('input', recalcularTotales);
+        elementoInput.addEventListener('change', recalcularTotales);
+    });
 
-btnWA.addEventListener('click', procesarEnvio);
-})();
+    btnWA.addEventListener('click', procesarEnvio);
 </script>
+
 
 
 <style>
