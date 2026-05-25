@@ -373,34 +373,59 @@
             window.open(urlFinal, '_blank');
         }
 
-               // 4. TU LÓGICA ORIGINAL EXACTA RESTAURADA CON CORCHETES [0]
-       async function cargarProgreso() {
-    try {
-        const urlDirecta = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv&cacheBust=" + new Date().getTime();
-        const respuesta = await fetch(urlDirecta);
-        const texto = await respuesta.text();
-
+                      // 4. TU LÓGICA ORIGINAL COMPLETAMENTE FIJA Y CONECTADA
+        async function cargarProgreso() {
+            try {
+                const urlDirecta = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv&cacheBust=" + new Date().getTime();
+                const respuesta = await fetch(urlDirecta);
+                const texto = await respuesta.text();
+                
                 // Dividimos por renglones
                 const filas = texto.split(/\r?\n/);
                 
                 let porcentaje = 0;
                 if(filas.length > 0) {
-                    // Seleccionamos la primera línea de texto plano y extraemos la celda A1
+                    // SELECCIÓN CORRECTA CON SUS CORCHETES [0]
                     const primeraLinea = filas[0];
-                    const celdas = primeraLinea.ies(";") ? primeraLinea.split(";") : primeraLinea.split(",");
-                    const celdaA1 = celdas[0];nclud
+                    const celdas = primeraLinea.includes(";") ? primeraLinea.split(";") : primeraLinea.split(",");
+                    const celdaA1 = celdas[0];
                     
-                    // Limpieza total de caracteres porcentuales o comillas
+                    // Limpieza de caracteres
                     let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
                     valorLimpio = valorLimpio.replace(",", ".");
                     
                     porcentaje = parseFloat(valorLimpio) || 0;
 
-                    // Ajuste si Google Sheets entrega en formato decimal (ej: 0.23 en vez de 23)
+                    // Ajuste de formato decimal de Google Sheets
                     if (porcentaje > 0 && porcentaje <= 1) {
                         porcentaje = porcentaje * 100;
                     }
                 }
+                
+                porcentaje = Math.round(porcentaje) || 0;
+
+                if (porcentaje > 100) porcentaje = 100;
+                if (porcentaje < 0) porcentaje = 0;
+
+                // Actualización de la barra verde
+                const barra = document.getElementById("miBarra");
+                if (barra) {
+                    barra.style.width = porcentaje + "%";
+                    barra.textContent = porcentaje + "%";
+                    barra.style.backgroundColor = ""; // Limpia el rojo de error
+                }
+                
+            } catch (e) {
+                console.error("Error de conexión: ", e);
+                const barra = document.getElementById("miBarra");
+                if (barra) {
+                    barra.textContent = "Error al cargar";
+                    barra.style.backgroundColor = "#dc3545";
+                    barra.style.width = "100%";
+                }
+            }
+        }
+
                 
                 porcentaje = Math.round(porcentaje) || 0;
 
