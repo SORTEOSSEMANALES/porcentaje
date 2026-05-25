@@ -296,7 +296,7 @@
             🛠️ ABRIR PANEL DE CONTROL EN PESTAÑA PRIVADA
         </a>
     </div>
-   <script>
+  <script>
         // ==========================================
         // ⚙️ CONFIGURACIÓN PERSONAL (Modifica lo que hay entre comillas)
         // ==========================================
@@ -304,100 +304,52 @@
         const MI_TELEFONO_REAL = "5493765131387"; 
         
         // Enlace CSV de tu Google Sheets (Fijo y verificado)
-        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv";
+        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
 
-        // 1. Configuración de Elementos HTML
-        const inputs = document.querySelectorAll('.cantidad-combo');
-        const txtChances = document.getElementById('total-chances');
-        const txtPrecio = document.getElementById('total-precio');
-        const btnWA = document.getElementById('btn-enviar-wa');
-        const btnFlotanteWA = document.getElementById("enlaceWhatsapp");
+        // Sincronización automática de WhatsApp
+        document.getElementById("enlaceWhatsapp").href = "https://wa.me" + MI_TELEFONO_REAL + "?text=Hola!%20Quiero%20adquirir%20chances%20para%20el%20sorteo%20de%20la%20Honda%20Bros%20125";
 
-        let totalChancesAcumulado = 0;
-        let totalPrecioAcumulado = 0;
-
-        // Configuración inicial fija del botón flotante de consultas
-        if (btnFlotanteWA) {
-            btnFlotanteWA.href = "https://wa.me" + MI_TELEFONO_REAL + "?text=Hola!%20Tengo%20una%20consulta%20sobre%20el%20sorteo%20de%20la%20Honda%20Bros%20125";
-        }
-
-        // 2. FUNCIÓN QUE SUMA EN TIEMPO REAL
-        function recalcularTotales() {
-            totalChancesAcumulado = 0;
-            totalPrecioAcumulado = 0;
-            let tieneSeleccion = false;
-
-            inputs.forEach(input => {
-                const cantidad = parseInt(input.value) || 0;
-                if (cantidad > 0) {
-                    tieneSeleccion = true;
-                    const contenedor = input.closest('.combo');
-                    const unidadesChances = parseInt(contenedor.getAttribute('data-chances')) || 0;
-                    const unidadesPrecio = parseInt(contenedor.getAttribute('data-precio')) || 0;
-
-                    totalChancesAcumulado += (cantidad * unidadesChances);
-                    totalPrecioAcumulado += (cantidad * unidadesPrecio);
-                }
+        // Función para copiar el Alias
+        function copiarAlias() {
+            navigator.clipboard.writeText(MI_ALIAS_REAL).then(function() {
+                var boton = document.getElementById("btnCopiar");
+                var textoOriginal = boton.innerText;
+                boton.innerText = "¡COPIADO CON ÉXITO! ✅";
+                boton.style.background = "#22c55e";
+                boton.style.color = "#0f172a";
+                setTimeout(function() {
+                    boton.innerText = textoOriginal;
+                    boton.style.background = "#38bdf8";
+                    boton.style.color = "#0f172a";
+                }, 2000);
+            }).catch(function(err) {
+                alert("El alias es: " + MI_ALIAS_REAL);
             });
-
-            if (txtChances) txtChances.textContent = totalChancesAcumulado;
-            if (txtPrecio) txtPrecio.textContent = totalPrecioAcumulado.toLocaleString('es-AR');
-            
-            if (btnWA) {
-                btnWA.style.display = tieneSeleccion ? 'block' : 'none';
-            }
         }
 
-        // 3. FUNCIÓN QUE CONSTRUYE Y ENVÍA EL PEDIDO A WHATSAPP
-        function procesarEnvio() {
-            if (totalPrecioAcumulado === 0) {
-                alert("Por favor, selecciona al menos un combo antes de enviar.");
-                return;
-            }
-
-            let textoMensaje = `👋 *¡Hola! Quiero adquirir mis chances:*\n\n`;
-            
-            inputs.forEach(input => {
-                const cantidad = parseInt(input.value) || 0;
-                if (cantidad > 0) {
-                    const contenedor = input.closest('.combo');
-                    const nombre = contenedor.getAttribute('data-nombre');
-                    textoMensaje += `▪️ *${cantidad}x* ${nombre}\n`;
-                }
-            });
-
-            textoMensaje += `\n📊 *Resumen de mi Orden:*`;
-            textoMensaje += `\n✨ *Total de Chances:* ${totalChancesAcumulado}`;
-            textoMensaje += `\n💰 *Total Neto:* ARS ${totalPrecioAcumulado.toLocaleString('es-AR')}`;
-
-            const urlFinal = "https://wa.me" + MI_TELEFONO_REAL + "?text=" + encodeURIComponent(textoMensaje);
-            window.open(urlFinal, '_blank');
-        }
-
-                      // 4. TU LÓGICA ORIGINAL COMPLETAMENTE FIJA Y CONECTADA
+        // LECTOR CORREGIDO MATEMÁTICAMENTE (Evita la rotura del split)
         async function cargarProgreso() {
             try {
-                const urlDirecta = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv&cacheBust=" + new Date().getTime();
-                const respuesta = await fetch(urlDirecta);
+                const respuesta = await fetch(urlCsv + "&cacheBust=" + new Date().getTime());
                 const texto = await respuesta.text();
                 
-                // Dividimos por renglones
+                // Dividimos de forma robusta por renglones
                 const filas = texto.split(/\r?\n/);
                 
                 let porcentaje = 0;
                 if(filas.length > 0) {
-                    // SELECCIÓN CORRECTA CON SUS CORCHETES [0]
+                    // Seleccionamos la primera línea de texto plano y extraemos la celda A1 usando división de arrays
                     const primeraLinea = filas[0];
                     const celdas = primeraLinea.includes(";") ? primeraLinea.split(";") : primeraLinea.split(",");
                     const celdaA1 = celdas[0];
                     
-                    // Limpieza de caracteres
+                    // Limpieza total de caracteres porcentuales o comillas
                     let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
                     valorLimpio = valorLimpio.replace(",", ".");
                     
                     porcentaje = parseFloat(valorLimpio) || 0;
 
-                    // Ajuste de formato decimal de Google Sheets
+                    // Ajuste si Google Sheets entrega en formato decimal (ej: 0.23 en vez de 23)
                     if (porcentaje > 0 && porcentaje <= 1) {
                         porcentaje = porcentaje * 100;
                     }
@@ -408,86 +360,22 @@
                 if (porcentaje > 100) porcentaje = 100;
                 if (porcentaje < 0) porcentaje = 0;
 
-                // Actualización de la barra verde
-                const barra = document.getElementById("miBarra");
-                if (barra) {
-                    barra.style.width = porcentaje + "%";
-                    barra.textContent = porcentaje + "%";
-                    barra.style.backgroundColor = ""; // Limpia el rojo de error
-                }
-                
-            } catch (e) {
-                console.error("Error de conexión: ", e);
-                const barra = document.getElementById("miBarra");
-                if (barra) {
-                    barra.textContent = "Error al cargar";
-                    barra.style.backgroundColor = "#dc3545";
-                    barra.style.width = "100%";
-                }
-            }
-        }
-
-                
-                porcentaje = Math.round(porcentaje) || 0;
-
-                if (porcentaje > 100) porcentaje = 100;
-                if (porcentaje < 0) porcentaje = 0;
-
                 // Actualización visual de la barra verde
                 const barra = document.getElementById("miBarra");
-                if (barra) {
-                    barra.style.width = porcentaje + "%";
-                    barra.textContent = porcentaje + "%";
-                    // Quitamos el fondo rojo de error si es que había quedado
-                    barra.style.backgroundColor = ""; 
-                }
+                barra.style.width = porcentaje + "%";
+                barra.textContent = porcentaje + "%";
                 
             } catch (e) {
                 console.error("Error de conexión: ", e);
                 const barra = document.getElementById("miBarra");
-                if (barra) {
-                    barra.textContent = "Error al cargar";
-                    barra.style.backgroundColor = "#dc3545";
-                    barra.style.width = "100%";
-                }
+                barra.textContent = "Error al cargar";
+                barra.style.backgroundColor = "#dc3545";
+                barra.style.width = "100%";
             }
         }
 
-
-        // 5. ASIGNACIÓN DE DETECTORES DE ACCIÓN
-        inputs.forEach(elementoInput => {
-            elementoInput.addEventListener('input', recalcularTotales);
-            elementoInput.addEventListener('change', recalcularTotales);
-        });
-
-        if (btnWA) {
-            btnWA.addEventListener('click', procesarEnvio);
-        }
-
-        // Cargar el progreso automáticamente al iniciar la web
+        // Iniciar la lectura al cargar la web
         window.onload = cargarProgreso;
-    })();
-
-    // 6. FUNCIÓN GLOBAL PARA EL BOTÓN COPIAR ALIAS
-    function copiarAlias() {
-        const aliasTexto = "cajeromf"; 
-        navigator.clipboard.writeText(aliasTexto).then(function() {
-            var boton = document.getElementById("btnCopiar");
-            if (boton) {
-                var textoOriginal = boton.innerText;
-                boton.innerText = "¡COPIADO CON ÉXITO! ✅";
-                boton.style.background = "#22c55e";
-                boton.style.color = "#0f172a";
-                setTimeout(function() {
-                    boton.innerText = textoOriginal;
-                    boton.style.background = "#38bdf8";
-                    boton.style.color = "#0f172a";
-                }, 2000);
-            }
-        }).catch(function(err) {
-            alert("El alias es: " + aliasTexto);
-        });
-    }
     </script>
 </body>
 </html>
