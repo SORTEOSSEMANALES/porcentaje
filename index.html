@@ -373,7 +373,7 @@
             window.open(urlFinal, '_blank');
         }
 
-        // 4. TU LOGICA ORIGINAL EXACTA RESTAURADA PARA SINCRO CON APPSHEET
+               // 4. TU LÓGICA ORIGINAL EXACTA RESTAURADA CON CORCHETES [0]
         async function cargarProgreso() {
             try {
                 const respuesta = await fetch(urlCsv + "&cacheBust=" + new Date().getTime());
@@ -384,7 +384,7 @@
                 
                 let porcentaje = 0;
                 if(filas.length > 0) {
-                    // Seleccionamos la primera línea de texto plano y extraemos la celda A1 usando división de arrays
+                    // Seleccionamos la primera línea de texto plano y extraemos la celda A1
                     const primeraLinea = filas[0];
                     const celdas = primeraLinea.includes(";") ? primeraLinea.split(";") : primeraLinea.split(",");
                     const celdaA1 = celdas[0];
@@ -411,6 +411,8 @@
                 if (barra) {
                     barra.style.width = porcentaje + "%";
                     barra.textContent = porcentaje + "%";
+                    // Quitamos el fondo rojo de error si es que había quedado
+                    barra.style.backgroundColor = ""; 
                 }
                 
             } catch (e) {
@@ -423,6 +425,7 @@
                 }
             }
         }
+
 
         // 5. ASIGNACIÓN DE DETECTORES DE ACCIÓN
         inputs.forEach(elementoInput => {
