@@ -301,7 +301,9 @@
         textoMensaje += `\n✨ *Total de Chances:* ${totalChancesAcumulado}`;
         textoMensaje += `\n💰 *Total Neto:* ARS ${totalPrecioAcumulado.toLocaleString('es-AR')}`;
 
-        const urlFinal = `https://wa.me{TELEFONO_WHATSAPP}?text=${encodeURIComponent(textoMensaje)}`;
+       //  REEMPLAZA POR ESTA LÍNEA CORREGIDA:
+const urlFinal = "https://wa.me" + TELEFONO_WHATSAPP + "?text=" + encodeURIComponent(textoMensaje);
+
         window.open(urlFinal, '_blank');
     }
 
