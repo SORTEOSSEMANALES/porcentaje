@@ -369,7 +369,8 @@
             textoMensaje += `\n✨ *Total de Chances:* ${totalChancesAcumulado}`;
             textoMensaje += `\n💰 *Total Neto:* ARS ${totalPrecioAcumulado.toLocaleString('es-AR')}`;
 
-            const urlFinal = "https://wa.me" + MI_TELEFONO_REAL + "?text=" + encodeURIComponent(textoMensaje);
+            const urlFinal = "https://wa.me/" + MI_TELEFONO_REAL + "?text=" + encodeURIComponent(textoMensaje);
+
             window.open(urlFinal, '_blank');
         }
 
