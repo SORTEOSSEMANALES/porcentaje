@@ -208,22 +208,135 @@
         <div class="contenedor-barra">
             <div id="miBarra" class="relleno-barra">Cargando...</div>
         </div>
-                <!-- Combos de Chances -->
-        <div class="contenedor-combos">
-            <h3>Adquiere tus Chances:</h3>
-            <div class="combo">
-                <span class="combo-nombre">📦 Combo 1: (1 Chance)</span>
-                <span class="combo-precio">ARS 500</span>
-            </div>
-            <div class="combo">
-                <span class="combo-nombre">📦 Combo 2: (10 Chances)</span>
-                <span class="combo-precio">ARS 3.000</span>
-            </div>
-            <div class="combo combo-neon">
-                <span class="combo-nombre">⚡ Combo 3: AHORRADOR (20 Chances)</span>
-                <span class="combo-precio">ARS 5.000</span>
-            </div>
+ <!-- Combos de Chances -->
+<div class="contenedor-combos">
+    <h3>Adquiere tus Chances:</h3>
+    
+    <!-- Combo 1 -->
+    <div class="combo" data-nombre="Combo 1 (1 Chance)" data-chances="1" data-precio="500">
+        <span class="combo-nombre">📦 Combo 1: (1 Chance)</span>
+        <div class="combo-interaccion">
+            <input type="number" class="cantidad-combo" value="0" min="0">
+            <span class="combo-precio">ARS 500</span>
         </div>
+    </div>
+    
+    <!-- Combo 2 -->
+    <div class="combo" data-nombre="Combo 2 (10 Chances)" data-chances="10" data-precio="3000">
+        <span class="combo-nombre">📦 Combo 2: (10 Chances)</span>
+        <div class="combo-interaccion">
+            <input type="number" class="cantidad-combo" value="0" min="0">
+            <span class="combo-precio">ARS 3.000</span>
+        </div>
+    </div>
+    
+    <!-- Combo 3 -->
+    <div class="combo combo-neon" data-nombre="Combo 3 AHORRADOR (20 Chances)" data-chances="20" data-precio="5000">
+        <span class="combo-nombre">⚡ Combo 3: AHORRADOR (20 Chances)</span>
+        <div class="combo-interaccion">
+            <input type="number" class="cantidad-combo" value="0" min="0">
+            <span class="combo-precio">ARS 5.000</span>
+        </div>
+    </div>
+
+    <!-- Panel de Totales y Botón WhatsApp -->
+    <div class="resumen-compra" style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+        <p style="margin: 5px 0;">Total Chances: <strong id="total-chances">0</strong></p>
+        <p style="margin: 5px 0;">Total a Pagar: <strong>ARS <span id="total-precio">0</span></strong></p>
+        <button id="btn-enviar-wa" style="display: none; width: 100%; background: #25d366; color: #fff; border: none; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 10px;">
+            Pedir por WhatsApp 💬
+        </button>
+    </div>
+</div>
+
+<script>
+(function() {
+    // ⚠️ REEMPLAZA AQUÍ TU NÚMERO (Código de país + área + número sin el signo +)
+    const TELEFONO_WHATSAPP = "54911XXXXXXXX"; 
+
+    const inputs = document.querySelectorAll('.cantidad-combo');
+    const txtChances = document.getElementById('total-chances');
+    const txtPrecio = document.getElementById('total-precio');
+    const btnWA = document.getElementById('btn-enviar-wa');
+
+    let totalChancesAcumulado = 0;
+    let totalPrecioAcumulado = 0;
+
+    function recalcularTotales() {
+        totalChancesAcumulado = 0;
+        totalPrecioAcumulado = 0;
+        let tieneSeleccion = false;
+
+        inputs.forEach(input => {
+            const cantidad = parseInt(input.value) || 0;
+            if (cantidad > 0) {
+                tieneSeleccion = true;
+                const contenedor = input.closest('.combo');
+                const unidadesChances = parseInt(contenedor.getAttribute('data-chances'));
+                const unidadesPrecio = parseInt(contenedor.getAttribute('data-precio'));
+
+                totalChancesAcumulado += cantidad * unidadesChances;
+                totalPrecioAcumulado += cantidad * unidadesPrecio;
+            }
+        });
+
+        txtChances.textContent = totalChancesAcumulado;
+        txtPrecio.textContent = totalPrecioAcumulado.toLocaleString('es-AR');
+        btnWA.style.display = tieneSeleccion ? 'block' : 'none';
+    }
+
+    function procesarEnvio() {
+        let textoMensaje = `👋 *¡Hola! Quiero adquirir mis chances:*\n\n`;
+        
+        inputs.forEach(input => {
+            const cantidad = parseInt(input.value) || 0;
+            if (cantidad > 0) {
+                const contenedor = input.closest('.combo');
+                const nombre = contenedor.getAttribute('data-nombre');
+                textoMensaje += `▪️ *${cantidad}x* ${nombre}\n`;
+            }
+        });
+
+        textoMensaje += `\n📊 *Resumen de mi Orden:*`;
+        textoMensaje += `\n✨ *Total de Chances:* ${totalChancesAcumulado}`;
+        textoMensaje += `\n💰 *Total Neto:* ARS ${totalPrecioAcumulado.toLocaleString('es-AR')}`;
+
+        const urlFinal = `https://wa.me{TELEFONO_WHATSAPP}?text=${encodeURIComponent(textoMensaje)}`;
+        window.open(urlFinal, '_blank');
+    }
+
+    inputs.forEach(elementoInput => {
+        elementoInput.addEventListener('input', recalcularTotales);
+        elementoInput.addEventListener('change', recalcularTotales);
+    });
+
+    btnWA.addEventListener('click', procesarEnvio);
+})();
+</script>
+
+<style>
+.combo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.combo-interaccion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.cantidad-combo {
+    width: 55px;
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid #334155;
+    background: #1e293b;
+    color: #fff;
+    text-align: center;
+}
+</style>
+
 
         <!-- Botón para copiar el Alias de pago -->
         <div class="seccion-deposito">
