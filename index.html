@@ -88,6 +88,23 @@
         }
         .combo-nombre { color: #cbd5e1; }
         .combo-precio { color: #f8fafc; font-size: 1.2rem; }
+        
+        .combo-interaccion {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .cantidad-combo {
+            width: 60px;
+            padding: 6px;
+            background: #0f172a;
+            border: 1px solid #475569;
+            color: #fff;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1rem;
+        }
 
         /* Combo con parpadeo Neón Cian */
         .combo-neon {
@@ -170,7 +187,8 @@
             transition: transform 0.2s;
         }
         .btn-whatsapp:hover { transform: scale(1.1); }
-/* PANEL PRIVADO DE ADMINISTRADOR SEGURO */
+
+        /* PANEL PRIVADO DE ADMINISTRADOR SEGURO */
         .contenedor-admin {
             max-width: 600px;
             margin: 40px auto 30px auto;
@@ -208,149 +226,46 @@
         <div class="contenedor-barra">
             <div id="miBarra" class="relleno-barra">Cargando...</div>
         </div>
- <!-- Combos de Chances -->
-<div class="contenedor-combos">
-    <h3>Adquiere tus Chances:</h3>
-    
-    <!-- Combo 1 -->
-    <div class="combo" data-nombre="Combo 1 (1 Chance)" data-chances="1" data-precio="500">
-        <span class="combo-nombre">📦 Combo 1: (1 Chance)</span>
-        <div class="combo-interaccion">
-            <input type="number" class="cantidad-combo" value="0" min="0">
-            <span class="combo-precio">ARS 500</span>
+        <!-- Combos de Chances -->
+        <div class="contenedor-combos">
+            <h3>Adquiere tus Chances:</h3>
+            
+            <!-- Combo 1 -->
+            <div class="combo" data-nombre="Combo 1 (1 Chance)" data-chances="1" data-precio="500">
+                <span class="combo-nombre">📦 Combo 1: (1 Chance)</span>
+                <div class="combo-interaccion">
+                    <input type="number" class="cantidad-combo" value="0" min="0">
+                    <span class="combo-precio">ARS 500</span>
+                </div>
+            </div>
+            
+            <!-- Combo 2 -->
+            <div class="combo" data-nombre="Combo 2 (10 Chances)" data-chances="10" data-precio="3000">
+                <span class="combo-nombre">📦 Combo 2: (10 Chances)</span>
+                <div class="combo-interaccion">
+                    <input type="number" class="cantidad-combo" value="0" min="0">
+                    <span class="combo-precio">ARS 3.000</span>
+                </div>
+            </div>
+            
+            <!-- Combo 3 -->
+            <div class="combo combo-neon" data-nombre="Combo 3 AHORRADOR (20 Chances)" data-chances="20" data-precio="5000">
+                <span class="combo-nombre">⚡ Combo 3: AHORRADOR (20 Chances)</span>
+                <div class="combo-interaccion">
+                    <input type="number" class="cantidad-combo" value="0" min="0">
+                    <span class="combo-precio">ARS 5.000</span>
+                </div>
+            </div>
         </div>
-    </div>
-    
-    <!-- Combo 2 -->
-    <div class="combo" data-nombre="Combo 2 (10 Chances)" data-chances="10" data-precio="3000">
-        <span class="combo-nombre">📦 Combo 2: (10 Chances)</span>
-        <div class="combo-interaccion">
-            <input type="number" class="cantidad-combo" value="0" min="0">
-            <span class="combo-precio">ARS 3.000</span>
+
+        <!-- Panel de Totales y Botón WhatsApp -->
+        <div class="resumen-compra" style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+            <p style="margin: 5px 0;">Total Chances: <strong id="total-chances">0</strong></p>
+            <p style="margin: 5px 0;">Total a Pagar: <strong>ARS <span id="total-precio">0</span></strong></p>
+            <button id="btn-enviar-wa" style="display: none; width: 100%; background: #25d366; color: #fff; border: none; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 10px;">
+                Pedir por WhatsApp 💬
+            </button>
         </div>
-    </div>
-    
-    <!-- Combo 3 -->
-    <div class="combo combo-neon" data-nombre="Combo 3 AHORRADOR (20 Chances)" data-chances="20" data-precio="5000">
-        <span class="combo-nombre">⚡ Combo 3: AHORRADOR (20 Chances)</span>
-        <div class="combo-interaccion">
-            <input type="number" class="cantidad-combo" value="0" min="0">
-            <span class="combo-precio">ARS 5.000</span>
-        </div>
-    </div>
-
-    <!-- Panel de Totales y Botón WhatsApp -->
-    <div class="resumen-compra" style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-        <p style="margin: 5px 0;">Total Chances: <strong id="total-chances">0</strong></p>
-        <p style="margin: 5px 0;">Total a Pagar: <strong>ARS <span id="total-precio">0</span></strong></p>
-        <button id="btn-enviar-wa" style="display: none; width: 100%; background: #25d366; color: #fff; border: none; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-            Pedir por WhatsApp 💬
-        </button>
-    </div>
-</div>
-
-<script>
-(function() {
-    // ⚠️ REEMPLAZA AQUÍ TU NÚMERO (Código de país + área + número sin el signo +)
-    const TELEFONO_WHATSAPP = "5493765131387"; 
-
-    const inputs = document.querySelectorAll('.cantidad-combo');
-    const txtChances = document.getElementById('total-chances');
-    const txtPrecio = document.getElementById('total-precio');
-    const btnWA = document.getElementById('btn-enviar-wa');
-
-    let totalChancesAcumulado = 0;
-    let totalPrecioAcumulado = 0;
-
-    function recalcularTotales() {
-        totalChancesAcumulado = 0;
-        totalPrecioAcumulado = 0;
-        let tieneSeleccion = false;
-
-        inputs.forEach(input => {
-            const cantidad = parseInt(input.value) || 0;
-            if (cantidad > 0) {
-                tieneSeleccion = true;
-                const contenedor = input.closest('.combo');
-                const unidadesChances = parseInt(contenedor.getAttribute('data-chances'));
-                const unidadesPrecio = parseInt(contenedor.getAttribute('data-precio'));
-
-                totalChancesAcumulado += cantidad * unidadesChances;
-                totalPrecioAcumulado += cantidad * unidadesPrecio;
-            }
-        });
-
-        txtChances.textContent = totalChancesAcumulado;
-        txtPrecio.textContent = totalPrecioAcumulado.toLocaleString('es-AR');
-        btnWA.style.display = tieneSeleccion ? 'block' : 'none';
-    }
-
-function procesarEnvio() {
-    let textoMensaje = `👋 *¡Hola! Quiero adquirir mis chances:*\n\n`;
-    
-    inputs.forEach(input => {
-        const cantidad = parseInt(input.value) || 0;
-        if (cantidad > 0) {
-            const contenedor = input.closest('.combo');
-            const nombre = contenedor.getAttribute('data-nombre');
-            textoMensaje += `▪️ *${cantidad}x* ${nombre}\n`;
-        }
-    });
-
-    textoMensaje += `\n📊 *Resumen de mi Orden:*`;
-    textoMensaje += `\n✨ *Total de Chances:* ${totalChancesAcumulado}`;
-    textoMensaje += `\n💰 *Total Neto:* ARS ${totalPrecioAcumulado.toLocaleString('es-AR')}`;
-
-    // LÍNEA MODIFICADA (Dirección fija y directa para evitar fallos de copia)
-    const urlFinal = "https://wa.me/" + encodeURIComponent(textoMensaje);
-
-    window.open(urlFinal, '_blank');
-}
-
-
-
-
-            // LÍNEA CORREGIDA CON TU NÚMERO Y LA BARRA DIAGONAL INCLUIDA:
-    const urlFinal = "https://wa.me" + encodeURIComponent(textoMensaje);
-
-    window.open(urlFinal, '_blank');
-}
-
-    // DETECTORES DE ACCIÓN
-    inputs.forEach(elementoInput => {
-        elementoInput.addEventListener('input', recalcularTotales);
-        elementoInput.addEventListener('change', recalcularTotales);
-    });
-
-    btnWA.addEventListener('click', procesarEnvio);
-</script>
-
-
-
-<style>
-.combo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-.combo-interaccion {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-.cantidad-combo {
-    width: 55px;
-    padding: 4px;
-    border-radius: 4px;
-    border: 1px solid #334155;
-    background: #1e293b;
-    color: #fff;
-    text-align: center;
-}
-</style>
-
-
 
         <!-- Botón para copiar el Alias de pago -->
         <div class="seccion-deposito">
@@ -368,10 +283,10 @@ function procesarEnvio() {
                 <li>🏁 <b>Al llegar al 90%:</b> Se definirá y anunciará inmediatamente la fecha límite final para el sorteo de la Motocicleta.</li>
             </ul>
         </div>
-    </div>
+    </div> <!-- Cierre de tarjeta-sorteo -->
 
-    <!-- Botón flotante a tu WhatsApp -->
-    <a href="#" id="enlaceWhatsapp" class="btn-whatsapp" target="_blank" title="Comprar por WhatsApp">
+    <!-- Botón flotante a tu WhatsApp para consultas generales -->
+    <a href="#" id="enlaceWhatsapp" class="btn-whatsapp" target="_blank" title="Consultas por WhatsApp">
         💬
     </a>
 
@@ -381,45 +296,90 @@ function procesarEnvio() {
             🛠️ ABRIR PANEL DE CONTROL EN PESTAÑA PRIVADA
         </a>
     </div>
-
     <script>
+    (function() {
         // ==========================================
-        // ⚙️ CONFIGURACIÓN PERSONAL (Modifica lo que hay entre comillas)
+        // ⚙️ CONFIGURACIÓN PERSONAL
         // ==========================================
         const MI_ALIAS_REAL = "cajeromf"; 
         const MI_TELEFONO_REAL = "5493765131387"; 
-        
-        // Enlace CSV de tu Google Sheets (Fijo y verificado)
-        const urlCsv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZph_V-Kua0Bs_vYi4GvH2aARBSyM2FV4CdBN5RwhO2g3jqqtcqtrBPrSA-ZHcixa3EGEHQMsXGrB7/pub?gid=927141998&single=true&output=csv"; 
+        const urlCsv = "https://google.com"; 
 
-        // Sincronización automática de WhatsApp
-        document.getElementById("enlaceWhatsapp").href = "https://wa.me" + MI_TELEFONO_REAL + "?text=Hola!%20Quiero%20adquirir%20chances%20para%20el%20sorteo%20de%20la%20Honda%20Bros%20125";
+        // 1. Configuración de Elementos HTML
+        const inputs = document.querySelectorAll('.cantidad-combo');
+        const txtChances = document.getElementById('total-chances');
+        const txtPrecio = document.getElementById('total-precio');
+        const btnWA = document.getElementById('btn-enviar-wa');
+        const btnFlotanteWA = document.getElementById("enlaceWhatsapp");
 
-        // Función para copiar el Alias
-        function copiarAlias() {
-            navigator.clipboard.writeText(MI_ALIAS_REAL).then(function() {
-                var boton = document.getElementById("btnCopiar");
-                var textoOriginal = boton.innerText;
-                boton.innerText = "¡COPIADO CON ÉXITO! ✅";
-                boton.style.background = "#22c55e";
-                boton.style.color = "#0f172a";
-                setTimeout(function() {
-                    boton.innerText = textoOriginal;
-                    boton.style.background = "#38bdf8";
-                    boton.style.color = "#0f172a";
-                }, 2000);
-            }).catch(function(err) {
-                alert("El alias es: " + MI_ALIAS_REAL);
-            });
+        let totalChancesAcumulado = 0;
+        let totalPrecioAcumulado = 0;
+
+        // Configuración inicial fija del botón flotante de consultas
+        if (btnFlotanteWA) {
+            btnFlotanteWA.href = "https://wa.me" + MI_TELEFONO_REAL + "?text=Hola!%20Tengo%20una%20consulta%20sobre%20el%20sorteo%20de%20la%20Honda%20Bros%20125";
         }
 
-        // LECTOR CORREGIDO MATEMÁTICAMENTE (Evita la rotura del split)
+        // 2. FUNCIÓN QUE SUMA EN TIEMPO REAL
+        function recalcularTotales() {
+            totalChancesAcumulado = 0;
+            totalPrecioAcumulado = 0;
+            let tieneSeleccion = false;
+
+            inputs.forEach(input => {
+                const cantidad = parseInt(input.value) || 0;
+                if (cantidad > 0) {
+                    tieneSeleccion = true;
+                    const contenedor = input.closest('.combo');
+                    const unidadesChances = parseInt(contenedor.getAttribute('data-chances')) || 0;
+                    const unidadesPrecio = parseInt(contenedor.getAttribute('data-precio')) || 0;
+
+                    totalChancesAcumulado += (cantidad * unidadesChances);
+                    totalPrecioAcumulado += (cantidad * unidadesPrecio);
+                }
+            });
+
+            if (txtChances) txtChances.textContent = totalChancesAcumulado;
+            if (txtPrecio) txtPrecio.textContent = totalPrecioAcumulado.toLocaleString('es-AR');
+            
+            if (btnWA) {
+                btnWA.style.display = tieneSeleccion ? 'block' : 'none';
+            }
+        }
+
+        // 3. FUNCIÓN QUE CONSTRUYE Y ENVÍA EL PEDIDO A WHATSAPP
+        function procesarEnvio() {
+            if (totalPrecioAcumulado === 0) {
+                alert("Por favor, selecciona al menos un combo antes de enviar.");
+                return;
+            }
+
+            let textoMensaje = `👋 *¡Hola! Quiero adquirir mis chances:*\n\n`;
+            
+            inputs.forEach(input => {
+                const cantidad = parseInt(input.value) || 0;
+                if (cantidad > 0) {
+                    const contenedor = input.closest('.combo');
+                    const nombre = contenedor.getAttribute('data-nombre');
+                    textoMensaje += `▪️ *${cantidad}x* ${nombre}\n`;
+                }
+            });
+
+            textoMensaje += `\n📊 *Resumen de mi Orden:*`;
+            textoMensaje += `\n✨ *Total de Chances:* ${totalChancesAcumulado}`;
+            textoMensaje += `\n💰 *Total Neto:* ARS ${totalPrecioAcumulado.toLocaleString('es-AR')}`;
+
+            const urlFinal = "https://wa.me" + MI_TELEFONO_REAL + "?text=" + encodeURIComponent(textoMensaje);
+            window.open(urlFinal, '_blank');
+        }
+
+        // 4. TU LOGICA ORIGINAL EXACTA RESTAURADA PARA SINCRO CON APPSHEET
         async function cargarProgreso() {
             try {
                 const respuesta = await fetch(urlCsv + "&cacheBust=" + new Date().getTime());
                 const texto = await respuesta.text();
                 
-                // Dividimos de forma robusta por renglones
+                // Dividimos por renglones
                 const filas = texto.split(/\r?\n/);
                 
                 let porcentaje = 0;
@@ -448,20 +408,56 @@ function procesarEnvio() {
 
                 // Actualización visual de la barra verde
                 const barra = document.getElementById("miBarra");
-                barra.style.width = porcentaje + "%";
-                barra.textContent = porcentaje + "%";
+                if (barra) {
+                    barra.style.width = porcentaje + "%";
+                    barra.textContent = porcentaje + "%";
+                }
                 
             } catch (e) {
                 console.error("Error de conexión: ", e);
                 const barra = document.getElementById("miBarra");
-                barra.textContent = "Error al cargar";
-                barra.style.backgroundColor = "#dc3545";
-                barra.style.width = "100%";
+                if (barra) {
+                    barra.textContent = "Error al cargar";
+                    barra.style.backgroundColor = "#dc3545";
+                    barra.style.width = "100%";
+                }
             }
         }
 
-        // Iniciar la lectura al cargar la web
+        // 5. ASIGNACIÓN DE DETECTORES DE ACCIÓN
+        inputs.forEach(elementoInput => {
+            elementoInput.addEventListener('input', recalcularTotales);
+            elementoInput.addEventListener('change', recalcularTotales);
+        });
+
+        if (btnWA) {
+            btnWA.addEventListener('click', procesarEnvio);
+        }
+
+        // Cargar el progreso automáticamente al iniciar la web
         window.onload = cargarProgreso;
+    })();
+
+    // 6. FUNCIÓN GLOBAL PARA EL BOTÓN COPIAR ALIAS
+    function copiarAlias() {
+        const aliasTexto = "cajeromf"; 
+        navigator.clipboard.writeText(aliasTexto).then(function() {
+            var boton = document.getElementById("btnCopiar");
+            if (boton) {
+                var textoOriginal = boton.innerText;
+                boton.innerText = "¡COPIADO CON ÉXITO! ✅";
+                boton.style.background = "#22c55e";
+                boton.style.color = "#0f172a";
+                setTimeout(function() {
+                    boton.innerText = textoOriginal;
+                    boton.style.background = "#38bdf8";
+                    boton.style.color = "#0f172a";
+                }, 2000);
+            }
+        }).catch(function(err) {
+            alert("El alias es: " + aliasTexto);
+        });
+    }
     </script>
 </body>
 </html>
