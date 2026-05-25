@@ -285,21 +285,30 @@
         btnWA.style.display = tieneSeleccion ? 'block' : 'none';
     }
 
-    function procesarEnvio() {
-        let textoMensaje = `👋 *¡Hola! Quiero adquirir mis chances:*\n\n`;
-        
-        inputs.forEach(input => {
-            const cantidad = parseInt(input.value) || 0;
-            if (cantidad > 0) {
-                const contenedor = input.closest('.combo');
-                const nombre = contenedor.getAttribute('data-nombre');
-                textoMensaje += `▪️ *${cantidad}x* ${nombre}\n`;
-            }
-        });
+function procesarEnvio() {
+    let textoMensaje = `👋 *¡Hola! Quiero adquirir mis chances:*\n\n`;
+    
+    inputs.forEach(input => {
+        const cantidad = parseInt(input.value) || 0;
+        if (cantidad > 0) {
+            const contenedor = input.closest('.combo');
+            const nombre = contenedor.getAttribute('data-nombre');
+            textoMensaje += `▪️ *${cantidad}x* ${nombre}\n`;
+        }
+    });
 
-        textoMensaje += `\n📊 *Resumen de mi Orden:*`;
-        textoMensaje += `\n✨ *Total de Chances:* ${totalChancesAcumulado}`;
-        textoMensaje += `\n💰 *Total Neto:* ARS ${totalPrecioAcumulado.toLocaleString('es-AR')}`;
+    textoMensaje += `\n📊 *Resumen de mi Orden:*`;
+    textoMensaje += `\n✨ *Total de Chances:* ${totalChancesAcumulado}`;
+    textoMensaje += `\n💰 *Total Neto:* ARS ${totalPrecioAcumulado.toLocaleString('es-AR')}`;
+
+    // LÍNEA MODIFICADA (Dirección fija y directa para evitar fallos de copia)
+    const urlFinal = "https://wa.me/" + encodeURIComponent(textoMensaje);
+
+    window.open(urlFinal, '_blank');
+}
+
+
+
 
             // LÍNEA CORREGIDA CON TU NÚMERO Y LA BARRA DIAGONAL INCLUIDA:
     const urlFinal = "https://wa.me" + encodeURIComponent(textoMensaje);
