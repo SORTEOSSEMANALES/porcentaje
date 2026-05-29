@@ -421,7 +421,7 @@
             window.open(urlFinal, '_blank');
         }
 
-        // 4. LECTOR CORREGIDO MATEMÁTICAMENTE (TU LÓGICA ORIGINAL)
+           // 4. LECTOR CORREGIDO MATEMÁTICAMENTE (SOLUCIÓN DECIMALES)
         async function cargarProgreso() {
             try {
                 const respuesta = await fetch(urlCsv + "&cacheBust=" + new Date().getTime());
@@ -435,25 +435,25 @@
                     const celdas = primeraLinea.includes(";") ? primeraLinea.split(";") : primeraLinea.split(",");
                     const celdaA1 = celdas[0];
                     
+                    // Limpia las comillas, espacios y el símbolo %
                     let valorLimpio = celdaA1.replace(/["%\r]/g, "").trim();
                     valorLimpio = valorLimpio.replace(",", ".");
                     
+                    // Guarda el valor con sus decimales correctos (ej: 0.25)
                     porcentaje = parseFloat(valorLimpio) || 0;
-
-                    if (porcentaje > 0 && porcentaje <= 1) {
-                        porcentaje = porcentaje * 100;
-                    }
                 }
                 
-                porcentaje = Math.round(porcentaje) || 0;
-
+                // Forzar límites normales entre 0% y 100%
                 if (porcentaje > 100) porcentaje = 100;
                 if (porcentaje < 0) porcentaje = 0;
 
+                // Mostramos el porcentaje exacto con hasta 2 decimales si los tiene
+                const porcentajeTexto = Number(porcentaje).toFixed(2).replace(".00", "") + "%";
+
                 const barra = document.getElementById("miBarra");
                 if (barra) {
-                    barra.style.width = porcentaje + "%";
-                    barra.textContent = porcentaje + "%";
+                    barra.style.width = porcentaje + "%"; // Asigna el ancho real a la barra
+                    barra.textContent = porcentajeTexto;  // Muestra el texto "0.25%"
                 }
                 
             } catch (e) {
